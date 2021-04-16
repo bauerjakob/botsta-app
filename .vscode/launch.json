@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "name": "botsta_app (Flutter)",
+            "program": "lib/main.dart",
+            "request": "launch",
+            "type": "dart"
+        }
+    ]
+}
