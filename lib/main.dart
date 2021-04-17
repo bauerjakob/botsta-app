@@ -1,9 +1,12 @@
 import 'package:botsta_app/config/lang/app_language.dart';
 import 'package:botsta_app/config/lang/app_localizations.dart';
+import 'package:botsta_app/startup.dart';
+import 'package:botsta_app/utils/extentions/context_extentions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
+  configureServices();
   WidgetsFlutterBinding.ensureInitialized();
   var appLanguage = AppLanguage();
   await appLanguage.fetchLocale();
@@ -29,7 +32,7 @@ class MyApp extends StatelessWidget {
                   theme: ThemeData(
                     primarySwatch: Colors.blue,
                   ),
-                  home: MyHomePage(title: 'Flutter Demo Home Page'),
+                  home: MyHomePage(),
                 );
             },
           ),
@@ -38,8 +41,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
+  MyHomePage({Key key}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -62,14 +64,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(context.translate('title')),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              AppLocalizations.of(context).translate('title'),
+              context.translate('title'),
             ),
             Text(
               '$_counter',

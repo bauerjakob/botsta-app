@@ -1,27 +1,31 @@
 import 'package:botsta_app/constants/app_constants.dart';
+import 'package:botsta_app/services/local_storage_service.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:botsta_app/startup.dart';
 
 import 'app_localizations.dart';
 
 class AppLanguage extends ChangeNotifier {
   Locale _appLocale;
+  Future<LocalStorageService> get  _localStorageService async => await getIt.getAsync<LocalStorageService>();
 
   Locale get appLocal => _appLocale ?? Locale(AppConstants.LANGCODE_DEFAULT);
 
+
   Future<Locale> fetchLocale() async {
-    var prefs = await SharedPreferences.getInstance();
-    if (prefs.getString('language_code') == null) {
+    var lsService = await _localStorageService;
+    if (lsService.langCode == null) {
       _appLocale = Locale(AppConstants.LANGCODE_DEFAULT);
     } else {
-      _appLocale = Locale(prefs.getString('language_code'));
+      _appLocale = Locale(lsService.langCode);
     }
     return _appLocale;
   }
 
 
   void changeLanguage(Locale type) async {
-    var prefs = await SharedPreferences.getInstance();
+    var lsService = await _localStorageService;
+
     if (_appLocale == type) {
       return;
     }
@@ -30,7 +34,7 @@ class AppLanguage extends ChangeNotifier {
 
     if (locale != null) {
       _appLocale = locale;
-      await prefs.setString('languate_code', locale.languageCode);
+      lsService.langCode = locale.languageCode;
       notifyListeners();
     }
   }
