@@ -6,4 +6,6 @@ class AppConstants {
   static const LANGCODE_DE = 'de';
 
   static const AppTheme DEFAULT_THEME = AppTheme.Light;
+
+  static const BOTSTA_ENDPOINT = 'https://localhost:5100/graphql';
 }

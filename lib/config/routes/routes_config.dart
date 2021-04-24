@@ -1,7 +1,7 @@
 import 'package:botsta_app/config/routes/routes.dart';
 import 'package:fluro/fluro.dart';
 
-class RouteConfig {
+class RoutesConfig {
   static FluroRouter _router;
 
   static FluroRouter get ROUTER {

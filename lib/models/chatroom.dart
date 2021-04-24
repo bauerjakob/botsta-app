@@ -1,0 +1,3 @@
+class Chatroom {
+  String id;
+}
