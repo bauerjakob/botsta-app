@@ -27,11 +27,11 @@ class AppLocalizations {
 
   AppLocalizations(this.locale);
 
-  static AppLocalizations of(BuildContext context) {
+  static AppLocalizations? of(BuildContext context) {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
-  Map<String, String> _localizedStrings;
+  late Map<String, String> _localizedStrings;
 
   Future<bool> load() async {
     var jsonString = await rootBundle.loadString('${AssetPaths.LANG_BASEPATH}${locale.languageCode}.json');
@@ -44,7 +44,7 @@ class AppLocalizations {
     return true;
   }
 
-  String translate(String key) {
+  String? translate(String key) {
     return _localizedStrings[key];
   }
 }

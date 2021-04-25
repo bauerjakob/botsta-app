@@ -10,12 +10,12 @@ class Routes {
 
   static void configureRoutes(FluroRouter router) {
     router.notFoundHandler = Handler(
-        handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+        handlerFunc: (BuildContext? context, Map<String, List<String>> params) {
       print("ROUTE WAS NOT FOUND !!!");
       return;
     });
     router.define(HOME, handler: homeHandler);
-    router.define(CHAT, handler: chatHandler);
+    router.define(CHAT, handler: chatHandler, transitionType: TransitionType.cupertino);
     router.define(SETTINGS, handler: settingsHandler);
   }
 }

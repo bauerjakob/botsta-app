@@ -1,18 +1,34 @@
+import 'package:botsta_app/config/routes/routes_config.dart';
+import 'package:botsta_app/logic/blocs/bloc/graphql_bloc.dart';
+import 'package:botsta_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:botsta_app/utils/extentions/context_extentions.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(context.translate('title')),
-      ),
-      body: Center(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: 'Add contact',
-        child: Icon(Icons.add),
+    return BlocProvider<GraphqlBloc>(
+      create: (context) => GraphqlBloc(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(context.translate('title')!),
+        ),
+        body: BlocBuilder<GraphqlBloc, GraphqlState>(
+          builder: (context, state) {
+            return ListView.builder(
+              itemCount: state.chatrooms.length,
+              itemBuilder: (context, index) {
+                var chatroom = state.chatrooms[index];
+                return ChatroomItem(chatroom);
+              },
+            );
+          },
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          tooltip: 'Add contact',
+        ),
       ),
     );
   }

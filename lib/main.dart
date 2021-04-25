@@ -21,7 +21,7 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   final AppLanguage appLanguage;
 
-  MyApp({this.appLanguage});
+  MyApp({required this.appLanguage});
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key}) : super(key: key);
+  MyHomePage({Key? key}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -75,14 +75,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(context.translate('title')),
+        title: Text(context.translate('title')!),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              context.translate('title'),
+              context.translate('title')!,
             ),
             Text(
               '$_counter',

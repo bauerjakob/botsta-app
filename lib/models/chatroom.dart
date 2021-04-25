@@ -1,3 +1,5 @@
 class Chatroom {
-  String id;
+  String? id;
+  String? latestMessage;
+  String? name;
 }

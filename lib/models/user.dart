@@ -1,4 +1,4 @@
 class User {
-  String id;
-  String name;
+  String? id;
+  String? name;
 }

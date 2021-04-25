@@ -1,3 +1,4 @@
+import 'package:botsta_app/models/chatroom.dart';
 import 'package:botsta_app/screens/chat/chat_screen.dart';
 import 'package:botsta_app/screens/home/home_screen.dart';
 import 'package:botsta_app/screens/settings/settings_screen.dart';
@@ -9,7 +10,7 @@ var homeHandler = Handler(
   );
 
 var chatHandler = Handler(
-    handlerFunc: (context, params) => ChatScreen()
+    handlerFunc: (context, params) => ChatScreen(context!.settings!.arguments as Chatroom)
   );
 
 var settingsHandler = Handler(

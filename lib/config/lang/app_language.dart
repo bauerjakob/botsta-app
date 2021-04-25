@@ -6,18 +6,19 @@ import 'package:botsta_app/startup.dart';
 import 'app_localizations.dart';
 
 class AppLanguage extends ChangeNotifier {
-  Locale _appLocale;
+  Locale _appLocale = Locale(AppConstants.LANGCODE_DEFAULT);
   Future<LocalStorageService> get  _localStorageService async => await getIt.getAsync<LocalStorageService>();
 
-  Locale get appLocal => _appLocale ?? Locale(AppConstants.LANGCODE_DEFAULT);
+  Locale get appLocal => _appLocale;
 
 
-  Future<Locale> fetchLocale() async {
+  Future<Locale?> fetchLocale() async {
     var lsService = await _localStorageService;
-    if (lsService.langCode == null) {
+    var langCode = lsService.langCode;
+    if (langCode == null) {
       _appLocale = Locale(AppConstants.LANGCODE_DEFAULT);
     } else {
-      _appLocale = Locale(lsService.langCode);
+      _appLocale = Locale(langCode);
     }
     return _appLocale;
   }
