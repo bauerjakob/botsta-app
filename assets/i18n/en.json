@@ -1,9 +1,21 @@
 {
-    "title": "Botsta",
+    "HOME": {
+        "title": "Botsta"
+    },
     "CHAT": {
         "hintText": "Type message here"
     },
     "SETTINGS": {
-        "title": "Settings"
+        "title": "Settings",
+        "localization": {
+            "title": "Language",
+            "english": "English",
+            "german": "German"
+        },
+        "theme": {
+            "title": "Theme",
+            "light": "Light",
+            "dark": "Dark"
+        }
     }
 }

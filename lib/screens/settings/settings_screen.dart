@@ -1,4 +1,6 @@
+import 'package:botsta_app/config/lang/bloc/localization_bloc.dart';
 import 'package:botsta_app/config/themes/themes.dart';
+import 'package:botsta_app/constants/app_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:botsta_app/utils/extentions/context_extentions.dart';
@@ -14,13 +16,13 @@ class SettingsScreen extends StatelessWidget {
       body: Container(
         child: ListView(
           children: [
-            Text('Theme'),
+            Text(context.translate('SETTINGS.theme.title')),
             BlocBuilder<ThemeBloc, ThemeState>(
               builder: (context, state) {
                 return CupertinoSegmentedControl(
                   children: {
-                    AppTheme.Light: Text('Light'),
-                    AppTheme.Dark: Text('Dark')
+                    AppTheme.Light: Text(context.translate('SETTINGS.theme.light')),
+                    AppTheme.Dark: Text(context.translate('SETTINGS.theme.dark'))
                   },
                   onValueChanged: (obj) {
                     context.read<ThemeBloc>().add(new ThemeEventUpdate(theme: obj as AppTheme));
@@ -28,7 +30,22 @@ class SettingsScreen extends StatelessWidget {
                   groupValue: state.appTheme,
                 );
               },
-            )
+            ),
+            Text(context.translate('SETTINGS.localization.title')),
+            BlocBuilder<LocalizationBloc, LocalizationState>(
+              builder: (context, state) {
+                return CupertinoSegmentedControl(
+                  children: {
+                    AppConstants.LANGCODE_EN: Text(context.translate('SETTINGS.localization.english')),
+                    AppConstants.LANGCODE_DE: Text(context.translate('SETTINGS.localization.german'))
+                  },
+                  onValueChanged: (obj) {
+                    context.read<LocalizationBloc>().add(new UpdateLocalizationEvent(Locale(obj as String)));
+                  },
+                  groupValue: state.locale.languageCode,
+                );
+              },
+            ),
           ],
         ),
       ),

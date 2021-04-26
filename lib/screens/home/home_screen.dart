@@ -12,7 +12,7 @@ class HomeScreen extends StatelessWidget {
       create: (context) => GraphqlBloc(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(context.translate('title')),
+          title: Text(context.translate('HOME.title')),
           actions: [
             IconButton(
               icon: Icon(Icons.settings),
@@ -37,6 +37,7 @@ class HomeScreen extends StatelessWidget {
           },
         ),
         floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
           onPressed: () {},
           tooltip: 'Add contact',
         ),

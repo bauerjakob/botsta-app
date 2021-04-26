@@ -1,5 +1,5 @@
-import 'package:botsta_app/config/lang/app_language.dart';
 import 'package:botsta_app/config/lang/app_localizations.dart';
+import 'package:botsta_app/config/lang/bloc/localization_bloc.dart';
 import 'package:botsta_app/config/routes/routes_config.dart';
 import 'package:botsta_app/config/themes/bloc/theme_bloc.dart';
 import 'package:botsta_app/startup.dart';
@@ -15,91 +15,38 @@ import 'config/themes/bloc/theme_state.dart';
 Future<void> main() async {
   configureServices();
   WidgetsFlutterBinding.ensureInitialized();
-  var appLanguage = AppLanguage();
-  await appLanguage.fetchLocale();
-  runApp(MyApp(appLanguage: appLanguage));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final AppLanguage appLanguage;
-
-  MyApp({required this.appLanguage});
+  MyApp();
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<AppLanguage>(
-      create: (_) => appLanguage,
-      child: Consumer<AppLanguage>(
-        builder: (context, model, child) {
-          return BlocProvider<ThemeBloc>(
-            create: (context) => ThemeBloc()..add(ThemeEventInitial()),
-            child: BlocBuilder<ThemeBloc, ThemeState>(
-              builder: (context, state) {
-                return MaterialApp(
-                  locale: model.appLocal,
-                  supportedLocales: AppLocalizations.supportedLocales,
-                  localizationsDelegates:
-                      AppLocalizations.localizationsDelegates,
-                  title: 'Botsta',
-                  debugShowCheckedModeBanner: false,
-                  theme: state.themeData,
-                  onGenerateRoute: RoutesConfig.ROUTER.generator,
-                );
-              },
-            ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ThemeBloc>(
+            create: (context) => ThemeBloc()..add(ThemeEventInitial())),
+        BlocProvider<LocalizationBloc>(
+            create: (context) =>
+                LocalizationBloc()..add(InitialLocalizationEvent())),
+      ],
+      child: BlocBuilder<LocalizationBloc, LocalizationState>(
+        builder: (context, langState) {
+          return BlocBuilder<ThemeBloc, ThemeState>(
+            builder: (context, themeState) {
+              return MaterialApp(
+                locale: langState.locale,
+                supportedLocales: AppLocalizations.supportedLocales,
+                localizationsDelegates: AppLocalizations.localizationsDelegates,
+                title: 'Botsta',
+                debugShowCheckedModeBanner: false,
+                theme: themeState.themeData,
+                onGenerateRoute: RoutesConfig.ROUTER.generator,
+              );
+            },
           );
         },
-      ),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key}) : super(key: key);
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    var appLanguage = Provider.of<AppLanguage>(context);
-    appLanguage.changeLanguage(Locale('en'));
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(context.translate('title')),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              context.translate('title'),
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          context.read<ThemeBloc>().add(ThemeEventUpdate(theme: AppTheme.Dark));
-          _incrementCounter();
-        },
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
       ),
     );
   }
