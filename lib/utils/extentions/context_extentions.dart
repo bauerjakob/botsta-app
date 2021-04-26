@@ -5,4 +5,16 @@ extension ContextExtentions on BuildContext {
   String? translate(String key) {
     return AppLocalizations.of(this)!.translate(key);
   }
+
+  ThemeData theme() {
+    return Theme.of(this);
+  }
+
+  double screenWidth() {
+    return MediaQuery.of(this).size.width;
+  }
+
+  double screenHeight() {
+    return MediaQuery.of(this).size.height;
+  }
 }

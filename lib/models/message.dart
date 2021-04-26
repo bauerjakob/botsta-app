@@ -3,4 +3,5 @@ class Message {
   String? text;
   String? senderId;
   String? chatroomId;
+  bool? senderIsMe;
 }
