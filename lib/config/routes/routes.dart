@@ -16,6 +16,6 @@ class Routes {
     });
     router.define(HOME, handler: homeHandler);
     router.define(CHAT, handler: chatHandler, transitionType: TransitionType.cupertino);
-    router.define(SETTINGS, handler: settingsHandler);
+    router.define(SETTINGS, handler: settingsHandler, transitionType: TransitionType.cupertino);
   }
 }

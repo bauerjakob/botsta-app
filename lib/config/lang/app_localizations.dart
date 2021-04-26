@@ -40,11 +40,19 @@ class AppLocalizations {
   }
 
   String? translate(String key) {
+    if (_localizedStrings == null) {
+      return null;
+    }
+    
     var paths = key.split('.');
 
     var selected = _localizedStrings[paths.first];
 
     for (var i = 1; i < paths.length; i++) {
+      if (selected == null) {
+        return null;
+      }
+
       selected = selected[paths[i]];
     }
 

@@ -13,6 +13,17 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(context.translate('title')!),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.settings),
+              onPressed: () {
+                RoutesConfig.ROUTER.navigateTo(
+                context,
+                '/settings',
+              );
+              },
+            ),
+          ],
         ),
         body: BlocBuilder<GraphqlBloc, GraphqlState>(
           builder: (context, state) {

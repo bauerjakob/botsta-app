@@ -2,5 +2,8 @@
     "title": "Botsta",
     "CHAT": {
         "hintText": "Type message here"
+    },
+    "SETTINGS": {
+        "title": "Settings"
     }
 }
