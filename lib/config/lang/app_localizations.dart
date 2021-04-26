@@ -27,8 +27,8 @@ class AppLocalizations {
 
   AppLocalizations(this.locale);
 
-  static AppLocalizations? of(BuildContext context) {
-    return Localizations.of<AppLocalizations>(context, AppLocalizations);
+  static AppLocalizations of(BuildContext context) {
+    return Localizations.of<AppLocalizations>(context, AppLocalizations)!;
   }
 
   late dynamic _localizedStrings;
@@ -43,7 +43,7 @@ class AppLocalizations {
     if (_localizedStrings == null) {
       return null;
     }
-    
+
     var paths = key.split('.');
 
     var selected = _localizedStrings[paths.first];

@@ -9,7 +9,7 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(context.translate('SETTINGS.title')!),
+        title: Text(context.translate('SETTINGS.title')),
       ),
       body: Container(
         child: ListView(

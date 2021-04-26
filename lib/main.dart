@@ -77,14 +77,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(context.translate('title')!),
+        title: Text(context.translate('title')),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              context.translate('title')!,
+              context.translate('title'),
             ),
             Text(
               '$_counter',

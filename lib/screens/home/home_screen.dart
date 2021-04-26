@@ -12,7 +12,7 @@ class HomeScreen extends StatelessWidget {
       create: (context) => GraphqlBloc(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(context.translate('title')!),
+          title: Text(context.translate('title')),
           actions: [
             IconButton(
               icon: Icon(Icons.settings),
