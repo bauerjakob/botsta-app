@@ -10,6 +10,8 @@ import 'package:provider/provider.dart';
 
 import 'package:botsta_app/config/themes/themes.dart';
 
+import 'config/themes/bloc/theme_state.dart';
+
 Future<void> main() async {
   configureServices();
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,7 +32,7 @@ class MyApp extends StatelessWidget {
       child: Consumer<AppLanguage>(
         builder: (context, model, child) {
           return BlocProvider<ThemeBloc>(
-            create: (context) => ThemeBloc(),//..add(ThemeEventInitial()),
+            create: (context) => ThemeBloc()..add(ThemeEventInitial()),
             child: BlocBuilder<ThemeBloc, ThemeState>(
               builder: (context, state) {
                 return MaterialApp(

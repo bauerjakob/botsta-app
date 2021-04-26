@@ -14,8 +14,7 @@ class LocalStorageService {
 
   AppTheme get theme {
     var theme = _preferences.getString('theme');
-    var appTheme =  AppTheme.values.firstWhere((t) => t.toString() == theme, orElse: null);
-    return appTheme == null ? AppConstants.DEFAULT_THEME : appTheme;
+    return  AppTheme.values.firstWhere((t) => t.toString() == theme, orElse: () =>  AppConstants.DEFAULT_THEME);
   }
   set theme(AppTheme theme) => _preferences.setString('theme', theme.toString());
 }

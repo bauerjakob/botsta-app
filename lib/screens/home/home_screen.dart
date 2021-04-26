@@ -1,5 +1,5 @@
 import 'package:botsta_app/config/routes/routes_config.dart';
-import 'package:botsta_app/logic/blocs/bloc/graphql_bloc.dart';
+import 'package:botsta_app/logic/blocs/graphql_bloc.dart';
 import 'package:botsta_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:botsta_app/utils/extentions/context_extentions.dart';
