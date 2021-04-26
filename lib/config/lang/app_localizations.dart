@@ -31,20 +31,23 @@ class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
-  late Map<String, String> _localizedStrings;
+  late dynamic _localizedStrings;
 
   Future<bool> load() async {
     var jsonString = await rootBundle.loadString('${AssetPaths.LANG_BASEPATH}${locale.languageCode}.json');
-    Map<String, dynamic> jsonMap = json.decode(jsonString);
-
-    _localizedStrings = jsonMap.map((key, value) {
-      return MapEntry(key, value.toString());
-    });
-
+    _localizedStrings = json.decode(jsonString);
     return true;
   }
 
   String? translate(String key) {
-    return _localizedStrings[key];
+    var paths = key.split('.');
+
+    var selected = _localizedStrings[paths.first];
+
+    for (var i = 1; i < paths.length; i++) {
+      selected = selected[paths[i]];
+    }
+
+    return selected.toString();
   }
 }
