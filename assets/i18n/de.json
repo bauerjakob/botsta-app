@@ -16,6 +16,7 @@
             "title": "Modus",
             "light": "Hell",
             "dark": "Dunkel"
-        }
+        },
+        "logout": "Logout"
     }
 }

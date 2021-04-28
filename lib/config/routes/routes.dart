@@ -4,8 +4,10 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 
 class Routes {
-  static const HOME = '/';
+  static const SPLASH = '/';
+  static const HOME = '/home';
   static const CHAT = '/chat';
+  static const LOGIN = '/login';
   static const SETTINGS = '/settings';
 
   static void configureRoutes(FluroRouter router) {
@@ -14,7 +16,9 @@ class Routes {
       print("ROUTE WAS NOT FOUND !!!");
       return;
     });
+    router.define(SPLASH, handler: splashHandler);
     router.define(HOME, handler: homeHandler);
+    router.define(LOGIN, handler: loginHandler);
     router.define(CHAT, handler: chatHandler, transitionType: TransitionType.cupertino);
     router.define(SETTINGS, handler: settingsHandler, transitionType: TransitionType.cupertino);
   }

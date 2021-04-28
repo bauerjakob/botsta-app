@@ -1,6 +1,8 @@
 import 'package:botsta_app/config/lang/bloc/localization_bloc.dart';
 import 'package:botsta_app/config/themes/themes.dart';
 import 'package:botsta_app/constants/app_constants.dart';
+import 'package:botsta_app/logic/blocs/authentication_bloc.dart';
+import 'package:botsta_app/models/authentication_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:botsta_app/utils/extentions/context_extentions.dart';
@@ -46,6 +48,9 @@ class SettingsScreen extends StatelessWidget {
                 );
               },
             ),
+            MaterialButton(child: Text(context.translate('SETTINGS.logout')), onPressed: () {
+              context.read<AuthenticationBloc>().add(UpdateAuthenticationEvent(AuthState.Unauthenticated));
+            },)
           ],
         ),
       ),

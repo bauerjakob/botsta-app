@@ -16,6 +16,7 @@
             "title": "Theme",
             "light": "Light",
             "dark": "Dark"
-        }
+        },
+        "logout": "Logout"
     }
 }
