@@ -1,4 +1,4 @@
-import 'package:botsta_app/logic/blocs/authentication_bloc.dart';
+import 'package:botsta_app/logic/bloc/authentication_bloc.dart';
 import 'package:botsta_app/models/authentication_state.dart';
 import 'package:botsta_app/models/chatroom.dart';
 import 'package:botsta_app/screens/chat/chat_screen.dart';

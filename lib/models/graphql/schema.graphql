@@ -1,0 +1,49 @@
+schema {
+  query: BotstaQuery
+  mutation: BotstaMutation
+  subscription: BotstaSubscription
+}
+
+type BotstaQuery {
+  # Returns all chatrooms of current user.
+  chatrooms: [String]
+
+  # Returns list of all registerd users
+  getAllUsers: [UserType]
+
+  # Returns informations about the current user.
+  whoami: UserType
+}
+
+type UserType {
+  id: String!
+  username: String!
+}
+
+type BotstaMutation {
+  login(name: String!, secret: String!): String
+
+  # Create a new chatroom
+  newChatroom(practicantIds: [String]): ChatroomType
+
+  # Post message to chatroom
+  postMessage(chatroomId: String, message: String): MessageType
+  register(username: String!, password: String!): String
+
+  # Register new bot
+  registerBot(botName: String): String
+}
+
+type ChatroomType {
+  id: ID!
+}
+
+type MessageType {
+  id: ID!
+  message: String!
+}
+
+type BotstaSubscription {
+  messageReceived(token: String): MessageType
+}
+

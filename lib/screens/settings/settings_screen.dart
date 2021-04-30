@@ -1,7 +1,7 @@
 import 'package:botsta_app/config/lang/bloc/localization_bloc.dart';
 import 'package:botsta_app/config/themes/themes.dart';
 import 'package:botsta_app/constants/app_constants.dart';
-import 'package:botsta_app/logic/blocs/authentication_bloc.dart';
+import 'package:botsta_app/logic/bloc/authentication_bloc.dart';
 import 'package:botsta_app/models/authentication_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
