@@ -1,8 +1,14 @@
+import 'package:botsta_app/logic/bloc/message_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:botsta_app/utils/extentions/context_extentions.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 
 class InputBar extends StatelessWidget {
   final TextEditingController _textEditingController = TextEditingController();
+  final String chatroomId;
+  InputBar(this.chatroomId);
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -12,7 +18,8 @@ class InputBar extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.emoji_emotions_outlined), // package: https://pub.dev/packages/emoji_picker/example
             padding: EdgeInsets.symmetric(horizontal: 10),
-            onPressed: () {},
+            onPressed: () {
+            },
           ),
           Expanded(
             child: Container(
@@ -31,7 +38,13 @@ class InputBar extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.send),
             padding: EdgeInsets.symmetric(horizontal: 10),
-            onPressed: () {},
+            onPressed: () async {
+              var message = _textEditingController.text.trim();
+              if (message.isNotEmpty) {
+                await context.read<MessageBloc>().postMessageAsync(chatroomId,message);
+                _textEditingController.clear();
+              }
+            },
           )
         ]),
       ),

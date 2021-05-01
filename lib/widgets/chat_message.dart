@@ -11,7 +11,7 @@ class ChatMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: message.senderIsMe! ? MainAxisAlignment.end : MainAxisAlignment.start,
+      mainAxisAlignment: message.senderIsMe ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
         Container(
           constraints: BoxConstraints(maxWidth: context.screenWidth() * 0.75),
@@ -21,7 +21,7 @@ class ChatMessage extends StatelessWidget {
             color: context.theme().primaryColor,
             borderRadius: BorderRadius.circular(20),
           ),
-          child: Text(message.text!),
+          child: Text(message.text),
         ),
       ],
     );

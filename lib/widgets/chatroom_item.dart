@@ -1,6 +1,8 @@
+import 'package:botsta_app/logic/bloc/message_bloc.dart';
 import 'package:botsta_app/models/chatroom.dart';
 import 'package:flutter/material.dart';
 import 'package:botsta_app/config/routes/routes_config.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 
 class ChatroomItem extends StatelessWidget {
@@ -12,6 +14,7 @@ class ChatroomItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        context.read<MessageBloc>()..add(UpdateMessageEvent(chatroom.id));
         RoutesConfig.ROUTER.navigateTo(
           context,
           '/chat',
@@ -32,7 +35,7 @@ class ChatroomItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(chatroom.name!),
+              Text(chatroom.name),
               Text(chatroom.latestMessage ?? ""),
             ],
           )

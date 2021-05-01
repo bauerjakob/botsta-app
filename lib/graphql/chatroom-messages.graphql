@@ -1,0 +1,12 @@
+query GetChatroomMessages($chatroomId: String!){
+	chatroom(chatroomId: $chatroomId) {
+      id,
+      name,
+      messages {
+        id,
+        message,
+        senderId,
+        senderIsMe
+      }
+  }
+}

@@ -7,6 +7,11 @@ part of 'serializers.gql.dart';
 // **************************************************************************
 
 Serializers _$serializers = (new Serializers().toBuilder()
+      ..add(GGetChatroomMessagesData.serializer)
+      ..add(GGetChatroomMessagesData_chatroom.serializer)
+      ..add(GGetChatroomMessagesData_chatroom_messages.serializer)
+      ..add(GGetChatroomMessagesReq.serializer)
+      ..add(GGetChatroomMessagesVars.serializer)
       ..add(GGetChatroomsData.serializer)
       ..add(GGetChatroomsData_chatrooms.serializer)
       ..add(GGetChatroomsData_chatrooms_latestMessage.serializer)
@@ -15,6 +20,15 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GLoginData.serializer)
       ..add(GLoginReq.serializer)
       ..add(GLoginVars.serializer)
+      ..add(GPostMessageData.serializer)
+      ..add(GPostMessageData_postMessage.serializer)
+      ..add(GPostMessageReq.serializer)
+      ..add(GPostMessageVars.serializer)
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(GGetChatroomMessagesData_chatroom_messages)
+          ]),
+          () => new ListBuilder<GGetChatroomMessagesData_chatroom_messages>())
       ..addBuilderFactory(
           const FullType(
               BuiltList, const [const FullType(GGetChatroomsData_chatrooms)]),

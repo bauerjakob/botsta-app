@@ -5,6 +5,9 @@ schema {
 }
 
 type BotstaQuery {
+  # Returns the chtroom behind the given id.
+  chatroom(chatroomId: String): GraphChatroomType
+
   # Returns all chatrooms of current user.
   chatrooms: [GraphChatroomType]
 
@@ -23,13 +26,17 @@ type GraphUserType {
 type GraphChatroomType {
   id: ID!
   latestMessage: GraphMessageType
+  messages: [GraphMessageType]
   name: String
   type: String!
 }
 
 type GraphMessageType {
+  chatroomId: ID!
   id: ID!
   message: String!
+  senderId: ID!
+  senderIsMe: Boolean
 }
 
 type BotstaMutation {
