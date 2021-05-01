@@ -6,44 +6,50 @@ schema {
 
 type BotstaQuery {
   # Returns all chatrooms of current user.
-  chatrooms: [String]
+  chatrooms: [GraphChatroomType]
 
   # Returns list of all registerd users
-  getAllUsers: [UserType]
+  getAllUsers: [GraphUserType]
 
   # Returns informations about the current user.
-  whoami: UserType
+  whoami: GraphUserType
 }
 
-type UserType {
+type GraphUserType {
   id: String!
   username: String!
+}
+
+type GraphChatroomType {
+  id: ID!
+  latestMessage: GraphMessageType
+  name: String
+  type: String!
+}
+
+type GraphMessageType {
+  id: ID!
+  message: String!
 }
 
 type BotstaMutation {
   login(name: String!, secret: String!): String
 
   # Create a new chatroom
-  newChatroom(practicantIds: [String]): ChatroomType
+  newChatroomGroup(name: String, practicantIds: [String]): GraphChatroomType
+
+  # Create a new chatroom
+  newChatroomSingle(practicantId: String): GraphChatroomType
 
   # Post message to chatroom
-  postMessage(chatroomId: String, message: String): MessageType
+  postMessage(chatroomId: String, message: String): GraphMessageType
   register(username: String!, password: String!): String
 
   # Register new bot
   registerBot(botName: String): String
 }
 
-type ChatroomType {
-  id: ID!
-}
-
-type MessageType {
-  id: ID!
-  message: String!
-}
-
 type BotstaSubscription {
-  messageReceived(token: String): MessageType
+  messageReceived(token: String): GraphMessageType
 }
 

@@ -1,3 +1,12 @@
+import 'package:botsta_app/graphql/chatrooms.data.gql.dart'
+    show
+        GGetChatroomsData,
+        GGetChatroomsData_chatrooms,
+        GGetChatroomsData_chatrooms_latestMessage;
+import 'package:botsta_app/graphql/chatrooms.req.gql.dart'
+    show GGetChatroomsReq;
+import 'package:botsta_app/graphql/chatrooms.var.gql.dart'
+    show GGetChatroomsVars;
 import 'package:botsta_app/graphql/login.data.gql.dart' show GLoginData;
 import 'package:botsta_app/graphql/login.req.gql.dart' show GLoginReq;
 import 'package:botsta_app/graphql/login.var.gql.dart' show GLoginVars;
@@ -12,5 +21,14 @@ part 'serializers.gql.g.dart';
 final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   ..add(OperationSerializer())
   ..addPlugin(StandardJsonPlugin());
-@SerializersFor([GLoginData, GLoginReq, GLoginVars])
+@SerializersFor([
+  GGetChatroomsData,
+  GGetChatroomsData_chatrooms,
+  GGetChatroomsData_chatrooms_latestMessage,
+  GGetChatroomsReq,
+  GGetChatroomsVars,
+  GLoginData,
+  GLoginReq,
+  GLoginVars
+])
 final Serializers serializers = _serializersBuilder.build();

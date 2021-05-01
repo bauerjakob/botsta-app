@@ -1,0 +1,11 @@
+query GetChatrooms {
+  chatrooms {
+	id,
+    latestMessage {
+        id, 
+        message
+    },
+  	name,
+  	type
+ }
+}

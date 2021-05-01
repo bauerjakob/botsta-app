@@ -4,7 +4,9 @@ import 'package:botsta_app/config/lang/app_localizations.dart';
 import 'package:botsta_app/config/lang/bloc/localization_bloc.dart';
 import 'package:botsta_app/config/routes/routes_config.dart';
 import 'package:botsta_app/config/themes/bloc/theme_bloc.dart';
+import 'package:botsta_app/logic/bloc/chatroom_bloc.dart';
 import 'package:botsta_app/models/authentication_state.dart';
+import 'package:botsta_app/models/chatroom.dart';
 import 'package:botsta_app/startup.dart';
 import 'package:botsta_app/utils/extentions/context_extentions.dart';
 import 'package:flutter/material.dart';
@@ -25,19 +27,22 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   MyApp();
-
+  var _chatroomBloc = ChatroomBloc();
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthenticationBloc>(
             create: (context) =>
-                AuthenticationBloc()..add(InitialAuthenticationEvent())),
+                AuthenticationBloc(_chatroomBloc)..add(InitialAuthenticationEvent())),
         BlocProvider<ThemeBloc>(
             create: (context) => ThemeBloc()..add(ThemeEventInitial())),
         BlocProvider<LocalizationBloc>(
             create: (context) =>
                 LocalizationBloc()..add(InitialLocalizationEvent())),
+        BlocProvider<ChatroomBloc>(
+            create: (context) =>
+                _chatroomBloc),
       ],
       child: BlocBuilder<LocalizationBloc, LocalizationState>(
         builder: (context, langState) {

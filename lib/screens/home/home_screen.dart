@@ -1,5 +1,7 @@
 import 'package:botsta_app/config/routes/routes_config.dart';
+import 'package:botsta_app/logic/bloc/chatroom_bloc.dart';
 import 'package:botsta_app/logic/bloc/graphql_bloc.dart';
+import 'package:botsta_app/models/chatroom.dart';
 import 'package:botsta_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:botsta_app/utils/extentions/context_extentions.dart';
@@ -8,9 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<GraphqlBloc>(
-      create: (context) => GraphqlBloc(),
-      child: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: Text(context.translate('HOME.title')),
           actions: [
@@ -25,12 +25,13 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
-        body: BlocBuilder<GraphqlBloc, GraphqlState>(
+        body: BlocBuilder<ChatroomBloc, ChatroomState>(
           builder: (context, state) {
             return ListView.builder(
-              itemCount: state.chatrooms.length,
+              itemCount: state.chatrooms?.length ?? 0,
               itemBuilder: (context, index) {
-                var chatroom = state.chatrooms[index];
+
+                var chatroom = state.chatrooms![index];
                 return ChatroomItem(chatroom);
               },
             );
@@ -41,7 +42,6 @@ class HomeScreen extends StatelessWidget {
           onPressed: () {},
           tooltip: 'Add contact',
         ),
-      ),
     );
   }
 }

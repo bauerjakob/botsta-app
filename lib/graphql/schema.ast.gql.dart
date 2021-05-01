@@ -27,7 +27,8 @@ const BotstaQuery = _i1.ObjectTypeDefinitionNode(
           args: [],
           type: _i1.ListTypeNode(
               type: _i1.NamedTypeNode(
-                  name: _i1.NameNode(value: 'String'), isNonNull: false),
+                  name: _i1.NameNode(value: 'GraphChatroomType'),
+                  isNonNull: false),
               isNonNull: false)),
       _i1.FieldDefinitionNode(
           name: _i1.NameNode(value: 'getAllUsers'),
@@ -35,17 +36,17 @@ const BotstaQuery = _i1.ObjectTypeDefinitionNode(
           args: [],
           type: _i1.ListTypeNode(
               type: _i1.NamedTypeNode(
-                  name: _i1.NameNode(value: 'UserType'), isNonNull: false),
+                  name: _i1.NameNode(value: 'GraphUserType'), isNonNull: false),
               isNonNull: false)),
       _i1.FieldDefinitionNode(
           name: _i1.NameNode(value: 'whoami'),
           directives: [],
           args: [],
           type: _i1.NamedTypeNode(
-              name: _i1.NameNode(value: 'UserType'), isNonNull: false))
+              name: _i1.NameNode(value: 'GraphUserType'), isNonNull: false))
     ]);
-const UserType = _i1.ObjectTypeDefinitionNode(
-    name: _i1.NameNode(value: 'UserType'),
+const GraphUserType = _i1.ObjectTypeDefinitionNode(
+    name: _i1.NameNode(value: 'GraphUserType'),
     directives: [],
     interfaces: [],
     fields: [
@@ -57,6 +58,54 @@ const UserType = _i1.ObjectTypeDefinitionNode(
               name: _i1.NameNode(value: 'String'), isNonNull: true)),
       _i1.FieldDefinitionNode(
           name: _i1.NameNode(value: 'username'),
+          directives: [],
+          args: [],
+          type: _i1.NamedTypeNode(
+              name: _i1.NameNode(value: 'String'), isNonNull: true))
+    ]);
+const GraphChatroomType = _i1.ObjectTypeDefinitionNode(
+    name: _i1.NameNode(value: 'GraphChatroomType'),
+    directives: [],
+    interfaces: [],
+    fields: [
+      _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'id'),
+          directives: [],
+          args: [],
+          type: _i1.NamedTypeNode(
+              name: _i1.NameNode(value: 'ID'), isNonNull: true)),
+      _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'latestMessage'),
+          directives: [],
+          args: [],
+          type: _i1.NamedTypeNode(
+              name: _i1.NameNode(value: 'GraphMessageType'), isNonNull: false)),
+      _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'name'),
+          directives: [],
+          args: [],
+          type: _i1.NamedTypeNode(
+              name: _i1.NameNode(value: 'String'), isNonNull: false)),
+      _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'type'),
+          directives: [],
+          args: [],
+          type: _i1.NamedTypeNode(
+              name: _i1.NameNode(value: 'String'), isNonNull: true))
+    ]);
+const GraphMessageType = _i1.ObjectTypeDefinitionNode(
+    name: _i1.NameNode(value: 'GraphMessageType'),
+    directives: [],
+    interfaces: [],
+    fields: [
+      _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'id'),
+          directives: [],
+          args: [],
+          type: _i1.NamedTypeNode(
+              name: _i1.NameNode(value: 'ID'), isNonNull: true)),
+      _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'message'),
           directives: [],
           args: [],
           type: _i1.NamedTypeNode(
@@ -87,9 +136,15 @@ const BotstaMutation = _i1.ObjectTypeDefinitionNode(
           type: _i1.NamedTypeNode(
               name: _i1.NameNode(value: 'String'), isNonNull: false)),
       _i1.FieldDefinitionNode(
-          name: _i1.NameNode(value: 'newChatroom'),
+          name: _i1.NameNode(value: 'newChatroomGroup'),
           directives: [],
           args: [
+            _i1.InputValueDefinitionNode(
+                name: _i1.NameNode(value: 'name'),
+                directives: [],
+                type: _i1.NamedTypeNode(
+                    name: _i1.NameNode(value: 'String'), isNonNull: false),
+                defaultValue: null),
             _i1.InputValueDefinitionNode(
                 name: _i1.NameNode(value: 'practicantIds'),
                 directives: [],
@@ -100,7 +155,22 @@ const BotstaMutation = _i1.ObjectTypeDefinitionNode(
                 defaultValue: null)
           ],
           type: _i1.NamedTypeNode(
-              name: _i1.NameNode(value: 'ChatroomType'), isNonNull: false)),
+              name: _i1.NameNode(value: 'GraphChatroomType'),
+              isNonNull: false)),
+      _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'newChatroomSingle'),
+          directives: [],
+          args: [
+            _i1.InputValueDefinitionNode(
+                name: _i1.NameNode(value: 'practicantId'),
+                directives: [],
+                type: _i1.NamedTypeNode(
+                    name: _i1.NameNode(value: 'String'), isNonNull: false),
+                defaultValue: null)
+          ],
+          type: _i1.NamedTypeNode(
+              name: _i1.NameNode(value: 'GraphChatroomType'),
+              isNonNull: false)),
       _i1.FieldDefinitionNode(
           name: _i1.NameNode(value: 'postMessage'),
           directives: [],
@@ -119,7 +189,7 @@ const BotstaMutation = _i1.ObjectTypeDefinitionNode(
                 defaultValue: null)
           ],
           type: _i1.NamedTypeNode(
-              name: _i1.NameNode(value: 'MessageType'), isNonNull: false)),
+              name: _i1.NameNode(value: 'GraphMessageType'), isNonNull: false)),
       _i1.FieldDefinitionNode(
           name: _i1.NameNode(value: 'register'),
           directives: [],
@@ -153,36 +223,6 @@ const BotstaMutation = _i1.ObjectTypeDefinitionNode(
           type: _i1.NamedTypeNode(
               name: _i1.NameNode(value: 'String'), isNonNull: false))
     ]);
-const ChatroomType = _i1.ObjectTypeDefinitionNode(
-    name: _i1.NameNode(value: 'ChatroomType'),
-    directives: [],
-    interfaces: [],
-    fields: [
-      _i1.FieldDefinitionNode(
-          name: _i1.NameNode(value: 'id'),
-          directives: [],
-          args: [],
-          type: _i1.NamedTypeNode(
-              name: _i1.NameNode(value: 'ID'), isNonNull: true))
-    ]);
-const MessageType = _i1.ObjectTypeDefinitionNode(
-    name: _i1.NameNode(value: 'MessageType'),
-    directives: [],
-    interfaces: [],
-    fields: [
-      _i1.FieldDefinitionNode(
-          name: _i1.NameNode(value: 'id'),
-          directives: [],
-          args: [],
-          type: _i1.NamedTypeNode(
-              name: _i1.NameNode(value: 'ID'), isNonNull: true)),
-      _i1.FieldDefinitionNode(
-          name: _i1.NameNode(value: 'message'),
-          directives: [],
-          args: [],
-          type: _i1.NamedTypeNode(
-              name: _i1.NameNode(value: 'String'), isNonNull: true))
-    ]);
 const BotstaSubscription = _i1.ObjectTypeDefinitionNode(
     name: _i1.NameNode(value: 'BotstaSubscription'),
     directives: [],
@@ -200,14 +240,14 @@ const BotstaSubscription = _i1.ObjectTypeDefinitionNode(
                 defaultValue: null)
           ],
           type: _i1.NamedTypeNode(
-              name: _i1.NameNode(value: 'MessageType'), isNonNull: false))
+              name: _i1.NameNode(value: 'GraphMessageType'), isNonNull: false))
     ]);
 const document = _i1.DocumentNode(definitions: [
   schema,
   BotstaQuery,
-  UserType,
+  GraphUserType,
+  GraphChatroomType,
+  GraphMessageType,
   BotstaMutation,
-  ChatroomType,
-  MessageType,
   BotstaSubscription
 ]);

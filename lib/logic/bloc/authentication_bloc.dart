@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:botsta_app/graphql/login.req.gql.dart';
+import 'package:botsta_app/logic/bloc/chatroom_bloc.dart';
 import 'package:botsta_app/models/authentication_state.dart';
 import 'package:botsta_app/repositories/botsta_api_client.dart';
 import 'package:botsta_app/services/secure_storage_service.dart';
@@ -15,7 +16,9 @@ part 'authentication_event.dart';
 part 'authentication_state.dart';
 
 class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
-  AuthenticationBloc() : super(AuthenticationInitial());
+  final ChatroomBloc _chatroomBloc;
+
+  AuthenticationBloc(this._chatroomBloc) : super(AuthenticationInitial());
 
   @override
   Stream<AuthenticationState> mapEventToState(
@@ -30,19 +33,14 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
   }
 
   Future<bool> loginAsync(String username, String password) async {
-    var secureStorage = getIt.get<SecureStorageService>();
-    var client = await getIt.getAsync<Client>();
-    var res = await client.requestFirst(GLoginReq((b) => b..vars.name = username..vars.secret = password));
-    client.dispose();
-    await client.dispose();
-    if (!res.hasErrors && res.data != null && res.data?.login != null) {
+    var client = getIt.get<BotstaApiClient>();
+    var successful = await client.loginUserAsync(username, password);
+    if (successful) {
       emit(AuthenticationState(AuthState.Authenticated));
-      secureStorage.setJwtToken(res.data?.login);
-      return true;
+      _chatroomBloc.add(new InitialChatroomEvent());
     } else {
       emit(AuthenticationState(AuthState.Unauthenticated));
-      secureStorage.setJwtToken(null);
-      return false;
     }
+    return successful;
   }
 }

@@ -33,7 +33,7 @@ class ChatroomItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(chatroom.name!),
-              Text(chatroom.latestMessage!),
+              Text(chatroom.latestMessage ?? ""),
             ],
           )
         ]),

@@ -12,11 +12,7 @@ final getIt = GetIt.instance;
 void configureServices() {
   getIt.registerSingletonAsync<LocalStorageService>(
       () async => await LocalStorageService().initAsync());
-  getIt.registerFactoryAsync<BotstaApiClient>(() async {
-    var secureStorage = getIt.get<SecureStorageService>();
-    var jwtToken = await secureStorage.jwtToken;
-    return BotstaApiClient.create(jwtToken);
-  });
+  getIt.registerSingleton(BotstaApiClient());
 
   getIt.registerFactoryAsync<Client>(() async {
     var secureStorage = getIt.get<SecureStorageService>();

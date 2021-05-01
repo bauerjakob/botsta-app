@@ -1,65 +1,49 @@
 import 'package:botsta_app/constants/constants.dart';
+import 'package:botsta_app/graphql/chatrooms.data.gql.dart';
+import 'package:botsta_app/graphql/chatrooms.req.gql.dart';
+import 'package:botsta_app/graphql/login.req.gql.dart';
+import 'package:botsta_app/logic/bloc/authentication_bloc.dart';
 import 'package:botsta_app/logic/bloc/graphql_bloc.dart';
+import 'package:botsta_app/models/authentication_state.dart';
+import 'package:botsta_app/models/chatroom.dart';
+import 'package:botsta_app/services/secure_storage_service.dart';
+import 'package:ferry/ferry.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
+import 'package:botsta_app/utils/extentions/graphql_extentions.dart';
+
+import '../startup.dart';
 
 class BotstaApiClient {
-  final GraphQLClient _client;
 
-  const BotstaApiClient({required GraphQLClient client}) : _client = client;
+  Future<bool> loginUserAsync(String username, String password) async {
+    var secureStorage = getIt.get<SecureStorageService>();
+    var client = await getIt.getAsync<Client>();
+    var res = await client.requestFirst(GLoginReq((b) => b..vars.name = username..vars.secret = password));
+    client.dispose();
+    await client.dispose();
+    if (!res.hasErrors && res.data != null && res.data?.login != null) {
+      secureStorage.setJwtToken(res.data?.login);
+      return true;
+    } else {
+      secureStorage.setJwtToken(null);
+      return false;
+    }
+  }
 
-  factory BotstaApiClient.create(String? token) {
-    AuthLink? authLink;
+  Future<Iterable<Chatroom>?> getChatroomsAsync() async {
+    var client = await getIt.getAsync<Client>();
+    var res = await client.requestFirst(GGetChatroomsReq());
+    client.dispose();
 
-    if (token != null) {
-      authLink = AuthLink(
-  getToken: () async => 'Bearer $token',
-);
+    if (res.data?.chatrooms != null) {
+      return res.data!.chatrooms!.map((c) { 
+        var chatroom = Chatroom(c.id, c.name!, c.latestMessage?.message);
+        return chatroom;
+      });
     }
 
-final httpLink = HttpLink(
-  AppConstants.BOTSTA_ENDPOINT,
-);
-
-
-var link = authLink != null ? authLink.concat(httpLink) : httpLink;
-
-/// subscriptions must be split otherwise `HttpLink` will. swallow them
-// if (websocketEndpoint != null){
-//   final _wsLink = WebSocketLink(websockeEndpoint);
-//   _link = Link.split((request) => request.isSubscription, _wsLink, _link);
-// }
-
-var client = GraphQLClient(
-  cache: GraphQLCache(),
-  link: link,
-);
-
-// ...
-
-    // final httpLink =
-    //     HttpLink(AppConstants.BOTSTA_ENDPOINT, defaultHeaders: headers);
-    //final link = Link.from([httpLink]);
-
-    return BotstaApiClient(
-      client: client,
-    );
+    return null;
   }
 
-  Future<QueryResult> performQuery(String query,
-      {Map<String, dynamic>? variables}) async {
-    QueryOptions options =
-        QueryOptions(document: gql(query), variables: variables!);
-    final result = await _client.query(options);
-    return result;
-  }
-
-  Future<QueryResult> performMutation(String query,
-      {Map<String, dynamic>? variables }) async {
-
-    MutationOptions options =
-        MutationOptions(document: gql(query), variables: variables ?? Map<String, dynamic>());
-    final result = await _client.mutate(options);
-    return result;
-  }
 }
