@@ -15,7 +15,7 @@ abstract class GMessageSubscriptionVars
           [Function(GMessageSubscriptionVarsBuilder b) updates]) =
       _$GMessageSubscriptionVars;
 
-  String get token;
+  String get refreshToken;
   static Serializer<GMessageSubscriptionVars> get serializer =>
       _$gMessageSubscriptionVarsSerializer;
   Map<String, dynamic> toJson() =>

@@ -1,9 +1,12 @@
+import 'package:botsta_app/graphql/refresh-token.req.gql.dart';
 import 'package:botsta_app/repositories/botsta_api_client.dart';
 import 'package:botsta_app/services/local_storage_service.dart';
 import 'package:botsta_app/services/secure_storage_service.dart';
 import 'package:ferry/ferry.dart';
 import 'package:get_it/get_it.dart';
 import 'package:graphql/client.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:botsta_app/utils/extentions/graphql_extentions.dart';
 
 import 'constants/app_constants.dart';
 import 'logic/bloc/message_bloc.dart';
@@ -19,15 +22,16 @@ void configureServices() {
 
   getIt.registerFactoryAsync<Client>(() async {
     var secureStorage = getIt.get<SecureStorageService>();
-    var jwtToken = await secureStorage.jwtToken;
+    var token  = await secureStorage.token;
+    var refreshToken = await secureStorage.refreshToken;
 
-    AuthLink? authLink;
-
-    if (jwtToken != null) {
-      authLink = AuthLink(
-        getToken: () async => 'Bearer $jwtToken',
-      );
+    if (token != null && refreshToken != null && JwtDecoder.isExpired(token) && !JwtDecoder.isExpired(refreshToken)) {
+      token = await _refreshToken();
     }
+
+    var authLink = token != null ?  AuthLink(
+        getToken: () async => 'Bearer $token',
+      ) : null;
 
     final httpLink = HttpLink(
       AppConstants.BOTSTA_ENDPOINT,
@@ -41,4 +45,26 @@ void configureServices() {
     return Client(link: link);
   });
   getIt.registerSingleton(SecureStorageService());
+}
+
+Future<String> _refreshToken() async {
+  var secureStorage = getIt.get<SecureStorageService>();
+  var token  = await secureStorage.token;
+  var refreshToken = await secureStorage.refreshToken;
+
+  var authLink = AuthLink(
+    getToken: () async => 'Bearer $refreshToken',
+  );
+  
+  final httpLink = HttpLink(
+    AppConstants.BOTSTA_ENDPOINT,
+  );
+  
+  var link = authLink.concat(httpLink);
+  var client =  Client(link: link);
+  var response = await client.requestFirst(GRefresthTokenReq());
+  token = response.data!.refreshToken!.token!;
+  secureStorage.setToken(token);
+  print("Token refreshed - $token");
+  return token;
 }

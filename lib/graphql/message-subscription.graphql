@@ -1,5 +1,5 @@
-subscription MessageSubscription($token: String!) {
-  messageReceived(token: $token) {
+subscription MessageSubscription($refreshToken: String!) {
+  messageReceived(refreshToken: $refreshToken) {
     message,
   	chatroomId,
   	senderId,

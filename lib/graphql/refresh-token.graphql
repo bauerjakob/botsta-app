@@ -1,0 +1,8 @@
+mutation RefresthToken {
+  refreshToken {
+    token,
+    hasError,
+    errorCode,
+    errorMessage
+  }
+}

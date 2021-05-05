@@ -33,6 +33,37 @@ const Login = _i1.OperationDefinitionNode(
                 value: _i1.VariableNode(name: _i1.NameNode(value: 'secret')))
           ],
           directives: [],
-          selectionSet: null)
+          selectionSet: _i1.SelectionSetNode(selections: [
+            _i1.FieldNode(
+                name: _i1.NameNode(value: 'token'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: null),
+            _i1.FieldNode(
+                name: _i1.NameNode(value: 'refreshToken'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: null),
+            _i1.FieldNode(
+                name: _i1.NameNode(value: 'hasError'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: null),
+            _i1.FieldNode(
+                name: _i1.NameNode(value: 'errorCode'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: null),
+            _i1.FieldNode(
+                name: _i1.NameNode(value: 'errorMessage'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: null)
+          ]))
     ]));
 const document = _i1.DocumentNode(definitions: [Login]);

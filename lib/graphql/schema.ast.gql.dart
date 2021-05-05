@@ -150,8 +150,16 @@ const GraphMessageType = _i1.ObjectTypeDefinitionNode(
           directives: [],
           args: [],
           type: _i1.NamedTypeNode(
-              name: _i1.NameNode(value: 'Boolean'), isNonNull: false))
+              name: _i1.NameNode(value: 'Boolean'), isNonNull: false)),
+      _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'sendTime'),
+          directives: [],
+          args: [],
+          type: _i1.NamedTypeNode(
+              name: _i1.NameNode(value: 'DateTimeOffset'), isNonNull: true))
     ]);
+const DateTimeOffset = _i1.ScalarTypeDefinitionNode(
+    name: _i1.NameNode(value: 'DateTimeOffset'), directives: []);
 const BotstaMutation = _i1.ObjectTypeDefinitionNode(
     name: _i1.NameNode(value: 'BotstaMutation'),
     directives: [],
@@ -175,7 +183,7 @@ const BotstaMutation = _i1.ObjectTypeDefinitionNode(
                 defaultValue: null)
           ],
           type: _i1.NamedTypeNode(
-              name: _i1.NameNode(value: 'String'), isNonNull: false)),
+              name: _i1.NameNode(value: 'Login'), isNonNull: false)),
       _i1.FieldDefinitionNode(
           name: _i1.NameNode(value: 'newChatroomGroup'),
           directives: [],
@@ -232,6 +240,12 @@ const BotstaMutation = _i1.ObjectTypeDefinitionNode(
           type: _i1.NamedTypeNode(
               name: _i1.NameNode(value: 'GraphMessageType'), isNonNull: false)),
       _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'refreshToken'),
+          directives: [],
+          args: [],
+          type: _i1.NamedTypeNode(
+              name: _i1.NameNode(value: 'RefreshToken'), isNonNull: false)),
+      _i1.FieldDefinitionNode(
           name: _i1.NameNode(value: 'register'),
           directives: [],
           args: [
@@ -264,6 +278,72 @@ const BotstaMutation = _i1.ObjectTypeDefinitionNode(
           type: _i1.NamedTypeNode(
               name: _i1.NameNode(value: 'String'), isNonNull: false))
     ]);
+const Login = _i1.ObjectTypeDefinitionNode(
+    name: _i1.NameNode(value: 'Login'),
+    directives: [],
+    interfaces: [],
+    fields: [
+      _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'errorCode'),
+          directives: [],
+          args: [],
+          type: _i1.NamedTypeNode(
+              name: _i1.NameNode(value: 'String'), isNonNull: false)),
+      _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'errorMessage'),
+          directives: [],
+          args: [],
+          type: _i1.NamedTypeNode(
+              name: _i1.NameNode(value: 'String'), isNonNull: false)),
+      _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'hasError'),
+          directives: [],
+          args: [],
+          type: _i1.NamedTypeNode(
+              name: _i1.NameNode(value: 'Boolean'), isNonNull: true)),
+      _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'refreshToken'),
+          directives: [],
+          args: [],
+          type: _i1.NamedTypeNode(
+              name: _i1.NameNode(value: 'String'), isNonNull: false)),
+      _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'token'),
+          directives: [],
+          args: [],
+          type: _i1.NamedTypeNode(
+              name: _i1.NameNode(value: 'String'), isNonNull: false))
+    ]);
+const RefreshToken = _i1.ObjectTypeDefinitionNode(
+    name: _i1.NameNode(value: 'RefreshToken'),
+    directives: [],
+    interfaces: [],
+    fields: [
+      _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'errorCode'),
+          directives: [],
+          args: [],
+          type: _i1.NamedTypeNode(
+              name: _i1.NameNode(value: 'String'), isNonNull: false)),
+      _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'errorMessage'),
+          directives: [],
+          args: [],
+          type: _i1.NamedTypeNode(
+              name: _i1.NameNode(value: 'String'), isNonNull: false)),
+      _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'hasError'),
+          directives: [],
+          args: [],
+          type: _i1.NamedTypeNode(
+              name: _i1.NameNode(value: 'Boolean'), isNonNull: true)),
+      _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'token'),
+          directives: [],
+          args: [],
+          type: _i1.NamedTypeNode(
+              name: _i1.NameNode(value: 'String'), isNonNull: false))
+    ]);
 const BotstaSubscription = _i1.ObjectTypeDefinitionNode(
     name: _i1.NameNode(value: 'BotstaSubscription'),
     directives: [],
@@ -274,7 +354,7 @@ const BotstaSubscription = _i1.ObjectTypeDefinitionNode(
           directives: [],
           args: [
             _i1.InputValueDefinitionNode(
-                name: _i1.NameNode(value: 'token'),
+                name: _i1.NameNode(value: 'refreshToken'),
                 directives: [],
                 type: _i1.NamedTypeNode(
                     name: _i1.NameNode(value: 'String'), isNonNull: false),
@@ -289,6 +369,9 @@ const document = _i1.DocumentNode(definitions: [
   GraphUserType,
   GraphChatroomType,
   GraphMessageType,
+  DateTimeOffset,
   BotstaMutation,
+  Login,
+  RefreshToken,
   BotstaSubscription
 ]);

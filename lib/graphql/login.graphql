@@ -1,3 +1,9 @@
 mutation Login($name: String!, $secret: String!) { 
-    login(name: $name, secret: $secret) 
+    login(name: $name, secret: $secret) {
+        token,
+        refreshToken,
+        hasError,
+        errorCode,
+        errorMessage
+    }
 }

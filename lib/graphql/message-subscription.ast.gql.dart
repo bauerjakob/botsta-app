@@ -7,7 +7,7 @@ const MessageSubscription = _i1.OperationDefinitionNode(
     name: _i1.NameNode(value: 'MessageSubscription'),
     variableDefinitions: [
       _i1.VariableDefinitionNode(
-          variable: _i1.VariableNode(name: _i1.NameNode(value: 'token')),
+          variable: _i1.VariableNode(name: _i1.NameNode(value: 'refreshToken')),
           type: _i1.NamedTypeNode(
               name: _i1.NameNode(value: 'String'), isNonNull: true),
           defaultValue: _i1.DefaultValueNode(value: null),
@@ -20,8 +20,9 @@ const MessageSubscription = _i1.OperationDefinitionNode(
           alias: null,
           arguments: [
             _i1.ArgumentNode(
-                name: _i1.NameNode(value: 'token'),
-                value: _i1.VariableNode(name: _i1.NameNode(value: 'token')))
+                name: _i1.NameNode(value: 'refreshToken'),
+                value:
+                    _i1.VariableNode(name: _i1.NameNode(value: 'refreshToken')))
           ],
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [

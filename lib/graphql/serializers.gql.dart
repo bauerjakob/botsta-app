@@ -16,7 +16,8 @@ import 'package:botsta_app/graphql/chatrooms.req.gql.dart'
     show GGetChatroomsReq;
 import 'package:botsta_app/graphql/chatrooms.var.gql.dart'
     show GGetChatroomsVars;
-import 'package:botsta_app/graphql/login.data.gql.dart' show GLoginData;
+import 'package:botsta_app/graphql/login.data.gql.dart'
+    show GLoginData, GLoginData_login;
 import 'package:botsta_app/graphql/login.req.gql.dart' show GLoginReq;
 import 'package:botsta_app/graphql/login.var.gql.dart' show GLoginVars;
 import 'package:botsta_app/graphql/message-subscription.data.gql.dart'
@@ -31,6 +32,13 @@ import 'package:botsta_app/graphql/post-message.req.gql.dart'
     show GPostMessageReq;
 import 'package:botsta_app/graphql/post-message.var.gql.dart'
     show GPostMessageVars;
+import 'package:botsta_app/graphql/refresh-token.data.gql.dart'
+    show GRefresthTokenData, GRefresthTokenData_refreshToken;
+import 'package:botsta_app/graphql/refresh-token.req.gql.dart'
+    show GRefresthTokenReq;
+import 'package:botsta_app/graphql/refresh-token.var.gql.dart'
+    show GRefresthTokenVars;
+import 'package:botsta_app/graphql/schema.schema.gql.dart' show GDateTimeOffset;
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart' show StandardJsonPlugin;
@@ -43,6 +51,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   ..add(OperationSerializer())
   ..addPlugin(StandardJsonPlugin());
 @SerializersFor([
+  GDateTimeOffset,
   GGetChatroomMessagesData,
   GGetChatroomMessagesData_chatroom,
   GGetChatroomMessagesData_chatroom_messages,
@@ -54,6 +63,7 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GGetChatroomsReq,
   GGetChatroomsVars,
   GLoginData,
+  GLoginData_login,
   GLoginReq,
   GLoginVars,
   GMessageSubscriptionData,
@@ -63,6 +73,10 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GPostMessageData,
   GPostMessageData_postMessage,
   GPostMessageReq,
-  GPostMessageVars
+  GPostMessageVars,
+  GRefresthTokenData,
+  GRefresthTokenData_refreshToken,
+  GRefresthTokenReq,
+  GRefresthTokenVars
 ])
 final Serializers serializers = _serializersBuilder.build();

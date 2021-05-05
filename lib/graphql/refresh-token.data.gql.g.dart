@@ -1,23 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'login.data.gql.dart';
+part of 'refresh-token.data.gql.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<GLoginData> _$gLoginDataSerializer = new _$GLoginDataSerializer();
-Serializer<GLoginData_login> _$gLoginDataLoginSerializer =
-    new _$GLoginData_loginSerializer();
+Serializer<GRefresthTokenData> _$gRefresthTokenDataSerializer =
+    new _$GRefresthTokenDataSerializer();
+Serializer<GRefresthTokenData_refreshToken>
+    _$gRefresthTokenDataRefreshTokenSerializer =
+    new _$GRefresthTokenData_refreshTokenSerializer();
 
-class _$GLoginDataSerializer implements StructuredSerializer<GLoginData> {
+class _$GRefresthTokenDataSerializer
+    implements StructuredSerializer<GRefresthTokenData> {
   @override
-  final Iterable<Type> types = const [GLoginData, _$GLoginData];
+  final Iterable<Type> types = const [GRefresthTokenData, _$GRefresthTokenData];
   @override
-  final String wireName = 'GLoginData';
+  final String wireName = 'GRefresthTokenData';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, GLoginData object,
+  Iterable<Object?> serialize(
+      Serializers serializers, GRefresthTokenData object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       '__typename',
@@ -25,20 +29,21 @@ class _$GLoginDataSerializer implements StructuredSerializer<GLoginData> {
           specifiedType: const FullType(String)),
     ];
     Object? value;
-    value = object.login;
+    value = object.refreshToken;
     if (value != null) {
       result
-        ..add('login')
+        ..add('refreshToken')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(GLoginData_login)));
+            specifiedType: const FullType(GRefresthTokenData_refreshToken)));
     }
     return result;
   }
 
   @override
-  GLoginData deserialize(Serializers serializers, Iterable<Object?> serialized,
+  GRefresthTokenData deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GLoginDataBuilder();
+    final result = new GRefresthTokenDataBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -50,10 +55,11 @@ class _$GLoginDataSerializer implements StructuredSerializer<GLoginData> {
           result.G__typename = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
-        case 'login':
-          result.login.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(GLoginData_login))!
-              as GLoginData_login);
+        case 'refreshToken':
+          result.refreshToken.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(GRefresthTokenData_refreshToken))!
+              as GRefresthTokenData_refreshToken);
           break;
       }
     }
@@ -62,15 +68,19 @@ class _$GLoginDataSerializer implements StructuredSerializer<GLoginData> {
   }
 }
 
-class _$GLoginData_loginSerializer
-    implements StructuredSerializer<GLoginData_login> {
+class _$GRefresthTokenData_refreshTokenSerializer
+    implements StructuredSerializer<GRefresthTokenData_refreshToken> {
   @override
-  final Iterable<Type> types = const [GLoginData_login, _$GLoginData_login];
+  final Iterable<Type> types = const [
+    GRefresthTokenData_refreshToken,
+    _$GRefresthTokenData_refreshToken
+  ];
   @override
-  final String wireName = 'GLoginData_login';
+  final String wireName = 'GRefresthTokenData_refreshToken';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, GLoginData_login object,
+  Iterable<Object?> serialize(
+      Serializers serializers, GRefresthTokenData_refreshToken object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       '__typename',
@@ -85,13 +95,6 @@ class _$GLoginData_loginSerializer
     if (value != null) {
       result
         ..add('token')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
-    value = object.refreshToken;
-    if (value != null) {
-      result
-        ..add('refreshToken')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
@@ -113,10 +116,10 @@ class _$GLoginData_loginSerializer
   }
 
   @override
-  GLoginData_login deserialize(
+  GRefresthTokenData_refreshToken deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GLoginData_loginBuilder();
+    final result = new GRefresthTokenData_refreshTokenBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -130,10 +133,6 @@ class _$GLoginData_loginSerializer
           break;
         case 'token':
           result.token = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
-          break;
-        case 'refreshToken':
-          result.refreshToken = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
         case 'hasError':
@@ -155,103 +154,109 @@ class _$GLoginData_loginSerializer
   }
 }
 
-class _$GLoginData extends GLoginData {
+class _$GRefresthTokenData extends GRefresthTokenData {
   @override
   final String G__typename;
   @override
-  final GLoginData_login? login;
+  final GRefresthTokenData_refreshToken? refreshToken;
 
-  factory _$GLoginData([void Function(GLoginDataBuilder)? updates]) =>
-      (new GLoginDataBuilder()..update(updates)).build();
+  factory _$GRefresthTokenData(
+          [void Function(GRefresthTokenDataBuilder)? updates]) =>
+      (new GRefresthTokenDataBuilder()..update(updates)).build();
 
-  _$GLoginData._({required this.G__typename, this.login}) : super._() {
+  _$GRefresthTokenData._({required this.G__typename, this.refreshToken})
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, 'GLoginData', 'G__typename');
+        G__typename, 'GRefresthTokenData', 'G__typename');
   }
 
   @override
-  GLoginData rebuild(void Function(GLoginDataBuilder) updates) =>
+  GRefresthTokenData rebuild(
+          void Function(GRefresthTokenDataBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GLoginDataBuilder toBuilder() => new GLoginDataBuilder()..replace(this);
+  GRefresthTokenDataBuilder toBuilder() =>
+      new GRefresthTokenDataBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GLoginData &&
+    return other is GRefresthTokenData &&
         G__typename == other.G__typename &&
-        login == other.login;
+        refreshToken == other.refreshToken;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, G__typename.hashCode), login.hashCode));
+    return $jf($jc($jc(0, G__typename.hashCode), refreshToken.hashCode));
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GLoginData')
+    return (newBuiltValueToStringHelper('GRefresthTokenData')
           ..add('G__typename', G__typename)
-          ..add('login', login))
+          ..add('refreshToken', refreshToken))
         .toString();
   }
 }
 
-class GLoginDataBuilder implements Builder<GLoginData, GLoginDataBuilder> {
-  _$GLoginData? _$v;
+class GRefresthTokenDataBuilder
+    implements Builder<GRefresthTokenData, GRefresthTokenDataBuilder> {
+  _$GRefresthTokenData? _$v;
 
   String? _G__typename;
   String? get G__typename => _$this._G__typename;
   set G__typename(String? G__typename) => _$this._G__typename = G__typename;
 
-  GLoginData_loginBuilder? _login;
-  GLoginData_loginBuilder get login =>
-      _$this._login ??= new GLoginData_loginBuilder();
-  set login(GLoginData_loginBuilder? login) => _$this._login = login;
+  GRefresthTokenData_refreshTokenBuilder? _refreshToken;
+  GRefresthTokenData_refreshTokenBuilder get refreshToken =>
+      _$this._refreshToken ??= new GRefresthTokenData_refreshTokenBuilder();
+  set refreshToken(GRefresthTokenData_refreshTokenBuilder? refreshToken) =>
+      _$this._refreshToken = refreshToken;
 
-  GLoginDataBuilder() {
-    GLoginData._initializeBuilder(this);
+  GRefresthTokenDataBuilder() {
+    GRefresthTokenData._initializeBuilder(this);
   }
 
-  GLoginDataBuilder get _$this {
+  GRefresthTokenDataBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
-      _login = $v.login?.toBuilder();
+      _refreshToken = $v.refreshToken?.toBuilder();
       _$v = null;
     }
     return this;
   }
 
   @override
-  void replace(GLoginData other) {
+  void replace(GRefresthTokenData other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GLoginData;
+    _$v = other as _$GRefresthTokenData;
   }
 
   @override
-  void update(void Function(GLoginDataBuilder)? updates) {
+  void update(void Function(GRefresthTokenDataBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$GLoginData build() {
-    _$GLoginData _$result;
+  _$GRefresthTokenData build() {
+    _$GRefresthTokenData _$result;
     try {
       _$result = _$v ??
-          new _$GLoginData._(
+          new _$GRefresthTokenData._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, 'GLoginData', 'G__typename'),
-              login: _login?.build());
+                  G__typename, 'GRefresthTokenData', 'G__typename'),
+              refreshToken: _refreshToken?.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'login';
-        _login?.build();
+        _$failedField = 'refreshToken';
+        _refreshToken?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GLoginData', _$failedField, e.toString());
+            'GRefresthTokenData', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -260,13 +265,12 @@ class GLoginDataBuilder implements Builder<GLoginData, GLoginDataBuilder> {
   }
 }
 
-class _$GLoginData_login extends GLoginData_login {
+class _$GRefresthTokenData_refreshToken
+    extends GRefresthTokenData_refreshToken {
   @override
   final String G__typename;
   @override
   final String? token;
-  @override
-  final String? refreshToken;
   @override
   final bool hasError;
   @override
@@ -274,39 +278,38 @@ class _$GLoginData_login extends GLoginData_login {
   @override
   final String? errorMessage;
 
-  factory _$GLoginData_login(
-          [void Function(GLoginData_loginBuilder)? updates]) =>
-      (new GLoginData_loginBuilder()..update(updates)).build();
+  factory _$GRefresthTokenData_refreshToken(
+          [void Function(GRefresthTokenData_refreshTokenBuilder)? updates]) =>
+      (new GRefresthTokenData_refreshTokenBuilder()..update(updates)).build();
 
-  _$GLoginData_login._(
+  _$GRefresthTokenData_refreshToken._(
       {required this.G__typename,
       this.token,
-      this.refreshToken,
       required this.hasError,
       this.errorCode,
       this.errorMessage})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, 'GLoginData_login', 'G__typename');
+        G__typename, 'GRefresthTokenData_refreshToken', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
-        hasError, 'GLoginData_login', 'hasError');
+        hasError, 'GRefresthTokenData_refreshToken', 'hasError');
   }
 
   @override
-  GLoginData_login rebuild(void Function(GLoginData_loginBuilder) updates) =>
+  GRefresthTokenData_refreshToken rebuild(
+          void Function(GRefresthTokenData_refreshTokenBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GLoginData_loginBuilder toBuilder() =>
-      new GLoginData_loginBuilder()..replace(this);
+  GRefresthTokenData_refreshTokenBuilder toBuilder() =>
+      new GRefresthTokenData_refreshTokenBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GLoginData_login &&
+    return other is GRefresthTokenData_refreshToken &&
         G__typename == other.G__typename &&
         token == other.token &&
-        refreshToken == other.refreshToken &&
         hasError == other.hasError &&
         errorCode == other.errorCode &&
         errorMessage == other.errorMessage;
@@ -316,9 +319,7 @@ class _$GLoginData_login extends GLoginData_login {
   int get hashCode {
     return $jf($jc(
         $jc(
-            $jc(
-                $jc($jc($jc(0, G__typename.hashCode), token.hashCode),
-                    refreshToken.hashCode),
+            $jc($jc($jc(0, G__typename.hashCode), token.hashCode),
                 hasError.hashCode),
             errorCode.hashCode),
         errorMessage.hashCode));
@@ -326,10 +327,9 @@ class _$GLoginData_login extends GLoginData_login {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GLoginData_login')
+    return (newBuiltValueToStringHelper('GRefresthTokenData_refreshToken')
           ..add('G__typename', G__typename)
           ..add('token', token)
-          ..add('refreshToken', refreshToken)
           ..add('hasError', hasError)
           ..add('errorCode', errorCode)
           ..add('errorMessage', errorMessage))
@@ -337,9 +337,11 @@ class _$GLoginData_login extends GLoginData_login {
   }
 }
 
-class GLoginData_loginBuilder
-    implements Builder<GLoginData_login, GLoginData_loginBuilder> {
-  _$GLoginData_login? _$v;
+class GRefresthTokenData_refreshTokenBuilder
+    implements
+        Builder<GRefresthTokenData_refreshToken,
+            GRefresthTokenData_refreshTokenBuilder> {
+  _$GRefresthTokenData_refreshToken? _$v;
 
   String? _G__typename;
   String? get G__typename => _$this._G__typename;
@@ -348,10 +350,6 @@ class GLoginData_loginBuilder
   String? _token;
   String? get token => _$this._token;
   set token(String? token) => _$this._token = token;
-
-  String? _refreshToken;
-  String? get refreshToken => _$this._refreshToken;
-  set refreshToken(String? refreshToken) => _$this._refreshToken = refreshToken;
 
   bool? _hasError;
   bool? get hasError => _$this._hasError;
@@ -365,16 +363,15 @@ class GLoginData_loginBuilder
   String? get errorMessage => _$this._errorMessage;
   set errorMessage(String? errorMessage) => _$this._errorMessage = errorMessage;
 
-  GLoginData_loginBuilder() {
-    GLoginData_login._initializeBuilder(this);
+  GRefresthTokenData_refreshTokenBuilder() {
+    GRefresthTokenData_refreshToken._initializeBuilder(this);
   }
 
-  GLoginData_loginBuilder get _$this {
+  GRefresthTokenData_refreshTokenBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
       _token = $v.token;
-      _refreshToken = $v.refreshToken;
       _hasError = $v.hasError;
       _errorCode = $v.errorCode;
       _errorMessage = $v.errorMessage;
@@ -384,26 +381,25 @@ class GLoginData_loginBuilder
   }
 
   @override
-  void replace(GLoginData_login other) {
+  void replace(GRefresthTokenData_refreshToken other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GLoginData_login;
+    _$v = other as _$GRefresthTokenData_refreshToken;
   }
 
   @override
-  void update(void Function(GLoginData_loginBuilder)? updates) {
+  void update(void Function(GRefresthTokenData_refreshTokenBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$GLoginData_login build() {
+  _$GRefresthTokenData_refreshToken build() {
     final _$result = _$v ??
-        new _$GLoginData_login._(
+        new _$GRefresthTokenData_refreshToken._(
             G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, 'GLoginData_login', 'G__typename'),
+                G__typename, 'GRefresthTokenData_refreshToken', 'G__typename'),
             token: token,
-            refreshToken: refreshToken,
             hasError: BuiltValueNullFieldError.checkNotNull(
-                hasError, 'GLoginData_login', 'hasError'),
+                hasError, 'GRefresthTokenData_refreshToken', 'hasError'),
             errorCode: errorCode,
             errorMessage: errorMessage);
     replace(_$result);

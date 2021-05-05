@@ -33,11 +33,15 @@ class BotstaApiClient {
     var res = await client.requestFirst(GLoginReq((b) => b..vars.name = username..vars.secret = password));
     client.dispose();
     await client.dispose();
-    if (!res.hasErrors && res.data != null && res.data?.login != null) {
-      secureStorage.setJwtToken(res.data?.login);
+    if (!res.hasErrors && res.data != null && res.data?.login != null && !res.data!.login!.hasError) {
+      var token = res.data!.login!.token;
+      var refreshToken = res.data!.login!.refreshToken;
+      secureStorage.setToken(token);
+      secureStorage.setRefreshToken(refreshToken);
       return true;
     } else {
-      secureStorage.setJwtToken(null);
+      secureStorage.setToken(null);
+      secureStorage.setRefreshToken(null);
       return false;
     }
   }
@@ -85,61 +89,18 @@ class BotstaApiClient {
   Future messageSubscription() async{
     var client = await getIt.getAsync<Client>();
     var secureStorage = getIt.get<SecureStorageService>();
-    var token = await secureStorage.jwtToken;
-
-
+    var refreshToken = await secureStorage.refreshToken;
 
     if (_messageSubscription != null) {
       _messageSubscription!.cancel();
     }
-    _messageSubscription = client.request(GMessageSubscriptionReq((b) => b..vars.token = token)).listen((event) {
+    _messageSubscription = client.request(GMessageSubscriptionReq((b) => b..vars.refreshToken = refreshToken)).listen((event) {
        var data = event.data?.messageReceived;
         if (data != null) {
           var msg = Message(data.id, data.message, data.senderId, data.chatroomId, data.senderIsMe ?? false);
           getIt.get<MessageBloc>().add(AppendMessageEvent(msg));
         }
      });
-    
-    
-    
-    
-    
-    
-
-    // var secureStorage = getIt.get<SecureStorageService>();
-    // var jwtToken = await secureStorage.jwtToken;
-
-    //     AuthLink? authLink;
-
-    // if (jwtToken != null) {
-    //   authLink = AuthLink(
-    //     getToken: () async => 'Bearer $jwtToken',
-    //   );
-    // }
-
-    // final httpLink = HttpLink(
-    //   AppConstants.BOTSTA_ENDPOINT,
-    // );
-
-    // var link = authLink != null ? authLink.concat(httpLink) : httpLink;
-
-    // final websocketLink = WebSocketLink(AppConstants.BOTSTA_ENDPOINT_WEBSOCKET);
-    // link = Link.split((request) => request.isSubscription, websocketLink, link);
-    
-    // var client = GraphQLClient(link: link, cache: GraphQLCache());
-    // client.subscribe(SubscriptionOptions(document: gql('''
-    //     subscription MessageSubscription {
-    //       messageReceived(token: "$jwtToken") {
-    //           message,
-    //           chatroomId,
-    //           senderId,
-    //           senderIsMe,
-    //           id
-    //         }
-    //       }
-    // '''))).listen((event) { 
-    //   print('event');
-    // });
   }
 
   void dispose() {

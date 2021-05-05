@@ -24,8 +24,8 @@ class _$GMessageSubscriptionVarsSerializer
       Serializers serializers, GMessageSubscriptionVars object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
-      'token',
-      serializers.serialize(object.token,
+      'refreshToken',
+      serializers.serialize(object.refreshToken,
           specifiedType: const FullType(String)),
     ];
 
@@ -44,8 +44,8 @@ class _$GMessageSubscriptionVarsSerializer
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
-        case 'token':
-          result.token = serializers.deserialize(value,
+        case 'refreshToken':
+          result.refreshToken = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
       }
@@ -57,15 +57,15 @@ class _$GMessageSubscriptionVarsSerializer
 
 class _$GMessageSubscriptionVars extends GMessageSubscriptionVars {
   @override
-  final String token;
+  final String refreshToken;
 
   factory _$GMessageSubscriptionVars(
           [void Function(GMessageSubscriptionVarsBuilder)? updates]) =>
       (new GMessageSubscriptionVarsBuilder()..update(updates)).build();
 
-  _$GMessageSubscriptionVars._({required this.token}) : super._() {
+  _$GMessageSubscriptionVars._({required this.refreshToken}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        token, 'GMessageSubscriptionVars', 'token');
+        refreshToken, 'GMessageSubscriptionVars', 'refreshToken');
   }
 
   @override
@@ -80,18 +80,19 @@ class _$GMessageSubscriptionVars extends GMessageSubscriptionVars {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GMessageSubscriptionVars && token == other.token;
+    return other is GMessageSubscriptionVars &&
+        refreshToken == other.refreshToken;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(0, token.hashCode));
+    return $jf($jc(0, refreshToken.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('GMessageSubscriptionVars')
-          ..add('token', token))
+          ..add('refreshToken', refreshToken))
         .toString();
   }
 }
@@ -101,16 +102,16 @@ class GMessageSubscriptionVarsBuilder
         Builder<GMessageSubscriptionVars, GMessageSubscriptionVarsBuilder> {
   _$GMessageSubscriptionVars? _$v;
 
-  String? _token;
-  String? get token => _$this._token;
-  set token(String? token) => _$this._token = token;
+  String? _refreshToken;
+  String? get refreshToken => _$this._refreshToken;
+  set refreshToken(String? refreshToken) => _$this._refreshToken = refreshToken;
 
   GMessageSubscriptionVarsBuilder();
 
   GMessageSubscriptionVarsBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _token = $v.token;
+      _refreshToken = $v.refreshToken;
       _$v = null;
     }
     return this;
@@ -131,8 +132,8 @@ class GMessageSubscriptionVarsBuilder
   _$GMessageSubscriptionVars build() {
     final _$result = _$v ??
         new _$GMessageSubscriptionVars._(
-            token: BuiltValueNullFieldError.checkNotNull(
-                token, 'GMessageSubscriptionVars', 'token'));
+            refreshToken: BuiltValueNullFieldError.checkNotNull(
+                refreshToken, 'GMessageSubscriptionVars', 'refreshToken'));
     replace(_$result);
     return _$result;
   }
