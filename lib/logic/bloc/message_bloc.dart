@@ -29,28 +29,23 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
       msgMap[event.chatroomId] = messages?.toList();
       yield MessageState(msgMap);
     } else if (event is AppendMessageEvent) {
-      var messages = await client.getMessagesAsync(event.message.chatroomId);
-      var msgMap = Map<String, List<Message>?>.from(state.messages);
-      msgMap[event.message.chatroomId] = messages?.toList();
+      var msgMap = _addMessageToState(event.message);
+      print(state.messages == msgMap);
       yield MessageState(msgMap);
-      //yield MessageState(_addMessageToState(event.message));
     }
   }
 
   Future<Message?> postMessageAsync(String chatroomId, String message) async {
     var client = getIt.get<BotstaApiClient>();
     await client.postMessageAsync(chatroomId, message);
-    // if (msg != null) {
-    //   emit(_addMessageToState(msg));
-    // }
   }
 
   Map<String, List<Message>?> _addMessageToState(Message message) {
     var msgMap = Map<String, List<Message>?>.from(state.messages);
     if (msgMap.containsKey(message.chatroomId) && msgMap[message.chatroomId] != null) {
-      msgMap[message.chatroomId]!.insert(0, message);
-    } else {
-      msgMap[message.chatroomId] = [message];
+      var list = List<Message>.from(state.messages[message.chatroomId]!);
+      list.insert(0, message);
+      msgMap[message.chatroomId] = list;
     }
 
     return msgMap;
