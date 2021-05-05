@@ -1,7 +1,7 @@
 part of 'message_bloc.dart';
 
 class MessageState extends Equatable {
-  final List<Message> messages;
+  final Map<String, List<Message>?> messages;
   const MessageState(this.messages);
   
   @override
@@ -9,5 +9,5 @@ class MessageState extends Equatable {
 }
 
 class MessageInitial extends MessageState {
-  MessageInitial() : super([]);
+  MessageInitial() : super(Map());
 }

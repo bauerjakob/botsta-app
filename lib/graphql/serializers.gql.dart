@@ -19,6 +19,12 @@ import 'package:botsta_app/graphql/chatrooms.var.gql.dart'
 import 'package:botsta_app/graphql/login.data.gql.dart' show GLoginData;
 import 'package:botsta_app/graphql/login.req.gql.dart' show GLoginReq;
 import 'package:botsta_app/graphql/login.var.gql.dart' show GLoginVars;
+import 'package:botsta_app/graphql/message-subscription.data.gql.dart'
+    show GMessageSubscriptionData, GMessageSubscriptionData_messageReceived;
+import 'package:botsta_app/graphql/message-subscription.req.gql.dart'
+    show GMessageSubscriptionReq;
+import 'package:botsta_app/graphql/message-subscription.var.gql.dart'
+    show GMessageSubscriptionVars;
 import 'package:botsta_app/graphql/post-message.data.gql.dart'
     show GPostMessageData, GPostMessageData_postMessage;
 import 'package:botsta_app/graphql/post-message.req.gql.dart'
@@ -50,6 +56,10 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GLoginData,
   GLoginReq,
   GLoginVars,
+  GMessageSubscriptionData,
+  GMessageSubscriptionData_messageReceived,
+  GMessageSubscriptionReq,
+  GMessageSubscriptionVars,
   GPostMessageData,
   GPostMessageData_postMessage,
   GPostMessageReq,

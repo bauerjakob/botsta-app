@@ -1,11 +1,17 @@
+import 'dart:async';
+
 import 'package:botsta_app/constants/constants.dart';
 import 'package:botsta_app/graphql/chatroom-messages.req.gql.dart';
 import 'package:botsta_app/graphql/chatrooms.data.gql.dart';
 import 'package:botsta_app/graphql/chatrooms.req.gql.dart';
 import 'package:botsta_app/graphql/login.req.gql.dart';
+import 'package:botsta_app/graphql/message-subscription.data.gql.dart';
+import 'package:botsta_app/graphql/message-subscription.req.gql.dart';
+import 'package:botsta_app/graphql/message-subscription.var.gql.dart';
 import 'package:botsta_app/graphql/post-message.req.gql.dart';
 import 'package:botsta_app/logic/bloc/authentication_bloc.dart';
 import 'package:botsta_app/logic/bloc/graphql_bloc.dart';
+import 'package:botsta_app/logic/bloc/message_bloc.dart';
 import 'package:botsta_app/models/authentication_state.dart';
 import 'package:botsta_app/models/chatroom.dart';
 import 'package:botsta_app/models/message.dart';
@@ -14,10 +20,12 @@ import 'package:ferry/ferry.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
 import 'package:botsta_app/utils/extentions/graphql_extentions.dart';
+import 'package:provider/provider.dart';
 
 import '../startup.dart';
 
 class BotstaApiClient {
+  StreamSubscription? _messageSubscription;
 
   Future<bool> loginUserAsync(String username, String password) async {
     var secureStorage = getIt.get<SecureStorageService>();
@@ -72,6 +80,72 @@ class BotstaApiClient {
       return Message(id, message,senderId, chatroomId, true);
     }
     return null;
+  }
+
+  Future messageSubscription() async{
+    var client = await getIt.getAsync<Client>();
+    var secureStorage = getIt.get<SecureStorageService>();
+    var token = await secureStorage.jwtToken;
+
+
+
+    if (_messageSubscription != null) {
+      _messageSubscription!.cancel();
+    }
+    _messageSubscription = client.request(GMessageSubscriptionReq((b) => b..vars.token = token)).listen((event) {
+       var data = event.data?.messageReceived;
+        if (data != null) {
+          var msg = Message(data.id, data.message, data.senderId, data.chatroomId, data.senderIsMe ?? false);
+          getIt.get<MessageBloc>().add(AppendMessageEvent(msg));
+        }
+     });
+    
+    
+    
+    
+    
+    
+
+    // var secureStorage = getIt.get<SecureStorageService>();
+    // var jwtToken = await secureStorage.jwtToken;
+
+    //     AuthLink? authLink;
+
+    // if (jwtToken != null) {
+    //   authLink = AuthLink(
+    //     getToken: () async => 'Bearer $jwtToken',
+    //   );
+    // }
+
+    // final httpLink = HttpLink(
+    //   AppConstants.BOTSTA_ENDPOINT,
+    // );
+
+    // var link = authLink != null ? authLink.concat(httpLink) : httpLink;
+
+    // final websocketLink = WebSocketLink(AppConstants.BOTSTA_ENDPOINT_WEBSOCKET);
+    // link = Link.split((request) => request.isSubscription, websocketLink, link);
+    
+    // var client = GraphQLClient(link: link, cache: GraphQLCache());
+    // client.subscribe(SubscriptionOptions(document: gql('''
+    //     subscription MessageSubscription {
+    //       messageReceived(token: "$jwtToken") {
+    //           message,
+    //           chatroomId,
+    //           senderId,
+    //           senderIsMe,
+    //           id
+    //         }
+    //       }
+    // '''))).listen((event) { 
+    //   print('event');
+    // });
+  }
+
+  void dispose() {
+    if (_messageSubscription != null) {
+      _messageSubscription!.pause();
+    }
   }
 
 }

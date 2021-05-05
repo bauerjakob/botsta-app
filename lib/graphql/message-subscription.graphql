@@ -1,0 +1,9 @@
+subscription MessageSubscription($token: String!) {
+  messageReceived(token: $token) {
+    message,
+  	chatroomId,
+  	senderId,
+  	senderIsMe,
+  	id
+  }
+}

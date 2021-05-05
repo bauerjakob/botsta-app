@@ -24,9 +24,9 @@ class ChatScreen extends StatelessWidget {
               builder: (context, state) {
                 return ListView.builder(
                     reverse: true,
-                    itemCount: state.messages.length,
+                    itemCount: state.messages[chatroom.id]?.length ?? 0,
                     itemBuilder: (context, item) {
-                      var message = state.messages[item];
+                      var message = state.messages[chatroom.id]![item];
                       return ChatMessage(message);
                     });
               },

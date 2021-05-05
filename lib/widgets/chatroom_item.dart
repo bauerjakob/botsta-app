@@ -28,7 +28,7 @@ class ChatroomItem extends StatelessWidget {
         child: Row(children: [
           CircleAvatar(
             radius: 27,
-            child: Text(chatroom.name!.substring(0, 2)),
+            child: Text(chatroom.name.substring(0, 2)),
           ),
           SizedBox(width: 10),
           Column(

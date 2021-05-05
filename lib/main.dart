@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
                 _chatroomBloc),
         BlocProvider<MessageBloc>(
             create: (context) =>
-                MessageBloc()),
+                getIt.get<MessageBloc>()..add(InitialMessageEvent())),
       ],
       child: BlocBuilder<LocalizationBloc, LocalizationState>(
         builder: (context, langState) {
