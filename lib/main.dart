@@ -6,6 +6,7 @@ import 'package:botsta_app/config/routes/routes_config.dart';
 import 'package:botsta_app/config/themes/bloc/theme_bloc.dart';
 import 'package:botsta_app/logic/bloc/chatroom_bloc.dart';
 import 'package:botsta_app/logic/bloc/message_bloc.dart';
+import 'package:botsta_app/logic/cubit/logged_in_user_cubit.dart';
 import 'package:botsta_app/models/authentication_state.dart';
 import 'package:botsta_app/models/chatroom.dart';
 import 'package:botsta_app/models/message.dart';
@@ -29,14 +30,13 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   MyApp();
-  var _chatroomBloc = ChatroomBloc();
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthenticationBloc>(
             create: (context) =>
-                AuthenticationBloc(_chatroomBloc)..add(InitialAuthenticationEvent())),
+                AuthenticationBloc()..add(InitialAuthenticationEvent())),
         BlocProvider<ThemeBloc>(
             create: (context) => ThemeBloc()..add(ThemeEventInitial())),
         BlocProvider<LocalizationBloc>(
@@ -44,10 +44,13 @@ class MyApp extends StatelessWidget {
                 LocalizationBloc()..add(InitialLocalizationEvent())),
         BlocProvider<ChatroomBloc>(
             create: (context) =>
-                _chatroomBloc),
+                getIt.get<ChatroomBloc>()),
         BlocProvider<MessageBloc>(
             create: (context) =>
-                getIt.get<MessageBloc>()..add(InitialMessageEvent())),
+                getIt.get<MessageBloc>()),
+        BlocProvider<LoggedInUserCubit>(
+            create: (context) =>
+                getIt.get<LoggedInUserCubit>()),
       ],
       child: BlocBuilder<LocalizationBloc, LocalizationState>(
         builder: (context, langState) {

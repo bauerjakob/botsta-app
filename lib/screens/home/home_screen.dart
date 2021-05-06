@@ -1,6 +1,5 @@
 import 'package:botsta_app/config/routes/routes_config.dart';
 import 'package:botsta_app/logic/bloc/chatroom_bloc.dart';
-import 'package:botsta_app/logic/bloc/graphql_bloc.dart';
 import 'package:botsta_app/models/chatroom.dart';
 import 'package:botsta_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';

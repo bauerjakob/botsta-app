@@ -5,8 +5,7 @@ query GetChatroomMessages($chatroomId: String!){
       messages {
         id,
         message,
-        senderId,
-        senderIsMe
+        senderId
       }
   }
 }

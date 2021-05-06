@@ -48,7 +48,6 @@ abstract class GMessageSubscriptionData_messageReceived
   String get message;
   String get chatroomId;
   String get senderId;
-  bool? get senderIsMe;
   String get id;
   static Serializer<GMessageSubscriptionData_messageReceived> get serializer =>
       _$gMessageSubscriptionDataMessageReceivedSerializer;

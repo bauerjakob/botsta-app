@@ -16,6 +16,12 @@ import 'package:botsta_app/graphql/chatrooms.req.gql.dart'
     show GGetChatroomsReq;
 import 'package:botsta_app/graphql/chatrooms.var.gql.dart'
     show GGetChatroomsVars;
+import 'package:botsta_app/graphql/logged-in-user.data.gql.dart'
+    show GLoggedInUserData, GLoggedInUserData_whoami;
+import 'package:botsta_app/graphql/logged-in-user.req.gql.dart'
+    show GLoggedInUserReq;
+import 'package:botsta_app/graphql/logged-in-user.var.gql.dart'
+    show GLoggedInUserVars;
 import 'package:botsta_app/graphql/login.data.gql.dart'
     show GLoginData, GLoginData_login;
 import 'package:botsta_app/graphql/login.req.gql.dart' show GLoginReq;
@@ -62,6 +68,10 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GGetChatroomsData_chatrooms_latestMessage,
   GGetChatroomsReq,
   GGetChatroomsVars,
+  GLoggedInUserData,
+  GLoggedInUserData_whoami,
+  GLoggedInUserReq,
+  GLoggedInUserVars,
   GLoginData,
   GLoginData_login,
   GLoginReq,

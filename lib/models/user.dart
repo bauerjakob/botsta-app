@@ -1,4 +1,5 @@
 class User {
-  String? id;
-  String? name;
+  const User(this.id, this.name);
+  final String id;
+  final String name;
 }

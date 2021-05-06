@@ -180,14 +180,7 @@ class _$GGetChatroomMessagesData_chatroom_messagesSerializer
       serializers.serialize(object.senderId,
           specifiedType: const FullType(String)),
     ];
-    Object? value;
-    value = object.senderIsMe;
-    if (value != null) {
-      result
-        ..add('senderIsMe')
-        ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
-    }
+
     return result;
   }
 
@@ -218,10 +211,6 @@ class _$GGetChatroomMessagesData_chatroom_messagesSerializer
         case 'senderId':
           result.senderId = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
-          break;
-        case 'senderIsMe':
-          result.senderIsMe = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
           break;
       }
     }
@@ -495,8 +484,6 @@ class _$GGetChatroomMessagesData_chatroom_messages
   final String message;
   @override
   final String senderId;
-  @override
-  final bool? senderIsMe;
 
   factory _$GGetChatroomMessagesData_chatroom_messages(
           [void Function(GGetChatroomMessagesData_chatroom_messagesBuilder)?
@@ -508,8 +495,7 @@ class _$GGetChatroomMessagesData_chatroom_messages
       {required this.G__typename,
       required this.id,
       required this.message,
-      required this.senderId,
-      this.senderIsMe})
+      required this.senderId})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(G__typename,
         'GGetChatroomMessagesData_chatroom_messages', 'G__typename');
@@ -538,18 +524,14 @@ class _$GGetChatroomMessagesData_chatroom_messages
         G__typename == other.G__typename &&
         id == other.id &&
         message == other.message &&
-        senderId == other.senderId &&
-        senderIsMe == other.senderIsMe;
+        senderId == other.senderId;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc(
-            $jc($jc($jc(0, G__typename.hashCode), id.hashCode),
-                message.hashCode),
-            senderId.hashCode),
-        senderIsMe.hashCode));
+        $jc($jc($jc(0, G__typename.hashCode), id.hashCode), message.hashCode),
+        senderId.hashCode));
   }
 
   @override
@@ -559,8 +541,7 @@ class _$GGetChatroomMessagesData_chatroom_messages
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('message', message)
-          ..add('senderId', senderId)
-          ..add('senderIsMe', senderIsMe))
+          ..add('senderId', senderId))
         .toString();
   }
 }
@@ -587,10 +568,6 @@ class GGetChatroomMessagesData_chatroom_messagesBuilder
   String? get senderId => _$this._senderId;
   set senderId(String? senderId) => _$this._senderId = senderId;
 
-  bool? _senderIsMe;
-  bool? get senderIsMe => _$this._senderIsMe;
-  set senderIsMe(bool? senderIsMe) => _$this._senderIsMe = senderIsMe;
-
   GGetChatroomMessagesData_chatroom_messagesBuilder() {
     GGetChatroomMessagesData_chatroom_messages._initializeBuilder(this);
   }
@@ -602,7 +579,6 @@ class GGetChatroomMessagesData_chatroom_messagesBuilder
       _id = $v.id;
       _message = $v.message;
       _senderId = $v.senderId;
-      _senderIsMe = $v.senderIsMe;
       _$v = null;
     }
     return this;
@@ -632,8 +608,7 @@ class GGetChatroomMessagesData_chatroom_messagesBuilder
             message: BuiltValueNullFieldError.checkNotNull(message,
                 'GGetChatroomMessagesData_chatroom_messages', 'message'),
             senderId: BuiltValueNullFieldError.checkNotNull(senderId,
-                'GGetChatroomMessagesData_chatroom_messages', 'senderId'),
-            senderIsMe: senderIsMe);
+                'GGetChatroomMessagesData_chatroom_messages', 'senderId'));
     replace(_$result);
     return _$result;
   }

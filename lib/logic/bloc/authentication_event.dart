@@ -12,4 +12,7 @@ class InitialAuthenticationEvent extends AuthenticationEvent {}
 class UpdateAuthenticationEvent extends AuthenticationEvent {
   final AuthState state;
   const UpdateAuthenticationEvent(this.state);
+
+  @override
+  List<Object> get props => [state];
 }

@@ -36,7 +36,6 @@ type GraphMessageType {
   id: ID!
   message: String!
   senderId: ID!
-  senderIsMe: Boolean
   sendTime: DateTimeOffset!
 }
 

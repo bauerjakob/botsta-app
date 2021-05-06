@@ -1,0 +1,6 @@
+query LoggedInUser { 
+    whoami {
+        id
+        username
+    }
+}

@@ -4,17 +4,19 @@ import 'package:botsta_app/constants/constants.dart';
 import 'package:botsta_app/graphql/chatroom-messages.req.gql.dart';
 import 'package:botsta_app/graphql/chatrooms.data.gql.dart';
 import 'package:botsta_app/graphql/chatrooms.req.gql.dart';
+import 'package:botsta_app/graphql/logged-in-user.req.gql.dart';
 import 'package:botsta_app/graphql/login.req.gql.dart';
 import 'package:botsta_app/graphql/message-subscription.data.gql.dart';
 import 'package:botsta_app/graphql/message-subscription.req.gql.dart';
 import 'package:botsta_app/graphql/message-subscription.var.gql.dart';
 import 'package:botsta_app/graphql/post-message.req.gql.dart';
 import 'package:botsta_app/logic/bloc/authentication_bloc.dart';
-import 'package:botsta_app/logic/bloc/graphql_bloc.dart';
 import 'package:botsta_app/logic/bloc/message_bloc.dart';
+import 'package:botsta_app/logic/cubit/logged_in_user_cubit.dart';
 import 'package:botsta_app/models/authentication_state.dart';
 import 'package:botsta_app/models/chatroom.dart';
 import 'package:botsta_app/models/message.dart';
+import 'package:botsta_app/models/user.dart';
 import 'package:botsta_app/services/secure_storage_service.dart';
 import 'package:ferry/ferry.dart';
 import 'package:flutter/material.dart';
@@ -46,6 +48,17 @@ class BotstaApiClient {
     }
   }
 
+  Future<User?> getLoggedInUserAsync() async {
+    var client = await getIt.getAsync<Client>();
+    var res = await client.requestFirst(GLoggedInUserReq());
+    if (!res.hasErrors && res.data?.whoami != null) {
+      var data = res.data!.whoami;
+      return new User(data!.id, data.username);
+    }
+
+    return null;
+  }
+
   Future<Iterable<Chatroom>?> getChatroomsAsync() async {
     var client = await getIt.getAsync<Client>();
     var res = await client.requestFirst(GGetChatroomsReq());
@@ -68,7 +81,8 @@ class BotstaApiClient {
 
     if (res.data?.chatroom?.messages != null) {
       var chatroomId = res.data!.chatroom!.id;
-      return res.data!.chatroom!.messages!.map((m) => Message(m.id, m.message, m.senderId, chatroomId, m.senderIsMe!));
+      var userCubit = getIt.get<LoggedInUserCubit>();
+      return res.data!.chatroom!.messages!.map((m) => Message(m.id, m.message, m.senderId, chatroomId, m.senderId == userCubit.state.loggedInUser!.id));
     }
     return null;
   }
@@ -97,9 +111,13 @@ class BotstaApiClient {
     _messageSubscription = client.request(GMessageSubscriptionReq((b) => b..vars.refreshToken = refreshToken)).listen((event) {
        var data = event.data?.messageReceived;
         if (data != null) {
-          var msg = Message(data.id, data.message, data.senderId, data.chatroomId, data.senderIsMe ?? false);
+          var userCubit = getIt.get<LoggedInUserCubit>();
+          var msg = Message(data.id, data.message, data.senderId, data.chatroomId, data.senderId ==  userCubit.state.loggedInUser!.id);
           getIt.get<MessageBloc>().add(AppendMessageEvent(msg));
         }
+     },
+     onError: (err) {
+       print('error');
      });
   }
 

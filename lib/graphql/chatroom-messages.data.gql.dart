@@ -77,7 +77,6 @@ abstract class GGetChatroomMessagesData_chatroom_messages
   String get id;
   String get message;
   String get senderId;
-  bool? get senderIsMe;
   static Serializer<GGetChatroomMessagesData_chatroom_messages>
       get serializer => _$gGetChatroomMessagesDataChatroomMessagesSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(

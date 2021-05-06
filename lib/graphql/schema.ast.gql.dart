@@ -146,12 +146,6 @@ const GraphMessageType = _i1.ObjectTypeDefinitionNode(
           type: _i1.NamedTypeNode(
               name: _i1.NameNode(value: 'ID'), isNonNull: true)),
       _i1.FieldDefinitionNode(
-          name: _i1.NameNode(value: 'senderIsMe'),
-          directives: [],
-          args: [],
-          type: _i1.NamedTypeNode(
-              name: _i1.NameNode(value: 'Boolean'), isNonNull: false)),
-      _i1.FieldDefinitionNode(
           name: _i1.NameNode(value: 'sendTime'),
           directives: [],
           args: [],

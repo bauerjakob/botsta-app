@@ -102,14 +102,7 @@ class _$GMessageSubscriptionData_messageReceivedSerializer
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
     ];
-    Object? value;
-    value = object.senderIsMe;
-    if (value != null) {
-      result
-        ..add('senderIsMe')
-        ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
-    }
+
     return result;
   }
 
@@ -140,10 +133,6 @@ class _$GMessageSubscriptionData_messageReceivedSerializer
         case 'senderId':
           result.senderId = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
-          break;
-        case 'senderIsMe':
-          result.senderIsMe = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
           break;
         case 'id':
           result.id = serializers.deserialize(value,
@@ -282,8 +271,6 @@ class _$GMessageSubscriptionData_messageReceived
   @override
   final String senderId;
   @override
-  final bool? senderIsMe;
-  @override
   final String id;
 
   factory _$GMessageSubscriptionData_messageReceived(
@@ -297,7 +284,6 @@ class _$GMessageSubscriptionData_messageReceived
       required this.message,
       required this.chatroomId,
       required this.senderId,
-      this.senderIsMe,
       required this.id})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
@@ -330,7 +316,6 @@ class _$GMessageSubscriptionData_messageReceived
         message == other.message &&
         chatroomId == other.chatroomId &&
         senderId == other.senderId &&
-        senderIsMe == other.senderIsMe &&
         id == other.id;
   }
 
@@ -338,11 +323,9 @@ class _$GMessageSubscriptionData_messageReceived
   int get hashCode {
     return $jf($jc(
         $jc(
-            $jc(
-                $jc($jc($jc(0, G__typename.hashCode), message.hashCode),
-                    chatroomId.hashCode),
-                senderId.hashCode),
-            senderIsMe.hashCode),
+            $jc($jc($jc(0, G__typename.hashCode), message.hashCode),
+                chatroomId.hashCode),
+            senderId.hashCode),
         id.hashCode));
   }
 
@@ -354,7 +337,6 @@ class _$GMessageSubscriptionData_messageReceived
           ..add('message', message)
           ..add('chatroomId', chatroomId)
           ..add('senderId', senderId)
-          ..add('senderIsMe', senderIsMe)
           ..add('id', id))
         .toString();
   }
@@ -382,10 +364,6 @@ class GMessageSubscriptionData_messageReceivedBuilder
   String? get senderId => _$this._senderId;
   set senderId(String? senderId) => _$this._senderId = senderId;
 
-  bool? _senderIsMe;
-  bool? get senderIsMe => _$this._senderIsMe;
-  set senderIsMe(bool? senderIsMe) => _$this._senderIsMe = senderIsMe;
-
   String? _id;
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
@@ -401,7 +379,6 @@ class GMessageSubscriptionData_messageReceivedBuilder
       _message = $v.message;
       _chatroomId = $v.chatroomId;
       _senderId = $v.senderId;
-      _senderIsMe = $v.senderIsMe;
       _id = $v.id;
       _$v = null;
     }
@@ -432,7 +409,6 @@ class GMessageSubscriptionData_messageReceivedBuilder
                 'GMessageSubscriptionData_messageReceived', 'chatroomId'),
             senderId: BuiltValueNullFieldError.checkNotNull(senderId,
                 'GMessageSubscriptionData_messageReceived', 'senderId'),
-            senderIsMe: senderIsMe,
             id: BuiltValueNullFieldError.checkNotNull(
                 id, 'GMessageSubscriptionData_messageReceived', 'id'));
     replace(_$result);

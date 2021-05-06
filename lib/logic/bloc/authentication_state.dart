@@ -2,7 +2,6 @@ part of 'authentication_bloc.dart';
 
 class AuthenticationState extends Equatable {
   final AuthState state;
-
   const AuthenticationState(this.state);
   
   @override
