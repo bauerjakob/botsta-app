@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     switch (_currentPageIndex) {
       case 0:
-        title = context.translate('HOME.title');
+        title = context.translate('CHATROOMS.title');
         action = AppBarActionButton(
                 Icon(
                   Icons.add,

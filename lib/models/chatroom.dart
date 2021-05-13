@@ -1,6 +1,8 @@
+import 'message.dart';
+
 class Chatroom {
   Chatroom(this.id, this.name, [this.latestMessage]);
-  String id;
-  String name;
-  String? latestMessage;
+  final String id;
+  final String name;
+  Message? latestMessage;
 }

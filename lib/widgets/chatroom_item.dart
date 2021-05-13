@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:botsta_app/config/routes/routes_config.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:botsta_app/utils/extentions/context_extensions.dart';
+import 'package:botsta_app/utils/extentions/datetime_extentions.dart';
 
 class ChatroomItem extends StatelessWidget {
   final Chatroom chatroom;
@@ -71,14 +72,14 @@ class ChatroomItem extends StatelessWidget {
                         style: context.textTheme().subtitle2,
                       ),
                       Text(
-                        'today',
+                        chatroom.latestMessage?.sendTime.toTimeString() ?? '',
                         style: TextStyle(fontWeight: FontWeight.w600),
                       ),
                     ],
                   ),
                   SizedBox(height: 4),
                   Text(
-                    chatroom.latestMessage ?? "",
+                    chatroom.latestMessage?.text ?? '',
                     overflow: TextOverflow.ellipsis,
                     style: context.textTheme().bodyText2,
                     maxLines: 2,

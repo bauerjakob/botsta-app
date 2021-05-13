@@ -35,6 +35,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
       if (event.state == AuthState.Authenticated) {
         getIt.get<ChatroomBloc>().add(new InitialChatroomEvent());
         getIt.get<MessageBloc>().add(new InitialMessageEvent());
+        await getIt.get<LoggedInUserCubit>().getLoggedInUserAsync();
       }
 
       if (event.state == AuthState.Unauthenticated) {

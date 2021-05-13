@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+import 'package:botsta_app/logic/bloc/chatroom_bloc.dart';
 import 'package:botsta_app/models/message.dart';
 import 'package:botsta_app/repositories/botsta_api_client.dart';
 import 'package:equatable/equatable.dart';
@@ -30,8 +31,8 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
       yield MessageState(msgMap);
     } else if (event is AppendMessageEvent) {
       var msgMap = _addMessageToState(event.message);
-      print(state.messages == msgMap);
       yield MessageState(msgMap);
+      getIt.get<ChatroomBloc>()..add(UpdateLatestChatroomMessageEvent(event.message));
     }
   }
 

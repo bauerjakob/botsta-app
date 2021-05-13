@@ -8,3 +8,12 @@ abstract class ChatroomEvent extends Equatable {
 }
 
 class InitialChatroomEvent extends ChatroomEvent {}
+
+class UpdateLatestChatroomMessageEvent extends ChatroomEvent {
+  final Message message;
+
+  const UpdateLatestChatroomMessageEvent(this.message);
+
+  @override
+  List<Object> get props => [this.message];
+}

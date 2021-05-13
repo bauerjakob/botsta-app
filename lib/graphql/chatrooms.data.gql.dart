@@ -73,6 +73,7 @@ abstract class GGetChatroomsData_chatrooms_latestMessage
   String get id;
   String get message;
   _i2.GDateTimeOffset get sendTime;
+  String get senderId;
   static Serializer<GGetChatroomsData_chatrooms_latestMessage> get serializer =>
       _$gGetChatroomsDataChatroomsLatestMessageSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
