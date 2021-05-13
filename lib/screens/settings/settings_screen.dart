@@ -11,11 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(context.translate('SETTINGS.title')),
-      ),
-      body: Container(
+    return Container(
         child: ListView(
           children: [
             Text(context.translate('SETTINGS.theme.title')),
@@ -53,7 +49,6 @@ class SettingsScreen extends StatelessWidget {
             },)
           ],
         ),
-      ),
     );
   }
 }

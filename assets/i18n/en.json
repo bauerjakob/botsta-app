@@ -1,9 +1,9 @@
 {
-    "HOME": {
+    "CHATROOMS": {
         "title": "Botsta"
     },
-    "CHAT": {
-        "hintText": "Type message here"
+    "BOTS": {
+        "title": "Your Bots"
     },
     "SETTINGS": {
         "title": "Settings",
@@ -18,5 +18,8 @@
             "dark": "Dark"
         },
         "logout": "Logout"
+    },
+    "CHAT": {
+        "hintText": "Type message here"
     }
 }
