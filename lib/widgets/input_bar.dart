@@ -1,6 +1,6 @@
 import 'package:botsta_app/logic/bloc/message_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:botsta_app/utils/extentions/context_extentions.dart';
+import 'package:botsta_app/utils/extentions/context_extensions.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 

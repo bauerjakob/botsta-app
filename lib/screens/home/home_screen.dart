@@ -7,7 +7,7 @@ import 'package:botsta_app/widgets/app_bar_action_button.dart';
 import 'package:botsta_app/widgets/widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:botsta_app/utils/extentions/context_extentions.dart';
+import 'package:botsta_app/utils/extentions/context_extensions.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 

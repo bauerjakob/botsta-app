@@ -5,7 +5,7 @@ import 'package:botsta_app/logic/bloc/authentication_bloc.dart';
 import 'package:botsta_app/models/authentication_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:botsta_app/utils/extentions/context_extentions.dart';
+import 'package:botsta_app/utils/extentions/context_extensions.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingsScreen extends StatelessWidget {

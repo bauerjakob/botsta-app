@@ -11,7 +11,7 @@ import 'package:botsta_app/models/authentication_state.dart';
 import 'package:botsta_app/models/chatroom.dart';
 import 'package:botsta_app/models/message.dart';
 import 'package:botsta_app/startup.dart';
-import 'package:botsta_app/utils/extentions/context_extentions.dart';
+import 'package:botsta_app/utils/extentions/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
