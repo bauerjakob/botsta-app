@@ -38,6 +38,7 @@ dependencies:
   gql_http_link:
   jwt_decoder: ^2.0.1
   google_fonts: ^2.0.0
+  modal_bottom_sheet: ^2.0.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
