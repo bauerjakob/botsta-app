@@ -63,8 +63,7 @@ class MyApp extends StatelessWidget {
                 title: 'Botsta',
                 debugShowCheckedModeBanner: false,
                 theme: themeState.themeData,
-                onGenerateRoute: RoutesConfig.ROUTER.generator,
-                navigatorKey: GlobalKey<NavigatorState>(),
+                onGenerateRoute: RoutesConfig.ROUTER.generator
               );
             },
           );

@@ -10,6 +10,10 @@ extension ContextExtentions on BuildContext {
     return Theme.of(this);
   }
 
+  TextTheme textTheme() {
+    return Theme.of(this).textTheme;
+  }
+
   double screenWidth() {
     return MediaQuery.of(this).size.width;
   }

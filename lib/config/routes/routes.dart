@@ -16,9 +16,9 @@ class Routes {
       print("ROUTE WAS NOT FOUND !!!");
       return;
     });
-    router.define(SPLASH, handler: splashHandler);
-    router.define(HOME, handler: homeHandler);
-    router.define(LOGIN, handler: loginHandler);
+    router.define(SPLASH, handler: splashHandler, transitionType: TransitionType.none);
+    router.define(HOME, handler: homeHandler, transitionType: TransitionType.none);
+    router.define(LOGIN, handler: loginHandler, transitionType: TransitionType.none);
     router.define(CHAT, handler: chatHandler, transitionType: TransitionType.cupertino);
     router.define(SETTINGS, handler: settingsHandler, transitionType: TransitionType.cupertino);
   }

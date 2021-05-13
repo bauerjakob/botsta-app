@@ -27,10 +27,20 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     AuthenticationEvent event,
   ) async* {
     if (event is InitialAuthenticationEvent) {
-      yield AuthenticationState(AuthState.Unauthenticated);
+      yield AuthenticationState(AuthState.Unknown);
     }
     if (event is UpdateAuthenticationEvent) {
       yield AuthenticationState(event.state);
+
+      if (event.state == AuthState.Authenticated) {
+        getIt.get<ChatroomBloc>().add(new InitialChatroomEvent());
+        getIt.get<MessageBloc>().add(new InitialMessageEvent());
+      }
+
+      if (event.state == AuthState.Unauthenticated) {
+        await getIt.get<SecureStorageService>().setRefreshToken(null);
+        await getIt.get<SecureStorageService>().setToken(null);
+      }
     }
   }
 
@@ -41,8 +51,6 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
       var user = await getIt.get<LoggedInUserCubit>().getLoggedInUserAsync();
       if (user != null) {
         emit(AuthenticationState(AuthState.Authenticated));
-        getIt.get<ChatroomBloc>().add(new InitialChatroomEvent());
-        getIt.get<MessageBloc>().add(new InitialMessageEvent());
       }
     } else {
       emit(AuthenticationState(AuthState.Unauthenticated));
