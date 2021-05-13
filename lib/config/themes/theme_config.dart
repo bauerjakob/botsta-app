@@ -19,6 +19,11 @@ final themeConfigs = {
           fontSize: 35,
           color: _primaryColor
         ),
+        headline2: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 25,
+          color: _primaryColor
+        ),
         subtitle2: TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 19,

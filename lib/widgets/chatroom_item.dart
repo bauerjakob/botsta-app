@@ -3,7 +3,7 @@ import 'package:botsta_app/models/chatroom.dart';
 import 'package:flutter/material.dart';
 import 'package:botsta_app/config/routes/routes_config.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:botsta_app/utils/extentions/context_extentions.dart';
+import 'package:botsta_app/utils/extentions/context_extensions.dart';
 
 class ChatroomItem extends StatelessWidget {
   final Chatroom chatroom;
@@ -71,7 +71,7 @@ class ChatroomItem extends StatelessWidget {
                         style: context.textTheme().subtitle2,
                       ),
                       Text(
-                        "today",
+                        'today',
                         style: TextStyle(fontWeight: FontWeight.w600),
                       ),
                     ],

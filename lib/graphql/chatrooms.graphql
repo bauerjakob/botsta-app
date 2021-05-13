@@ -3,7 +3,8 @@ query GetChatrooms {
 	id,
     latestMessage {
         id, 
-        message
+        message,
+        sendTime
     },
   	name,
   	type

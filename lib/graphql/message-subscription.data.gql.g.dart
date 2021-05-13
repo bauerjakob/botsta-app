@@ -101,6 +101,9 @@ class _$GMessageSubscriptionData_messageReceivedSerializer
           specifiedType: const FullType(String)),
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'sendTime',
+      serializers.serialize(object.sendTime,
+          specifiedType: const FullType(_i2.GDateTimeOffset)),
     ];
 
     return result;
@@ -137,6 +140,11 @@ class _$GMessageSubscriptionData_messageReceivedSerializer
         case 'id':
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
+          break;
+        case 'sendTime':
+          result.sendTime.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(_i2.GDateTimeOffset))!
+              as _i2.GDateTimeOffset);
           break;
       }
     }
@@ -272,6 +280,8 @@ class _$GMessageSubscriptionData_messageReceived
   final String senderId;
   @override
   final String id;
+  @override
+  final _i2.GDateTimeOffset sendTime;
 
   factory _$GMessageSubscriptionData_messageReceived(
           [void Function(GMessageSubscriptionData_messageReceivedBuilder)?
@@ -284,7 +294,8 @@ class _$GMessageSubscriptionData_messageReceived
       required this.message,
       required this.chatroomId,
       required this.senderId,
-      required this.id})
+      required this.id,
+      required this.sendTime})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, 'GMessageSubscriptionData_messageReceived', 'G__typename');
@@ -296,6 +307,8 @@ class _$GMessageSubscriptionData_messageReceived
         senderId, 'GMessageSubscriptionData_messageReceived', 'senderId');
     BuiltValueNullFieldError.checkNotNull(
         id, 'GMessageSubscriptionData_messageReceived', 'id');
+    BuiltValueNullFieldError.checkNotNull(
+        sendTime, 'GMessageSubscriptionData_messageReceived', 'sendTime');
   }
 
   @override
@@ -316,17 +329,20 @@ class _$GMessageSubscriptionData_messageReceived
         message == other.message &&
         chatroomId == other.chatroomId &&
         senderId == other.senderId &&
-        id == other.id;
+        id == other.id &&
+        sendTime == other.sendTime;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
         $jc(
-            $jc($jc($jc(0, G__typename.hashCode), message.hashCode),
-                chatroomId.hashCode),
-            senderId.hashCode),
-        id.hashCode));
+            $jc(
+                $jc($jc($jc(0, G__typename.hashCode), message.hashCode),
+                    chatroomId.hashCode),
+                senderId.hashCode),
+            id.hashCode),
+        sendTime.hashCode));
   }
 
   @override
@@ -337,7 +353,8 @@ class _$GMessageSubscriptionData_messageReceived
           ..add('message', message)
           ..add('chatroomId', chatroomId)
           ..add('senderId', senderId)
-          ..add('id', id))
+          ..add('id', id)
+          ..add('sendTime', sendTime))
         .toString();
   }
 }
@@ -368,6 +385,12 @@ class GMessageSubscriptionData_messageReceivedBuilder
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
 
+  _i2.GDateTimeOffsetBuilder? _sendTime;
+  _i2.GDateTimeOffsetBuilder get sendTime =>
+      _$this._sendTime ??= new _i2.GDateTimeOffsetBuilder();
+  set sendTime(_i2.GDateTimeOffsetBuilder? sendTime) =>
+      _$this._sendTime = sendTime;
+
   GMessageSubscriptionData_messageReceivedBuilder() {
     GMessageSubscriptionData_messageReceived._initializeBuilder(this);
   }
@@ -380,6 +403,7 @@ class GMessageSubscriptionData_messageReceivedBuilder
       _chatroomId = $v.chatroomId;
       _senderId = $v.senderId;
       _id = $v.id;
+      _sendTime = $v.sendTime.toBuilder();
       _$v = null;
     }
     return this;
@@ -399,18 +423,36 @@ class GMessageSubscriptionData_messageReceivedBuilder
 
   @override
   _$GMessageSubscriptionData_messageReceived build() {
-    final _$result = _$v ??
-        new _$GMessageSubscriptionData_messageReceived._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                'GMessageSubscriptionData_messageReceived', 'G__typename'),
-            message: BuiltValueNullFieldError.checkNotNull(
-                message, 'GMessageSubscriptionData_messageReceived', 'message'),
-            chatroomId: BuiltValueNullFieldError.checkNotNull(chatroomId,
-                'GMessageSubscriptionData_messageReceived', 'chatroomId'),
-            senderId: BuiltValueNullFieldError.checkNotNull(senderId,
-                'GMessageSubscriptionData_messageReceived', 'senderId'),
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, 'GMessageSubscriptionData_messageReceived', 'id'));
+    _$GMessageSubscriptionData_messageReceived _$result;
+    try {
+      _$result = _$v ??
+          new _$GMessageSubscriptionData_messageReceived._(
+              G__typename:
+                  BuiltValueNullFieldError.checkNotNull(G__typename,
+                      'GMessageSubscriptionData_messageReceived', 'G__typename'),
+              message: BuiltValueNullFieldError.checkNotNull(message,
+                  'GMessageSubscriptionData_messageReceived', 'message'),
+              chatroomId:
+                  BuiltValueNullFieldError.checkNotNull(chatroomId,
+                      'GMessageSubscriptionData_messageReceived', 'chatroomId'),
+              senderId: BuiltValueNullFieldError.checkNotNull(senderId,
+                  'GMessageSubscriptionData_messageReceived', 'senderId'),
+              id: BuiltValueNullFieldError.checkNotNull(
+                  id, 'GMessageSubscriptionData_messageReceived', 'id'),
+              sendTime: sendTime.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'sendTime';
+        sendTime.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            'GMessageSubscriptionData_messageReceived',
+            _$failedField,
+            e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

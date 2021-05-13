@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+import 'package:botsta_app/graphql/schema.schema.gql.dart' as _i2;
 import 'package:botsta_app/graphql/serializers.gql.dart' as _i1;
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -49,6 +50,7 @@ abstract class GMessageSubscriptionData_messageReceived
   String get chatroomId;
   String get senderId;
   String get id;
+  _i2.GDateTimeOffset get sendTime;
   static Serializer<GMessageSubscriptionData_messageReceived> get serializer =>
       _$gMessageSubscriptionDataMessageReceivedSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(

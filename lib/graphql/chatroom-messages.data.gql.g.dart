@@ -179,6 +179,9 @@ class _$GGetChatroomMessagesData_chatroom_messagesSerializer
       'senderId',
       serializers.serialize(object.senderId,
           specifiedType: const FullType(String)),
+      'sendTime',
+      serializers.serialize(object.sendTime,
+          specifiedType: const FullType(_i2.GDateTimeOffset)),
     ];
 
     return result;
@@ -211,6 +214,11 @@ class _$GGetChatroomMessagesData_chatroom_messagesSerializer
         case 'senderId':
           result.senderId = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
+          break;
+        case 'sendTime':
+          result.sendTime.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(_i2.GDateTimeOffset))!
+              as _i2.GDateTimeOffset);
           break;
       }
     }
@@ -484,6 +492,8 @@ class _$GGetChatroomMessagesData_chatroom_messages
   final String message;
   @override
   final String senderId;
+  @override
+  final _i2.GDateTimeOffset sendTime;
 
   factory _$GGetChatroomMessagesData_chatroom_messages(
           [void Function(GGetChatroomMessagesData_chatroom_messagesBuilder)?
@@ -495,7 +505,8 @@ class _$GGetChatroomMessagesData_chatroom_messages
       {required this.G__typename,
       required this.id,
       required this.message,
-      required this.senderId})
+      required this.senderId,
+      required this.sendTime})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(G__typename,
         'GGetChatroomMessagesData_chatroom_messages', 'G__typename');
@@ -505,6 +516,8 @@ class _$GGetChatroomMessagesData_chatroom_messages
         message, 'GGetChatroomMessagesData_chatroom_messages', 'message');
     BuiltValueNullFieldError.checkNotNull(
         senderId, 'GGetChatroomMessagesData_chatroom_messages', 'senderId');
+    BuiltValueNullFieldError.checkNotNull(
+        sendTime, 'GGetChatroomMessagesData_chatroom_messages', 'sendTime');
   }
 
   @override
@@ -524,14 +537,18 @@ class _$GGetChatroomMessagesData_chatroom_messages
         G__typename == other.G__typename &&
         id == other.id &&
         message == other.message &&
-        senderId == other.senderId;
+        senderId == other.senderId &&
+        sendTime == other.sendTime;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, G__typename.hashCode), id.hashCode), message.hashCode),
-        senderId.hashCode));
+        $jc(
+            $jc($jc($jc(0, G__typename.hashCode), id.hashCode),
+                message.hashCode),
+            senderId.hashCode),
+        sendTime.hashCode));
   }
 
   @override
@@ -541,7 +558,8 @@ class _$GGetChatroomMessagesData_chatroom_messages
           ..add('G__typename', G__typename)
           ..add('id', id)
           ..add('message', message)
-          ..add('senderId', senderId))
+          ..add('senderId', senderId)
+          ..add('sendTime', sendTime))
         .toString();
   }
 }
@@ -568,6 +586,12 @@ class GGetChatroomMessagesData_chatroom_messagesBuilder
   String? get senderId => _$this._senderId;
   set senderId(String? senderId) => _$this._senderId = senderId;
 
+  _i2.GDateTimeOffsetBuilder? _sendTime;
+  _i2.GDateTimeOffsetBuilder get sendTime =>
+      _$this._sendTime ??= new _i2.GDateTimeOffsetBuilder();
+  set sendTime(_i2.GDateTimeOffsetBuilder? sendTime) =>
+      _$this._sendTime = sendTime;
+
   GGetChatroomMessagesData_chatroom_messagesBuilder() {
     GGetChatroomMessagesData_chatroom_messages._initializeBuilder(this);
   }
@@ -579,6 +603,7 @@ class GGetChatroomMessagesData_chatroom_messagesBuilder
       _id = $v.id;
       _message = $v.message;
       _senderId = $v.senderId;
+      _sendTime = $v.sendTime.toBuilder();
       _$v = null;
     }
     return this;
@@ -599,16 +624,32 @@ class GGetChatroomMessagesData_chatroom_messagesBuilder
 
   @override
   _$GGetChatroomMessagesData_chatroom_messages build() {
-    final _$result = _$v ??
-        new _$GGetChatroomMessagesData_chatroom_messages._(
-            G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                'GGetChatroomMessagesData_chatroom_messages', 'G__typename'),
-            id: BuiltValueNullFieldError.checkNotNull(
-                id, 'GGetChatroomMessagesData_chatroom_messages', 'id'),
-            message: BuiltValueNullFieldError.checkNotNull(message,
-                'GGetChatroomMessagesData_chatroom_messages', 'message'),
-            senderId: BuiltValueNullFieldError.checkNotNull(senderId,
-                'GGetChatroomMessagesData_chatroom_messages', 'senderId'));
+    _$GGetChatroomMessagesData_chatroom_messages _$result;
+    try {
+      _$result = _$v ??
+          new _$GGetChatroomMessagesData_chatroom_messages._(
+              G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
+                  'GGetChatroomMessagesData_chatroom_messages', 'G__typename'),
+              id: BuiltValueNullFieldError.checkNotNull(
+                  id, 'GGetChatroomMessagesData_chatroom_messages', 'id'),
+              message: BuiltValueNullFieldError.checkNotNull(message,
+                  'GGetChatroomMessagesData_chatroom_messages', 'message'),
+              senderId: BuiltValueNullFieldError.checkNotNull(senderId,
+                  'GGetChatroomMessagesData_chatroom_messages', 'senderId'),
+              sendTime: sendTime.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'sendTime';
+        sendTime.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            'GGetChatroomMessagesData_chatroom_messages',
+            _$failedField,
+            e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

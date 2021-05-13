@@ -3,6 +3,7 @@ subscription MessageSubscription($refreshToken: String!) {
     message,
   	chatroomId,
   	senderId,
-  	id
+  	id,
+    sendTime
   }
 }

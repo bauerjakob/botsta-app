@@ -82,7 +82,7 @@ class BotstaApiClient {
     if (res.data?.chatroom?.messages != null) {
       var chatroomId = res.data!.chatroom!.id;
       var userCubit = getIt.get<LoggedInUserCubit>();
-      return res.data!.chatroom!.messages!.map((m) => Message(m.id, m.message, m.senderId, chatroomId, m.senderId == userCubit.state.loggedInUser!.id));
+      return res.data!.chatroom!.messages!.map((m) => Message(m.id, m.message, m.senderId, chatroomId, DateTime.parse(m.sendTime.value), m.senderId == userCubit.state.loggedInUser!.id));
     }
     return null;
   }
@@ -95,7 +95,7 @@ class BotstaApiClient {
     String? id = res.data?.postMessage?.id;
     if (id != null) {
       var senderId = res.data!.postMessage!.senderId;
-      return Message(id, message,senderId, chatroomId, true);
+      return Message(id, message,senderId, chatroomId, DateTime.now(), true);
     }
     return null;
   }
@@ -112,7 +112,7 @@ class BotstaApiClient {
        var data = event.data?.messageReceived;
         if (data != null) {
           var userCubit = getIt.get<LoggedInUserCubit>();
-          var msg = Message(data.id, data.message, data.senderId, data.chatroomId, data.senderId ==  userCubit.state.loggedInUser!.id);
+          var msg = Message(data.id, data.message, data.senderId, data.chatroomId, DateTime.parse(data.sendTime.value), data.senderId ==  userCubit.state.loggedInUser!.id);
           getIt.get<MessageBloc>().add(AppendMessageEvent(msg));
         }
      },
