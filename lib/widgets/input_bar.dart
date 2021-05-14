@@ -1,4 +1,5 @@
 import 'package:botsta_app/logic/bloc/message_bloc.dart';
+import 'package:botsta_app/widgets/botsta_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:botsta_app/utils/extentions/context_extensions.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,32 +19,12 @@ class InputBar extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(
-                  child: Container(
-                    padding:
-                        EdgeInsets.only(left: 5, right: 10, top: 3, bottom: 3),
-                    decoration: BoxDecoration(
-                        color: context.theme().highlightColor,
-                        // border: Border.all(),
-                        borderRadius: BorderRadius.circular(20)),
-                    child: Row(
-                      children: [
-                        IconButton(
-                          icon: Icon(Icons
-                              .emoji_emotions_outlined), // package: https://pub.dev/packages/emoji_picker/example
-                          padding: EdgeInsets.symmetric(horizontal: 0),
-                          color: context.theme().primaryColor,
-                          onPressed: () {},
-                        ),
-                        Expanded(
-                          child: TextField(
-                            controller: _textEditingController,
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: context.translate('CHAT.hint_text')),
-                          ),
-                        ),
-                      ],
-                    ),
+                  child: BotstaTextField(
+                    controller: _textEditingController,
+                    hintText: context.translate('CHAT.hint_text'),
+                    leading: Icon(
+                      Icons.emoji_emotions_outlined
+                    ), // package: https://pub.dev/packages/emoji_picker/example
                   ),
                 ),
               ],

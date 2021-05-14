@@ -14,6 +14,10 @@ extension ContextExtentions on BuildContext {
     return Theme.of(this).textTheme;
   }
 
+  IconThemeData iconTheme() {
+    return Theme.of(this).iconTheme;
+  }
+
   double screenWidth() {
     return MediaQuery.of(this).size.width;
   }

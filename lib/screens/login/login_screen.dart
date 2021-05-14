@@ -1,7 +1,9 @@
 import 'package:botsta_app/logic/bloc/authentication_bloc.dart';
 import 'package:botsta_app/models/authentication_state.dart';
+import 'package:botsta_app/widgets/botsta_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:botsta_app/utils/extentions/context_extensions.dart';
 
 class LoginScreen extends StatelessWidget {
   final _userNameInputController = TextEditingController();
@@ -17,42 +19,40 @@ class LoginScreen extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             children: [
-              SizedBox(height: 200,),
-              Text('Login'),
-              SizedBox(height: 20,),
+              Text(
+                'Login',
+                style: context.textTheme().headline1,
+              ),
+              SizedBox(
+                height: 20,
+              ),
               Form(
                 key: _userNameKey,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
-                child: TextFormField(
-                  validator: (value) {
-                    if (value == null || value.length == 0) {
-                      return 'You must enter a username';
-                    }
-                    return null;
-                  },
+                child: BotstaTextField(
+                  hintText: 'Username',
                   controller: _userNameInputController,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(), labelText: 'Username'),
+                  leading: Icon(
+                    Icons.person
+                  ),
                 ),
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               Form(
                 key: _passwordKey,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
-                child: TextFormField(
-                  validator: (value) {
-                    if (value == null || value.length == 0) {
-                      return 'You must enter a username';
-                    }
-                    return null;
-                  },
+                child: BotstaTextField(
+                  hintText: 'Password',
+                  obsecureText: true,
                   controller: _passwordInputController,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(), labelText: 'Password'),
+                  leading: Icon(Icons.lock),
                 ),
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               ElevatedButton(
                 child: Text('Login'),
                 onPressed: () async {
@@ -64,10 +64,12 @@ class LoginScreen extends StatelessWidget {
                   var username = _userNameInputController.text;
                   var password = _passwordInputController.text;
 
-                  var successful = await context.read<AuthenticationBloc>().loginAsync(username, password);
+                  var successful = await context
+                      .read<AuthenticationBloc>()
+                      .loginAsync(username, password);
                   _passwordInputController.clear();
                   if (successful) {
-                   _userNameInputController.clear();
+                    _userNameInputController.clear();
                   }
                 },
               ),
