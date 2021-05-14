@@ -1,0 +1,6 @@
+mutation CreateChatroomSingle($practicantId: String!) {
+    newChatroomSingle(practicantId: $practicantId) {
+      id,
+      name
+	}
+}

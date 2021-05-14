@@ -7,6 +7,10 @@ part of 'serializers.gql.dart';
 // **************************************************************************
 
 Serializers _$serializers = (new Serializers().toBuilder()
+      ..add(GCreateChatroomSingleData.serializer)
+      ..add(GCreateChatroomSingleData_newChatroomSingle.serializer)
+      ..add(GCreateChatroomSingleReq.serializer)
+      ..add(GCreateChatroomSingleVars.serializer)
       ..add(GDateTimeOffset.serializer)
       ..add(GGetAllUsersData.serializer)
       ..add(GGetAllUsersData_allUsers.serializer)

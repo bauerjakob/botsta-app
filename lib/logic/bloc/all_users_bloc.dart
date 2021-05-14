@@ -22,10 +22,15 @@ class AllUsersBloc extends Bloc<AllUsersEvent, AllUsersState> {
     yield AllUsersLoadingState();
     try {
       var users = await client.getAllUsersAsync();
-      yield AllUsersSuccessState(users.toList());
+      yield AllUsersSuccessState(_sortUsers(users.toList()));
     } catch(Exception) {
       yield AllUsersErrorState();
     }
     }
+  }
+
+  List<User> _sortUsers(List<User> users) {
+    users.sort((a, b) => a.name.compareTo(b.name));
+    return users;
   }
 }

@@ -5,6 +5,7 @@ import 'package:botsta_app/graphql/all_users.req.gql.dart';
 import 'package:botsta_app/graphql/chatroom-messages.req.gql.dart';
 import 'package:botsta_app/graphql/chatrooms.data.gql.dart';
 import 'package:botsta_app/graphql/chatrooms.req.gql.dart';
+import 'package:botsta_app/graphql/create_chatroom_single.req.gql.dart';
 import 'package:botsta_app/graphql/logged-in-user.req.gql.dart';
 import 'package:botsta_app/graphql/login.req.gql.dart';
 import 'package:botsta_app/graphql/message-subscription.data.gql.dart';
@@ -67,8 +68,11 @@ class BotstaApiClient {
 
     if (res.data?.chatrooms != null) {
       return res.data!.chatrooms!.map((c) { 
-        var lMsg = c.latestMessage!;
-        var latestMessage = Message(lMsg.id, lMsg.message, lMsg.senderId, c.id, DateTime.parse(lMsg.sendTime.value), _userIsMe(lMsg.senderId));
+        var latestMessageData = c.latestMessage;
+        Message? latestMessage;
+        if (latestMessageData != null) {
+          latestMessage = Message(latestMessageData.id, latestMessageData.message, latestMessageData.senderId, c.id, DateTime.parse(latestMessageData.sendTime.value), _userIsMe(latestMessageData.senderId));
+        }
         var chatroom = Chatroom(c.id, c.name!, latestMessage);
         return chatroom;
       });
@@ -77,13 +81,26 @@ class BotstaApiClient {
     return null;
   }
 
+  Future<Chatroom> crateChatroomSingleAsync(String practicantId) async {
+    var client = await getIt.getAsync<Client>();
+    var res = await client.requestFirst(GCreateChatroomSingleReq((b) => b.vars..practicantId = practicantId));
+    client.dispose();
+
+     if (res.hasErrors || res.data?.newChatroomSingle == null) {
+      throw Exception();
+    }
+    
+    var data = res.data!.newChatroomSingle!;
+    return Chatroom(data.id, data.name!);
+  }
+
   Future<Iterable<User>> getAllUsersAsync([bool includeMe = false]) async {
     var client = await getIt.getAsync<Client>();
     var res = await client.requestFirst(GGetAllUsersReq());
     if (res.hasErrors || res.data?.allUsers == null) {
       throw Exception();
     }
-
+    client.dispose();
     var ret = res.data!.allUsers!.map((u) => User(u.id, u.username));
     if (!includeMe) {
       var userCubit = getIt.get<LoggedInUserCubit>();

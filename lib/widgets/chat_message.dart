@@ -40,7 +40,7 @@ class ChatMessage extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Text(message.sendTime.toTimeString(context.translate('DATETIME.timeFormat')), style: TextStyle(fontSize: 13),),
+                child: Text(message.sendTime.toTimeString(context.translate('DATETIME.time_format')), style: TextStyle(fontSize: 13),),
               ),
             ],
           ),

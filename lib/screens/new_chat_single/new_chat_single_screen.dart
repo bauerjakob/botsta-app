@@ -1,4 +1,6 @@
 import 'package:botsta_app/logic/bloc/all_users_bloc.dart';
+import 'package:botsta_app/logic/bloc/chatroom_bloc.dart';
+import 'package:botsta_app/models/chatroom.dart';
 import 'package:botsta_app/startup.dart';
 import 'package:botsta_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -42,18 +44,23 @@ class NewChatSingleScreen extends StatelessWidget {
               child: BlocBuilder<AllUsersBloc, AllUsersState>(
                 builder: (context, state) {
                   if (state is AllUsersLoadingState) {
-                    return Align(alignment: Alignment.topCenter,child: CircularProgressIndicator(),);
+                    return LoadingIndicator();
+                  }
+                  if (state is AllUsersErrorState) {
+                    return Text(context.translate('CREATE_CHATROOM.SINGLE.unknown_error'), style: context.textTheme().headline2);
                   }
                   if (state is AllUsersSuccessState) {
                     return ListView.builder(
                         controller: ModalScrollController.of(context),
                         itemCount: state.users.length,
                         itemBuilder: (item, index) {
+                          var user = state.users[index];
                           return Container(
                             child: UserItem(
-                              state.users[index],
-                              onTap: () {
+                              user,
+                              onTap: () async {
                                 context.navigator().pop();
+                                await getIt.get<ChatroomBloc>().crateChatroom(user.id);
                               },
                             ),
                           );

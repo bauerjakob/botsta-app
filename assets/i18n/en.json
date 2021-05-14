@@ -1,9 +1,18 @@
 {
     "CHATROOMS": {
-        "title": "Botsta"
+        "title": "Botsta",
+        "unknown_error": "Upps, an error occured."
     },
     "BOTS": {
         "title": "Your Bots"
+    },
+    "CREATE_CHATROOM": {
+        "SINGLE": {
+            "unknown_error":"Oh dear, an error occured."
+        },
+        "GROUP": {
+            "unknown_error":"Nope, an error occured."
+        }
     },
     "SETTINGS": {
         "title": "Settings",
@@ -20,11 +29,11 @@
         "logout": "Logout"
     },
     "CHAT": {
-        "hintText": "Type message here"
+        "hint_text": "Message..."
     },
     "DATETIME": {
-        "timeFormat": "kk:mm a",
-        "dateFormat": "dd/MM/YYYY",
+        "time_format": "kk:mm a",
+        "date_format": "dd/MM/YYYY",
         "today": "Today",
         "yesterday": "Yesterday"
     }

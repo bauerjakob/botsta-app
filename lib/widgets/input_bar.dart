@@ -39,7 +39,7 @@ class InputBar extends StatelessWidget {
                             controller: _textEditingController,
                             decoration: InputDecoration(
                                 border: InputBorder.none,
-                                hintText: context.translate('CHAT.hintText')),
+                                hintText: context.translate('CHAT.hint_text')),
                           ),
                         ),
                       ],

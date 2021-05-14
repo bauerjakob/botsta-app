@@ -8,8 +8,8 @@ extension DateTimeExtension on DateTime {
   }
 
   String toDateTimeString(BuildContext context) {
-    final dateFormat = DateFormat(context.translate('DATETIME.dateFormat'));
-    final timeFormat = DateFormat(context.translate('DATETIME.timeFormat'));
+    final dateFormat = DateFormat(context.translate('DATETIME.date_format'));
+    final timeFormat = DateFormat(context.translate('DATETIME.time_format'));
     final today = context.translate('DATETIME.today');
     final yesterday = context.translate('DATETIME.yesterday');
 
