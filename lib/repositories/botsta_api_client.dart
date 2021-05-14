@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:botsta_app/constants/constants.dart';
+import 'package:botsta_app/graphql/all_users.req.gql.dart';
 import 'package:botsta_app/graphql/chatroom-messages.req.gql.dart';
 import 'package:botsta_app/graphql/chatrooms.data.gql.dart';
 import 'package:botsta_app/graphql/chatrooms.req.gql.dart';
@@ -74,6 +75,22 @@ class BotstaApiClient {
     }
 
     return null;
+  }
+
+  Future<Iterable<User>> getAllUsersAsync([bool includeMe = false]) async {
+    var client = await getIt.getAsync<Client>();
+    var res = await client.requestFirst(GGetAllUsersReq());
+    if (res.hasErrors || res.data?.allUsers == null) {
+      throw Exception();
+    }
+
+    var ret = res.data!.allUsers!.map((u) => User(u.id, u.username));
+    if (!includeMe) {
+      var userCubit = getIt.get<LoggedInUserCubit>();
+      var userId = userCubit.state.loggedInUser!.id;
+      ret = ret.where((u) => u.id != userId);
+    } 
+    return ret;
   }
 
   Future<Iterable<Message>?> getMessagesAsync(String chatroomId) async {

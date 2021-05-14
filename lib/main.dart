@@ -6,6 +6,7 @@ import 'package:botsta_app/config/routes/routes_config.dart';
 import 'package:botsta_app/config/themes/bloc/theme_bloc.dart';
 import 'package:botsta_app/logic/bloc/chatroom_bloc.dart';
 import 'package:botsta_app/logic/bloc/message_bloc.dart';
+import 'package:botsta_app/logic/cubit/all_users_cubit.dart';
 import 'package:botsta_app/logic/cubit/logged_in_user_cubit.dart';
 import 'package:botsta_app/models/authentication_state.dart';
 import 'package:botsta_app/models/chatroom.dart';
@@ -51,6 +52,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<LoggedInUserCubit>(
             create: (context) =>
                 getIt.get<LoggedInUserCubit>()),
+        BlocProvider<AllUsersCubit>(
+            create: (context) =>
+                getIt.get<AllUsersCubit>()),
       ],
       child: BlocBuilder<LocalizationBloc, LocalizationState>(
         builder: (context, langState) {

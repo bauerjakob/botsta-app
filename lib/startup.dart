@@ -1,6 +1,7 @@
 import 'package:botsta_app/graphql/logged-in-user.ast.gql.dart';
 import 'package:botsta_app/graphql/refresh-token.req.gql.dart';
 import 'package:botsta_app/logic/bloc/chatroom_bloc.dart';
+import 'package:botsta_app/logic/cubit/all_users_cubit.dart';
 import 'package:botsta_app/logic/cubit/logged_in_user_cubit.dart';
 import 'package:botsta_app/repositories/botsta_api_client.dart';
 import 'package:botsta_app/services/local_storage_service.dart';
@@ -24,6 +25,7 @@ void configureServices() {
   getIt.registerSingleton(LoggedInUserCubit());
   getIt.registerSingleton(MessageBloc());
   getIt.registerSingleton(ChatroomBloc());
+  getIt.registerSingleton(AllUsersCubit());
 
   getIt.registerFactoryAsync<Client>(() async {
     var secureStorage = getIt.get<SecureStorageService>();
