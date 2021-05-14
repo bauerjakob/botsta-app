@@ -21,4 +21,8 @@ extension ContextExtentions on BuildContext {
   double screenHeight() {
     return MediaQuery.of(this).size.height;
   }
+
+  NavigatorState navigator() {
+    return Navigator.of(this);
+  }
 }

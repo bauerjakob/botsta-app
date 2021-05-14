@@ -2,6 +2,7 @@ import 'package:botsta_app/config/routes/routes_config.dart';
 import 'package:botsta_app/logic/bloc/chatroom_bloc.dart';
 import 'package:botsta_app/models/chatroom.dart';
 import 'package:botsta_app/screens/chatrooms/chatrooms_screen.dart';
+import 'package:botsta_app/screens/new_chat_single/new_chat_single_screen.dart';
 import 'package:botsta_app/screens/settings/settings_screen.dart';
 import 'package:botsta_app/widgets/app_bar_action_button.dart';
 import 'package:botsta_app/widgets/widgets.dart';
@@ -47,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   expand: true,
                   context: context,
                   builder: (context) {
-                    return Container();
+                    return NewChatSingleScreen();
                   });
             });
         break;

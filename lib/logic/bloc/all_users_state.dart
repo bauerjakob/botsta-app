@@ -1,14 +1,13 @@
-part of 'all_users_cubit.dart';
+part of 'all_users_bloc.dart';
 
 abstract class AllUsersState extends Equatable {
   const AllUsersState();
-
+  
   @override
   List<Object> get props => [];
 }
 
 class AllUsersInitial extends AllUsersState {}
-
 
 class AllUsersLoadingState extends AllUsersState {
 
@@ -26,3 +25,4 @@ class AllUsersSuccessState extends AllUsersState {
 class AllUsersErrorState extends AllUsersState {
 
 }
+
