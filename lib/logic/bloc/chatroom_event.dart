@@ -8,6 +8,7 @@ abstract class ChatroomEvent extends Equatable {
 }
 
 class InitialChatroomEvent extends ChatroomEvent {}
+class ResetChatroomEvent extends ChatroomEvent {}
 
 class AppendChatroomEvent extends ChatroomEvent {
   final Chatroom chatroom;

@@ -136,7 +136,7 @@ class BotstaApiClient {
     return null;
   }
 
-  Future messageSubscription() async{
+  Future<StreamSubscription<dynamic>?> messageSubscription() async{
     var client = await getIt.getAsync<Client>();
     var secureStorage = getIt.get<SecureStorageService>();
     var refreshToken = await secureStorage.refreshToken;
@@ -155,6 +155,9 @@ class BotstaApiClient {
      onError: (err) {
        print('error');
      });
+
+
+     return _messageSubscription;
   }
 
   _userIsMe(String userId) {

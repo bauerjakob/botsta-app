@@ -16,13 +16,15 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
   MessageBloc() : super(MessageInitial()) {
   }
 
+  StreamSubscription<dynamic>? _messageSubscription;
+
   @override
   Stream<MessageState> mapEventToState(
     MessageEvent event,
   ) async* {
     var client = getIt.get<BotstaApiClient>();
     if (event is InitialMessageEvent) {
-      await client.messageSubscription();
+      _messageSubscription = await client.messageSubscription();
     }
     else if (event is UpdateMessageEvent) {
       var messages = await client.getMessagesAsync(event.chatroomId);
@@ -33,6 +35,11 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
       var msgMap = _addMessageToState(event.message);
       yield MessageState(msgMap);
       getIt.get<ChatroomBloc>()..add(UpdateLatestChatroomMessageEvent(event.message));
+    } else if (event is ResetMessageEvent) {
+      if (_messageSubscription != null) {
+        _messageSubscription!.cancel();
+      }
+      yield MessageInitial();
     }
   }
 

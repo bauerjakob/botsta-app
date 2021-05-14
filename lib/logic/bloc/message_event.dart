@@ -8,6 +8,7 @@ abstract class MessageEvent extends Equatable {
 }
 
 class InitialMessageEvent extends MessageEvent { }
+class ResetMessageEvent extends MessageEvent { }
 
 class AppendMessageEvent extends MessageEvent {
   final Message message;

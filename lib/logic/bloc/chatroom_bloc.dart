@@ -50,6 +50,8 @@ class ChatroomBloc extends Bloc<ChatroomEvent, ChatroomState> {
         chatrooms.add(event.chatroom);
         yield ChatroomSuccessState(_orderChatrooms(chatrooms));
       }
+    } else if (event is ResetChatroomEvent) {
+      yield ChatroomInitial();
     }
   }
 
