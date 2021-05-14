@@ -1,6 +1,7 @@
 import 'package:botsta_app/logic/bloc/authentication_bloc.dart';
 import 'package:botsta_app/models/authentication_state.dart';
 import 'package:botsta_app/widgets/botsta_text_field.dart';
+import 'package:botsta_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:botsta_app/utils/extentions/context_extensions.dart';
@@ -19,12 +20,15 @@ class LoginScreen extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             children: [
+              SizedBox(
+                height: 40,
+              ),
               Text(
                 'Login',
                 style: context.textTheme().headline1,
               ),
               SizedBox(
-                height: 20,
+                height: 40,
               ),
               Form(
                 key: _userNameKey,
@@ -32,9 +36,7 @@ class LoginScreen extends StatelessWidget {
                 child: BotstaTextField(
                   hintText: 'Username',
                   controller: _userNameInputController,
-                  leading: Icon(
-                    Icons.person
-                  ),
+                  leading: Icon(Icons.person),
                 ),
               ),
               SizedBox(
@@ -53,9 +55,12 @@ class LoginScreen extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              ElevatedButton(
-                child: Text('Login'),
-                onPressed: () async {
+              BotstaButton(
+                child: Text(
+                  'Login',
+                  style: context.textTheme().subtitle2,
+                ),
+                onTap: () async {
                   if (!_userNameKey.currentState!.validate() |
                       !_passwordKey.currentState!.validate()) {
                     return;
@@ -73,6 +78,24 @@ class LoginScreen extends StatelessWidget {
                   }
                 },
               ),
+              SizedBox(
+                height: 20,
+              ),
+              Divider(),
+              SizedBox(
+                height: 20,
+              ),
+              Text("Don't have an account yet?", style: context.textTheme().headline3,),
+              SizedBox(
+                height: 20,
+              ),
+              BotstaButton(
+                backgroundColor: context.theme().primaryColor,
+                child: Text(
+                  'Register',
+                  style: context.textTheme().subtitle2,
+                ),
+              )
             ],
           ),
         ),

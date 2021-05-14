@@ -36,7 +36,7 @@ class ChatroomItem extends StatelessWidget {
                     style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white)),
+                        color: context.theme().scaffoldBackgroundColor)),
               ),
               Positioned(
                 bottom: 0,
@@ -70,7 +70,7 @@ class ChatroomItem extends StatelessWidget {
                     children: [
                       Text(
                         chatroom.name,
-                        style: context.textTheme().subtitle2,
+                        style: context.textTheme().headline3,
                       ),
                       Text(
                         chatroom.latestMessage?.sendTime.toDateTimeString(context) ?? '',

@@ -11,7 +11,7 @@ class UserItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => onTap(),
-          child: Container(
+      child: Container(
         padding: EdgeInsets.symmetric(horizontal: 15, vertical: 7),
         child: Row(
           children: [
@@ -25,7 +25,10 @@ class UserItem extends StatelessWidget {
                       color: Colors.white)),
             ),
             SizedBox(width: 12),
-            Text(user.name, style: context.textTheme().subtitle2,)
+            Text(
+              user.name,
+              style: context.textTheme().headline3,
+            )
           ],
         ),
       ),
