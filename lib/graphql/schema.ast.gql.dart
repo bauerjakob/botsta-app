@@ -22,6 +22,14 @@ const BotstaQuery = _i1.ObjectTypeDefinitionNode(
     interfaces: [],
     fields: [
       _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'allUsers'),
+          directives: [],
+          args: [],
+          type: _i1.ListTypeNode(
+              type: _i1.NamedTypeNode(
+                  name: _i1.NameNode(value: 'GraphUserType'), isNonNull: false),
+              isNonNull: false)),
+      _i1.FieldDefinitionNode(
           name: _i1.NameNode(value: 'chatroom'),
           directives: [],
           args: [
@@ -43,14 +51,6 @@ const BotstaQuery = _i1.ObjectTypeDefinitionNode(
               type: _i1.NamedTypeNode(
                   name: _i1.NameNode(value: 'GraphChatroomType'),
                   isNonNull: false),
-              isNonNull: false)),
-      _i1.FieldDefinitionNode(
-          name: _i1.NameNode(value: 'getAllUsers'),
-          directives: [],
-          args: [],
-          type: _i1.ListTypeNode(
-              type: _i1.NamedTypeNode(
-                  name: _i1.NameNode(value: 'GraphUserType'), isNonNull: false),
               isNonNull: false)),
       _i1.FieldDefinitionNode(
           name: _i1.NameNode(value: 'whoami'),

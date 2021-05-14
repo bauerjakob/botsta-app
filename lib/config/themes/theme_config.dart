@@ -7,11 +7,15 @@ enum AppTheme {
 }
 
 const _primaryColor = Color.fromRGBO(40, 53, 88, 1);
+const _accentColor = Color.fromRGBO(85, 123, 244, 1);
+const _highlightColor = Color.fromRGBO(234, 239, 253, 1);
 
 final themeConfigs = {
   AppTheme.Light: ThemeData(
     brightness: Brightness.light,
     primaryColor: _primaryColor,
+    accentColor: _accentColor,
+    highlightColor: _highlightColor,
     textTheme: GoogleFonts.montserratTextTheme(
       TextTheme(
         headline1: TextStyle(

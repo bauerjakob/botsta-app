@@ -21,5 +21,11 @@
     },
     "CHAT": {
         "hintText": "Type message here"
+    },
+    "DATETIME": {
+        "timeFormat": "kk:mm a",
+        "dateFormat": "dd/MM/YYYY",
+        "today": "Today",
+        "yesterday": "Yesterday"
     }
 }

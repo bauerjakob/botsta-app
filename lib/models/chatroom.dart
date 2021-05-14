@@ -5,4 +5,8 @@ class Chatroom {
   final String id;
   final String name;
   Message? latestMessage;
+
+  Chatroom clone() {
+    return Chatroom(id, name, latestMessage?.clone());
+  }
 }

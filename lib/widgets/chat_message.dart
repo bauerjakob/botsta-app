@@ -24,8 +24,8 @@ class ChatMessage extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 decoration: BoxDecoration(
                   color: message.senderIsMe
-                      ? Color.fromRGBO(85, 123, 244, 1)
-                      : Color.fromRGBO(234, 239, 253, 1),
+                      ? context.theme().accentColor
+                      : context.theme().highlightColor,
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
@@ -40,7 +40,7 @@ class ChatMessage extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Text(message.sendTime.toTimeString(), style: TextStyle(fontSize: 13),),
+                child: Text(message.sendTime.toTimeString(context.translate('DATETIME.timeFormat')), style: TextStyle(fontSize: 13),),
               ),
             ],
           ),

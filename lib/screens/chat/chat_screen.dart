@@ -31,10 +31,10 @@ class ChatScreen extends StatelessWidget {
           chatroom.name,
           style: context.textTheme().headline2,
         ),
-        backgroundColor: Colors.blue[100],
+        backgroundColor: context.theme().highlightColor,
         elevation: 0,
       ),
-      backgroundColor: Colors.blue[100],
+      backgroundColor: context.theme().highlightColor,
       body: Container(
         decoration: BoxDecoration(
           color: context.theme().scaffoldBackgroundColor,

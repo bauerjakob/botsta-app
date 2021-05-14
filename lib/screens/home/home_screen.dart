@@ -111,6 +111,10 @@ class _HomeScreenState extends State<HomeScreen> {
         onTap: (index) {
           _pageChanged(index);
         },
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        selectedIconTheme: IconThemeData(size: 30),
+        unselectedIconTheme: IconThemeData(size: 25),
         items: [
           BottomNavigationBarItem(
             label: 'Chats',

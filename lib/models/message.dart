@@ -7,4 +7,8 @@ class Message {
   String chatroomId;
   DateTime sendTime;
   bool senderIsMe;
+
+  Message clone() {
+    return Message(id, text, senderId, chatroomId, sendTime, senderIsMe);
+  }
 }

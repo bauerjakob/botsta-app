@@ -23,13 +23,15 @@ class ChatroomBloc extends Bloc<ChatroomEvent, ChatroomState> {
       var chatrooms = await client.getChatroomsAsync();
       yield ChatroomState(_orderChatrooms(chatrooms?.toList() ?? []));
     } else if (event is UpdateLatestChatroomMessageEvent && state.chatrooms != null) {
-      List<Chatroom> chatrooms = List.from(state.chatrooms!);
+      List<Chatroom> chatrooms = state.chatrooms?.map((c) => c.clone()).toList() ?? [];
       var chatroom = chatrooms.firstWhere((c) => c.id == event.message.chatroomId);
       chatroom.latestMessage = event.message;
 
       var ret = chatrooms.where((c) => c.id != event.message.chatroomId).toList();
       ret.add(chatroom);
-      yield ChatroomState(_orderChatrooms(ret));
+      ret = _orderChatrooms(ret);
+      print (ret == state.chatrooms);
+      yield ChatroomState(ret);
 
     }
   }

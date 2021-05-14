@@ -30,7 +30,8 @@ class ChatroomItem extends StatelessWidget {
           Stack(
             children: [
               CircleAvatar(
-                radius: 37,
+                backgroundColor: context.theme().accentColor,
+                radius: 35,
                 child: Text(chatroom.name.substring(0, 2).toUpperCase(),
                     style: TextStyle(
                         fontSize: 22,
@@ -72,7 +73,7 @@ class ChatroomItem extends StatelessWidget {
                         style: context.textTheme().subtitle2,
                       ),
                       Text(
-                        chatroom.latestMessage?.sendTime.toTimeString() ?? '',
+                        chatroom.latestMessage?.sendTime.toDateTimeString(context) ?? '',
                         style: TextStyle(fontWeight: FontWeight.w600),
                       ),
                     ],

@@ -5,14 +5,14 @@ schema {
 }
 
 type BotstaQuery {
+  # Returns list of all registerd users
+  allUsers: [GraphUserType]
+
   # Returns the chtroom behind the given id.
   chatroom(chatroomId: String): GraphChatroomType
 
   # Returns all chatrooms of current user.
   chatrooms: [GraphChatroomType]
-
-  # Returns list of all registerd users
-  getAllUsers: [GraphUserType]
 
   # Returns informations about the current user.
   whoami: GraphUserType

@@ -1,3 +1,8 @@
+import 'package:botsta_app/graphql/all_users.data.gql.dart'
+    show GGetAllUsersData, GGetAllUsersData_allUsers;
+import 'package:botsta_app/graphql/all_users.req.gql.dart' show GGetAllUsersReq;
+import 'package:botsta_app/graphql/all_users.var.gql.dart'
+    show GGetAllUsersVars;
 import 'package:botsta_app/graphql/chatroom-messages.data.gql.dart'
     show
         GGetChatroomMessagesData,
@@ -58,6 +63,10 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   ..addPlugin(StandardJsonPlugin());
 @SerializersFor([
   GDateTimeOffset,
+  GGetAllUsersData,
+  GGetAllUsersData_allUsers,
+  GGetAllUsersReq,
+  GGetAllUsersVars,
   GGetChatroomMessagesData,
   GGetChatroomMessagesData_chatroom,
   GGetChatroomMessagesData_chatroom_messages,
