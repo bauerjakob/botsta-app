@@ -16,29 +16,7 @@ class NewChatSingleScreen extends StatelessWidget {
       body: Container(
         child: Column(
           children: [
-            Padding(
-              padding: EdgeInsets.only(
-                top: 15,
-                left: 15,
-                right: 15,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                      constraints: BoxConstraints(
-                          maxWidth: context.screenWidth() * 0.75),
-                      child: Text('Select your practicant',
-                          style: context.textTheme().headline1)),
-                  IconButton(
-                    icon: Icon(Icons.close,
-                        size: 35, color: context.theme().primaryColor),
-                    onPressed: () => context.navigator().pop(),
-                  ),
-                ],
-              ),
-            ),
+            FullscreenModalTitle(title: 'Select your practicant'),
             SizedBox(height: 20),
             Expanded(
               child: BlocBuilder<AllUsersBloc, AllUsersState>(

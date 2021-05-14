@@ -13,12 +13,12 @@ class BotstaButton extends StatelessWidget {
     return Container(
       width: double.infinity,
       child: Material(
-        borderRadius: BorderRadius.circular(13),
+        borderRadius: BorderRadius.circular(20),
         color: backgroundColor != null
             ? backgroundColor!
             : context.theme().accentColor,
         child: InkWell(
-            borderRadius: BorderRadius.circular(13),
+            borderRadius: BorderRadius.circular(20),
             child: child != null
                 ? Container(
                     alignment: Alignment.center,

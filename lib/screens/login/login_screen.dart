@@ -1,10 +1,12 @@
 import 'package:botsta_app/logic/bloc/authentication_bloc.dart';
 import 'package:botsta_app/models/authentication_state.dart';
+import 'package:botsta_app/screens/register/register_screen.dart';
 import 'package:botsta_app/widgets/botsta_text_field.dart';
 import 'package:botsta_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:botsta_app/utils/extentions/context_extensions.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class LoginScreen extends StatelessWidget {
   final _userNameInputController = TextEditingController();
@@ -40,7 +42,7 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 30,
               ),
               Form(
                 key: _passwordKey,
@@ -53,7 +55,7 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 30,
               ),
               BotstaButton(
                 child: Text(
@@ -87,15 +89,23 @@ class LoginScreen extends StatelessWidget {
               ),
               Text("Don't have an account yet?", style: context.textTheme().headline3,),
               SizedBox(
-                height: 20,
+                height: 30,
               ),
               BotstaButton(
                 backgroundColor: context.theme().primaryColor,
+                onTap: () {
+                   showCupertinoModalBottomSheet(
+                  expand: true,
+                  context: context,
+                  builder: (context) {
+                    return RegisterScreen();
+                  });
+                },
                 child: Text(
                   'Register',
                   style: context.textTheme().subtitle2,
                 ),
-              )
+              ),
             ],
           ),
         ),
