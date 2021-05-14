@@ -11,11 +11,11 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 class LoginScreen extends StatelessWidget {
   final _userNameInputController = TextEditingController();
   final _passwordInputController = TextEditingController();
-  final _userNameKey = GlobalKey<FormState>();
-  final _passwordKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    BotstaFormTextField usernameField;
+    BotstaFormTextField passwordField;
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -32,28 +32,34 @@ class LoginScreen extends StatelessWidget {
               SizedBox(
                 height: 40,
               ),
-              Form(
-                key: _userNameKey,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                child: BotstaTextField(
-                  hintText: 'Username',
-                  controller: _userNameInputController,
-                  leading: Icon(Icons.person),
-                ),
+              usernameField = BotstaFormTextField(
+                validateOnChange: true,
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return false;
+                  }
+                  return true;
+                },
+                hintText: 'Username',
+                controller: _userNameInputController,
+                leading: Icon(Icons.person),
               ),
               SizedBox(
                 height: 30,
               ),
-              Form(
-                key: _passwordKey,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                child: BotstaTextField(
+              passwordField = BotstaFormTextField(
+                validateOnChange: true,
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return false;
+                    }
+                    return true;
+                  },
                   hintText: 'Password',
                   obsecureText: true,
                   controller: _passwordInputController,
                   leading: Icon(Icons.lock),
                 ),
-              ),
               SizedBox(
                 height: 30,
               ),
@@ -63,8 +69,8 @@ class LoginScreen extends StatelessWidget {
                   style: context.textTheme().subtitle2,
                 ),
                 onTap: () async {
-                  if (!_userNameKey.currentState!.validate() |
-                      !_passwordKey.currentState!.validate()) {
+                  if (!usernameField.validate() |
+                      !passwordField.validate()) {
                     return;
                   }
 
@@ -77,6 +83,8 @@ class LoginScreen extends StatelessWidget {
                   _passwordInputController.clear();
                   if (successful) {
                     _userNameInputController.clear();
+                  } else {
+                    passwordField.validate();
                   }
                 },
               ),
@@ -87,19 +95,22 @@ class LoginScreen extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              Text("Don't have an account yet?", style: context.textTheme().headline3,),
+              Text(
+                "Don't have an account yet?",
+                style: context.textTheme().headline3,
+              ),
               SizedBox(
                 height: 30,
               ),
               BotstaButton(
                 backgroundColor: context.theme().primaryColor,
                 onTap: () {
-                   showCupertinoModalBottomSheet(
-                  expand: true,
-                  context: context,
-                  builder: (context) {
-                    return RegisterScreen();
-                  });
+                  showCupertinoModalBottomSheet(
+                      expand: true,
+                      context: context,
+                      builder: (context) {
+                        return RegisterScreen();
+                      });
                 },
                 child: Text(
                   'Register',

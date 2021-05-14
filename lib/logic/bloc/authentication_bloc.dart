@@ -18,8 +18,8 @@ import 'package:botsta_app/utils/extentions/graphql_extentions.dart';
 part 'authentication_event.dart';
 part 'authentication_state.dart';
 
-class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
-
+class AuthenticationBloc
+    extends Bloc<AuthenticationEvent, AuthenticationState> {
   AuthenticationBloc() : super(AuthenticationInitial());
 
   @override
@@ -30,33 +30,54 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
       yield AuthenticationState(AuthState.Unknown);
     }
     if (event is UpdateAuthenticationEvent) {
-      yield AuthenticationState(event.state);
-
-      if (event.state == AuthState.Authenticated) {
-        await getIt.get<LoggedInUserCubit>().getLoggedInUserAsync();
-        getIt.get<ChatroomBloc>().add(new InitialChatroomEvent());
-        getIt.get<MessageBloc>().add(new InitialMessageEvent());
+      if (event.state == state.state) {
+        return;
       }
-
-      if (event.state == AuthState.Unauthenticated) {
-        await getIt.get<SecureStorageService>().setRefreshToken(null);
-        await getIt.get<SecureStorageService>().setToken(null);
-        getIt.get<ChatroomBloc>().add(ResetChatroomEvent());
-        getIt.get<MessageBloc>().add(ResetMessageEvent());
+      
+      if (state.state != AuthState.Authenticated) {
+        var user = await getIt.get<LoggedInUserCubit>().getLoggedInUserAsync();
+        if (user != null) {
+          yield AuthenticationState(event.state);
+          getIt.get<ChatroomBloc>().add(InitialChatroomEvent());
+          getIt.get<MessageBloc>().add(InitialMessageEvent());
+        } else {
+          yield AuthenticationState(AuthState.Unauthenticated);
+          _logout();
+        }
+      } else if (event.state == AuthState.Unauthenticated) {
+        yield AuthenticationState(event.state);
+        _logout();
+      } else {
+        yield AuthenticationState(event.state);
       }
     }
+  }
+
+  Future _logout() async {
+    await getIt.get<SecureStorageService>().setRefreshToken(null);
+    await getIt.get<SecureStorageService>().setToken(null);
+    getIt.get<ChatroomBloc>().add(ResetChatroomEvent());
+    getIt.get<MessageBloc>().add(ResetMessageEvent());
   }
 
   Future<bool> loginAsync(String username, String password) async {
     var client = getIt.get<BotstaApiClient>();
     var successful = await client.loginUserAsync(username, password);
     if (successful) {
-      var user = await getIt.get<LoggedInUserCubit>().getLoggedInUserAsync();
-      if (user != null) {
-        add(UpdateAuthenticationEvent(AuthState.Authenticated));
-      }
+      add(UpdateAuthenticationEvent(AuthState.Authenticated));
     } else {
-        add(UpdateAuthenticationEvent(AuthState.Unauthenticated));
+      add(UpdateAuthenticationEvent(AuthState.Unauthenticated));
+    }
+    return successful;
+  }
+
+  Future<bool> registerAsync(String username, String password) async {
+    var client = getIt.get<BotstaApiClient>();
+    var successful = await client.regiserUserAsync(username, password);
+    if (successful) {
+      add(UpdateAuthenticationEvent(AuthState.Authenticated));
+    } else {
+      add(UpdateAuthenticationEvent(AuthState.Unauthenticated));
     }
     return successful;
   }

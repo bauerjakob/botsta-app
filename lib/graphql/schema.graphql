@@ -54,7 +54,7 @@ type BotstaMutation {
   # Post message to chatroom
   postMessage(chatroomId: String, message: String): GraphMessageType
   refreshToken: RefreshToken
-  register(username: String!, password: String!): String
+  register(username: String!, password: String!): Login
 
   # Register new bot
   registerBot(botName: String): String

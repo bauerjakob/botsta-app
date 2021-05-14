@@ -46,6 +46,10 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GRefresthTokenData_refreshToken.serializer)
       ..add(GRefresthTokenReq.serializer)
       ..add(GRefresthTokenVars.serializer)
+      ..add(GRegisterUserData.serializer)
+      ..add(GRegisterUserData_register.serializer)
+      ..add(GRegisterUserReq.serializer)
+      ..add(GRegisterUserVars.serializer)
       ..addBuilderFactory(
           const FullType(
               BuiltList, const [const FullType(GGetAllUsersData_allUsers)]),

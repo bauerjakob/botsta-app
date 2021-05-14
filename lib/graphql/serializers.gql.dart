@@ -55,6 +55,12 @@ import 'package:botsta_app/graphql/refresh-token.req.gql.dart'
     show GRefresthTokenReq;
 import 'package:botsta_app/graphql/refresh-token.var.gql.dart'
     show GRefresthTokenVars;
+import 'package:botsta_app/graphql/register_user.data.gql.dart'
+    show GRegisterUserData, GRegisterUserData_register;
+import 'package:botsta_app/graphql/register_user.req.gql.dart'
+    show GRegisterUserReq;
+import 'package:botsta_app/graphql/register_user.var.gql.dart'
+    show GRegisterUserVars;
 import 'package:botsta_app/graphql/schema.schema.gql.dart' show GDateTimeOffset;
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
@@ -106,6 +112,10 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GRefresthTokenData,
   GRefresthTokenData_refreshToken,
   GRefresthTokenReq,
-  GRefresthTokenVars
+  GRefresthTokenVars,
+  GRegisterUserData,
+  GRegisterUserData_register,
+  GRegisterUserReq,
+  GRegisterUserVars
 ])
 final Serializers serializers = _serializersBuilder.build();

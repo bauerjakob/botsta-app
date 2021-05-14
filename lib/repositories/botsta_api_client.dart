@@ -12,6 +12,7 @@ import 'package:botsta_app/graphql/message-subscription.data.gql.dart';
 import 'package:botsta_app/graphql/message-subscription.req.gql.dart';
 import 'package:botsta_app/graphql/message-subscription.var.gql.dart';
 import 'package:botsta_app/graphql/post-message.req.gql.dart';
+import 'package:botsta_app/graphql/register_user.req.gql.dart';
 import 'package:botsta_app/logic/bloc/authentication_bloc.dart';
 import 'package:botsta_app/logic/bloc/message_bloc.dart';
 import 'package:botsta_app/logic/cubit/logged_in_user_cubit.dart';
@@ -29,8 +30,6 @@ import 'package:provider/provider.dart';
 import '../startup.dart';
 
 class BotstaApiClient {
-  StreamSubscription? _messageSubscription;
-
   Future<bool> loginUserAsync(String username, String password) async {
     var secureStorage = getIt.get<SecureStorageService>();
     var client = await getIt.getAsync<Client>();
@@ -40,6 +39,25 @@ class BotstaApiClient {
     if (!res.hasErrors && res.data != null && res.data?.login != null && !res.data!.login!.hasError) {
       var token = res.data!.login!.token;
       var refreshToken = res.data!.login!.refreshToken;
+      secureStorage.setToken(token);
+      secureStorage.setRefreshToken(refreshToken);
+      return true;
+    } else {
+      secureStorage.setToken(null);
+      secureStorage.setRefreshToken(null);
+      return false;
+    }
+  }
+
+  Future<bool> regiserUserAsync(String username, String password) async {
+    var secureStorage = getIt.get<SecureStorageService>();
+    var client = await getIt.getAsync<Client>();
+    var res = await client.requestFirst(GRegisterUserReq((b) => b..vars.username = username..vars.password = password));
+    client.dispose();
+    await client.dispose();
+    if (!res.hasErrors && res.data != null && res.data?.register != null && !res.data!.register!.hasError) {
+      var token = res.data!.register!.token;
+      var refreshToken = res.data!.register!.refreshToken;
       secureStorage.setToken(token);
       secureStorage.setRefreshToken(refreshToken);
       return true;
@@ -141,34 +159,22 @@ class BotstaApiClient {
     var secureStorage = getIt.get<SecureStorageService>();
     var refreshToken = await secureStorage.refreshToken;
 
-    if (_messageSubscription != null) {
-      _messageSubscription!.cancel();
-    }
-    _messageSubscription = client.request(GMessageSubscriptionReq((b) => b..vars.refreshToken = refreshToken)).listen((event) {
+    var ret = client.request(GMessageSubscriptionReq((b) => b..vars.refreshToken = refreshToken)).listen((event) {
        var data = event.data?.messageReceived;
         if (data != null) {
           var userCubit = getIt.get<LoggedInUserCubit>();
           var msg = Message(data.id, data.message, data.senderId, data.chatroomId, DateTime.parse(data.sendTime.value), data.senderId ==  userCubit.state.loggedInUser!.id);
           getIt.get<MessageBloc>().add(AppendMessageEvent(msg));
         }
-     },
-     onError: (err) {
-       print('error');
-     });
+     }
+     );
 
 
-     return _messageSubscription;
+     return ret;
   }
 
   _userIsMe(String userId) {
     var userCubit = getIt.get<LoggedInUserCubit>();
     return userId == userCubit.state.loggedInUser!.id;
   }
-
-  void dispose() {
-    if (_messageSubscription != null) {
-      _messageSubscription!.pause();
-    }
-  }
-
 }

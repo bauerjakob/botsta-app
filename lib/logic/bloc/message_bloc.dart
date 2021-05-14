@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:botsta_app/logic/bloc/chatroom_bloc.dart';
@@ -24,6 +23,9 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
   ) async* {
     var client = getIt.get<BotstaApiClient>();
     if (event is InitialMessageEvent) {
+      if (_messageSubscription != null) {
+        _messageSubscription!.cancel();
+      }
       _messageSubscription = await client.messageSubscription();
     }
     else if (event is UpdateMessageEvent) {

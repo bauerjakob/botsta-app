@@ -6,3 +6,4 @@ export './loading_indicator.dart';
 export './botsta_button.dart';
 export './flullscreen_modal_title.dart';
 export './botsta_text_field.dart';
+export './botsta_form_text_field.dart';

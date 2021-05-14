@@ -14,17 +14,17 @@ class SplashScreen extends StatelessWidget {
     var authBloc = context.read<AuthenticationBloc>();
     if (authBloc.state.state != AuthState.Unknown) {
       var state = authBloc.state.state;
-      authBloc.add(UpdateAuthenticationEvent(AuthState.Unknown));
+      // authBloc.add(UpdateAuthenticationEvent(AuthState.Unknown));
       authBloc.add(UpdateAuthenticationEvent(state));
     }
 
     var secureStorage = getIt.get<SecureStorageService>();
     secureStorage.refreshToken.then((token) {
       if (token != null) {
-        authBloc.add(UpdateAuthenticationEvent(AuthState.Unknown));
+        // authBloc.add(UpdateAuthenticationEvent(AuthState.Unknown));
         authBloc.add(UpdateAuthenticationEvent(AuthState.Authenticated));
       } else {
-         authBloc.add(UpdateAuthenticationEvent(AuthState.Unknown));
+        //  authBloc.add(UpdateAuthenticationEvent(AuthState.Unknown));
           authBloc.add(UpdateAuthenticationEvent(AuthState.Unauthenticated));
       }
     });
