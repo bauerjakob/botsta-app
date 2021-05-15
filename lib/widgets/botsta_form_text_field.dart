@@ -91,6 +91,7 @@ class _BotstaFormTextFieldState extends State<BotstaFormTextField>
                       : null,
                   controller: widget.controller,
                   obscureText: widget.obsecureText,
+                  textCapitalization: TextCapitalization.sentences,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: widget.hintText,

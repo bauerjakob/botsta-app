@@ -17,6 +17,7 @@ class ChatroomsScreen extends StatelessWidget {
           }
           else if (state is ChatroomSuccessState) {
             return ListView.builder(
+              physics: BouncingScrollPhysics(),
               itemCount: state.chatrooms.length,
               itemBuilder: (context, index) {
                 var chatroom = state.chatrooms[index];

@@ -35,37 +35,43 @@ class ChatScreen extends StatelessWidget {
         elevation: 0,
       ),
       backgroundColor: context.theme().highlightColor,
-      body: Container(
-        decoration: BoxDecoration(
-          color: context.theme().scaffoldBackgroundColor,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Container(
+          decoration: BoxDecoration(
+            color: context.theme().scaffoldBackgroundColor,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30),
+              topRight: Radius.circular(30),
+            ),
+          ),
+          child: Column(
+            children: [
+              Expanded(
+                  child: Container(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  ),
+                  child: BlocBuilder<MessageBloc, MessageState>(
+                    builder: (context, state) {
+                      return ListView.builder(
+                          physics: BouncingScrollPhysics(),
+                          reverse: true,
+                          itemCount: state.messages[chatroom.id]?.length ?? 0,
+                          itemBuilder: (context, item) {
+                            var message = state.messages[chatroom.id]![item];
+                            return ChatMessage(message);
+                          });
+                    },
+                  ),
+                ),
+              )),
+              InputBar(chatroom.id),
+            ],
           ),
         ),
-        child: Column(children: [
-          Expanded(
-              child: Container(
-            child: ClipRRect(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(30),
-                topRight: Radius.circular(30),
-              ),
-              child: BlocBuilder<MessageBloc, MessageState>(
-                builder: (context, state) {
-                  return ListView.builder(
-                      reverse: true,
-                      itemCount: state.messages[chatroom.id]?.length ?? 0,
-                      itemBuilder: (context, item) {
-                        var message = state.messages[chatroom.id]![item];
-                        return ChatMessage(message);
-                      });
-                },
-              ),
-            ),
-          )),
-          InputBar(chatroom.id)
-        ]),
       ),
     );
   }

@@ -29,6 +29,7 @@ class NewChatSingleScreen extends StatelessWidget {
                   }
                   if (state is AllUsersSuccessState) {
                     return ListView.builder(
+                        physics: BouncingScrollPhysics(),
                         controller: ModalScrollController.of(context),
                         itemCount: state.users.length,
                         itemBuilder: (item, index) {

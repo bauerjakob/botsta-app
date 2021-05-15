@@ -18,106 +18,109 @@ class LoginScreen extends StatelessWidget {
     BotstaFormTextField passwordField;
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 40,
-              ),
-              Text(
-                'Login',
-                style: context.textTheme().headline1,
-              ),
-              SizedBox(
-                height: 40,
-              ),
-              usernameField = BotstaFormTextField(
-                validateOnChange: true,
-                validator: (value) {
-                  if (value == null || value.trim().isEmpty) {
-                    return false;
-                  }
-                  return true;
-                },
-                hintText: 'Username',
-                controller: _userNameInputController,
-                leading: Icon(Icons.person),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              passwordField = BotstaFormTextField(
-                validateOnChange: true,
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+                  child: Container(
+            margin: EdgeInsets.only(top: 50, left: 20, right: 20),
+            child: ListView(
+              physics: ClampingScrollPhysics(),
+              children: [
+                Center(
+                                  child: Text(
+                    'Login',
+                    style: context.textTheme().headline1,
+                  ),
+                ),
+                SizedBox(
+                  height: 40,
+                ),
+                usernameField = BotstaFormTextField(
+                  validateOnChange: true,
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
                       return false;
                     }
                     return true;
                   },
-                  hintText: 'Password',
-                  obsecureText: true,
-                  controller: _passwordInputController,
-                  leading: Icon(Icons.lock),
+                  hintText: 'Username',
+                  controller: _userNameInputController,
+                  leading: Icon(Icons.person),
                 ),
-              SizedBox(
-                height: 30,
-              ),
-              BotstaButton(
-                child: Text(
-                  'Login',
-                  style: context.textTheme().subtitle2,
+                SizedBox(
+                  height: 30,
                 ),
-                onTap: () async {
-                  if (!usernameField.validate() |
-                      !passwordField.validate()) {
-                    return;
-                  }
+                passwordField = BotstaFormTextField(
+                  validateOnChange: true,
+                    validator: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return false;
+                      }
+                      return true;
+                    },
+                    hintText: 'Password',
+                    obsecureText: true,
+                    controller: _passwordInputController,
+                    leading: Icon(Icons.lock),
+                  ),
+                SizedBox(
+                  height: 30,
+                ),
+                BotstaButton(
+                  child: Text(
+                    'Login',
+                    style: context.textTheme().subtitle2,
+                  ),
+                  onTap: () async {
+                    if (!usernameField.validate() |
+                        !passwordField.validate()) {
+                      return;
+                    }
 
-                  var username = _userNameInputController.text;
-                  var password = _passwordInputController.text;
+                    var username = _userNameInputController.text;
+                    var password = _passwordInputController.text;
 
-                  var successful = await context
-                      .read<AuthenticationBloc>()
-                      .loginAsync(username, password);
-                  _passwordInputController.clear();
-                  if (successful) {
-                    _userNameInputController.clear();
-                  } else {
-                    passwordField.validate();
-                  }
-                },
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Divider(),
-              SizedBox(
-                height: 20,
-              ),
-              Text(
-                "Don't have an account yet?",
-                style: context.textTheme().headline3,
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              BotstaButton(
-                backgroundColor: context.theme().primaryColor,
-                onTap: () {
-                  showCupertinoModalBottomSheet(
-                      expand: true,
-                      context: context,
-                      builder: (context) {
-                        return RegisterScreen();
-                      });
-                },
-                child: Text(
-                  'Register',
-                  style: context.textTheme().subtitle2,
+                    var successful = await context
+                        .read<AuthenticationBloc>()
+                        .loginAsync(username, password);
+                    _passwordInputController.clear();
+                    if (successful) {
+                      _userNameInputController.clear();
+                    } else {
+                      passwordField.validate();
+                    }
+                  },
                 ),
-              ),
-            ],
+                SizedBox(
+                  height: 20,
+                ),
+                Divider(),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "Don't have an account yet?",
+                  style: context.textTheme().headline3,
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                BotstaButton(
+                  backgroundColor: context.theme().primaryColor,
+                  onTap: () {
+                    showCupertinoModalBottomSheet(
+                        expand: true,
+                        context: context,
+                        builder: (context) {
+                          return RegisterScreen();
+                        });
+                  },
+                  child: Text(
+                    'Register',
+                    style: context.textTheme().subtitle2,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -33,16 +33,18 @@ class AuthenticationBloc
       if (event.state == state.state) {
         return;
       }
-      
-      if (state.state != AuthState.Authenticated) {
-        var user = await getIt.get<LoggedInUserCubit>().getLoggedInUserAsync();
-        if (user != null) {
-          yield AuthenticationState(event.state);
-          getIt.get<ChatroomBloc>().add(InitialChatroomEvent());
-          getIt.get<MessageBloc>().add(InitialMessageEvent());
-        } else {
-          yield AuthenticationState(AuthState.Unauthenticated);
-          _logout();
+      if (event.state == AuthState.Authenticated) {
+        if (state.state != AuthState.Authenticated) {
+          var user =
+              await getIt.get<LoggedInUserCubit>().getLoggedInUserAsync();
+          if (user != null) {
+            yield AuthenticationState(event.state);
+            getIt.get<ChatroomBloc>().add(InitialChatroomEvent());
+            getIt.get<MessageBloc>().add(InitialMessageEvent());
+          } else {
+            yield AuthenticationState(AuthState.Unauthenticated);
+            _logout();
+          }
         }
       } else if (event.state == AuthState.Unauthenticated) {
         yield AuthenticationState(event.state);
