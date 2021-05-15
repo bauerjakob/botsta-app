@@ -26,6 +26,12 @@
             "light": "Light",
             "dark": "Dark"
         },
+        "developer": {
+            "title": "Developer",
+            "name": "Jakob Bauer",
+            "website_button": "Visit Website",
+            "website_url": "https://www.bauer-jakob.de"
+        },
         "logout": "Logout"
     },
     "CHAT": {

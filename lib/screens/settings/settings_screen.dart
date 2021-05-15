@@ -10,6 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:botsta_app/utils/extentions/context_extensions.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingsScreen extends StatelessWidget {
   @override
@@ -37,26 +38,14 @@ class SettingsScreen extends StatelessWidget {
                     ? BotstaSwitchState.value1
                     : BotstaSwitchState.value2,
                 onChanged: (state) {
-                  var theme = state == BotstaSwitchState.value1 ? AppTheme.Light : AppTheme.Dark;
+                  var theme = state == BotstaSwitchState.value1
+                      ? AppTheme.Light
+                      : AppTheme.Dark;
                   context
                       .read<ThemeBloc>()
                       .add(new ThemeEventUpdate(theme: theme));
                 },
               );
-              // return CupertinoSegmentedControl(
-              //   children: {
-              //     AppTheme.Light: Text(
-              //       context.translate('SETTINGS.theme.light'),
-              //     ),
-              //     AppTheme.Dark: Text(context.translate('SETTINGS.theme.dark'))
-              //   },
-              //   onValueChanged: (obj) {
-              //     context
-              //         .read<ThemeBloc>()
-              //         .add(new ThemeEventUpdate(theme: obj as AppTheme));
-              //   },
-              //   groupValue: state.appTheme,
-              // );
             },
           ),
           SizedBox(
@@ -94,6 +83,34 @@ class SettingsScreen extends StatelessWidget {
                       .add(new UpdateLocalizationEvent(Locale(localization)));
                 },
               );
+            },
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Divider(),
+          SizedBox(
+            height: 20,
+          ),
+          Text(
+            context.translate('SETTINGS.developer.title'),
+            style: context.textTheme().headline2,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Text(
+            context.translate('SETTINGS.developer.name'),
+            style: context.textTheme().headline3,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          BotstaButton(
+            child: Text(context.translate('SETTINGS.developer.website_button'),
+                style: context.textTheme().subtitle2),
+            onTap: () async {
+              await launch(context.translate('SETTINGS.developer.website_url'));
             },
           ),
           SizedBox(
