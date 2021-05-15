@@ -22,7 +22,7 @@ class BotstaButton extends StatelessWidget {
             child: child != null
                 ? Container(
                     alignment: Alignment.center,
-                    padding: EdgeInsets.symmetric(vertical: 13),
+                    padding: EdgeInsets.symmetric(vertical: 15),
                     child: child!)
                 : SizedBox.shrink(),
             onTap: () {

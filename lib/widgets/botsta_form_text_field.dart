@@ -45,19 +45,21 @@ class _BotstaFormTextFieldState extends State<BotstaFormTextField>
   Animation? _colorTweenAnimation;
 
   void updateValidator(bool value) {
+    if (_animationController != null) {
       if (value) {
         _animationController!.reverse();
       } else {
         _animationController!.forward();
       }
+    }
   }
 
   @override
   void initState() {
     super.initState();
 
-    _animationController = AnimationController(
-        duration: Duration(milliseconds: 200), vsync: this);
+    _animationController =
+        AnimationController(duration: Duration(milliseconds: 200), vsync: this);
   }
 
   @override
