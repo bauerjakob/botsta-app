@@ -34,7 +34,6 @@ class BotstaApiClient {
     var secureStorage = getIt.get<SecureStorageService>();
     var client = await getIt.getAsync<Client>();
     var res = await client.requestFirst(GLoginReq((b) => b..vars.name = username..vars.secret = password));
-    client.dispose();
     await client.dispose();
     if (!res.hasErrors && res.data != null && res.data?.login != null && !res.data!.login!.hasError) {
       var token = res.data!.login!.token;
@@ -53,7 +52,6 @@ class BotstaApiClient {
     var secureStorage = getIt.get<SecureStorageService>();
     var client = await getIt.getAsync<Client>();
     var res = await client.requestFirst(GRegisterUserReq((b) => b..vars.username = username..vars.password = password));
-    client.dispose();
     await client.dispose();
     if (!res.hasErrors && res.data != null && res.data?.register != null && !res.data!.register!.hasError) {
       var token = res.data!.register!.token;
@@ -82,7 +80,7 @@ class BotstaApiClient {
   Future<Iterable<Chatroom>?> getChatroomsAsync() async {
     var client = await getIt.getAsync<Client>();
     var res = await client.requestFirst(GGetChatroomsReq());
-    client.dispose();
+    await client.dispose();
 
     if (res.data?.chatrooms != null) {
       return res.data!.chatrooms!.map((c) { 
@@ -102,7 +100,7 @@ class BotstaApiClient {
   Future<Chatroom> crateChatroomSingleAsync(String practicantId) async {
     var client = await getIt.getAsync<Client>();
     var res = await client.requestFirst(GCreateChatroomSingleReq((b) => b.vars..practicantId = practicantId));
-    client.dispose();
+    await client.dispose();
 
      if (res.hasErrors || res.data?.newChatroomSingle == null) {
       throw Exception();
@@ -118,7 +116,7 @@ class BotstaApiClient {
     if (res.hasErrors || res.data?.allUsers == null) {
       throw Exception();
     }
-    client.dispose();
+    await client.dispose();
     var ret = res.data!.allUsers!.map((u) => User(u.id, u.username));
     if (!includeMe) {
       var userCubit = getIt.get<LoggedInUserCubit>();
@@ -131,11 +129,10 @@ class BotstaApiClient {
   Future<Iterable<Message>?> getMessagesAsync(String chatroomId) async {
     var client = await getIt.getAsync<Client>();
     var res = await client.requestFirst(GGetChatroomMessagesReq((b) => b..vars.chatroomId = chatroomId));
-    client.dispose();
+    await client.dispose();
 
     if (res.data?.chatroom?.messages != null) {
       var chatroomId = res.data!.chatroom!.id;
-      var userCubit = getIt.get<LoggedInUserCubit>();
       return res.data!.chatroom!.messages!.map((m) => Message(m.id, m.message, m.senderId, chatroomId, DateTime.parse(m.sendTime.value), _userIsMe(m.senderId)));
     }
     return null;
@@ -144,7 +141,7 @@ class BotstaApiClient {
   Future<Message?> postMessageAsync(String chatroomId, String message) async {
     var client = await getIt.getAsync<Client>();
     var res = await client.requestFirst(GPostMessageReq((b) => b..vars.chatroomId = chatroomId..vars.message = message));
-    client.dispose();
+    await client.dispose();
 
     String? id = res.data?.postMessage?.id;
     if (id != null) {
