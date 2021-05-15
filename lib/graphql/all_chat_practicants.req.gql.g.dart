@@ -1,28 +1,32 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'all_users.req.gql.dart';
+part of 'all_chat_practicants.req.gql.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<GGetAllUsersReq> _$gGetAllUsersReqSerializer =
-    new _$GGetAllUsersReqSerializer();
+Serializer<GGetAllChatPracticantsReq> _$gGetAllChatPracticantsReqSerializer =
+    new _$GGetAllChatPracticantsReqSerializer();
 
-class _$GGetAllUsersReqSerializer
-    implements StructuredSerializer<GGetAllUsersReq> {
+class _$GGetAllChatPracticantsReqSerializer
+    implements StructuredSerializer<GGetAllChatPracticantsReq> {
   @override
-  final Iterable<Type> types = const [GGetAllUsersReq, _$GGetAllUsersReq];
+  final Iterable<Type> types = const [
+    GGetAllChatPracticantsReq,
+    _$GGetAllChatPracticantsReq
+  ];
   @override
-  final String wireName = 'GGetAllUsersReq';
+  final String wireName = 'GGetAllChatPracticantsReq';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, GGetAllUsersReq object,
+  Iterable<Object?> serialize(
+      Serializers serializers, GGetAllChatPracticantsReq object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
-          specifiedType: const FullType(_i3.GGetAllUsersVars)),
+          specifiedType: const FullType(_i3.GGetAllChatPracticantsVars)),
       'operation',
       serializers.serialize(object.operation,
           specifiedType: const FullType(_i4.Operation)),
@@ -43,7 +47,7 @@ class _$GGetAllUsersReqSerializer
       result
         ..add('optimisticResponse')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(_i2.GGetAllUsersData)));
+            specifiedType: const FullType(_i2.GGetAllChatPracticantsData)));
     }
     value = object.updateCacheHandlerKey;
     if (value != null) {
@@ -71,10 +75,10 @@ class _$GGetAllUsersReqSerializer
   }
 
   @override
-  GGetAllUsersReq deserialize(
+  GGetAllChatPracticantsReq deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GGetAllUsersReqBuilder();
+    final result = new GGetAllChatPracticantsReqBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -84,8 +88,9 @@ class _$GGetAllUsersReqSerializer
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GGetAllUsersVars))!
-              as _i3.GGetAllUsersVars);
+                  specifiedType:
+                      const FullType(_i3.GGetAllChatPracticantsVars))!
+              as _i3.GGetAllChatPracticantsVars);
           break;
         case 'operation':
           result.operation = serializers.deserialize(value,
@@ -97,8 +102,9 @@ class _$GGetAllUsersReqSerializer
           break;
         case 'optimisticResponse':
           result.optimisticResponse.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.GGetAllUsersData))!
-              as _i2.GGetAllUsersData);
+                  specifiedType:
+                      const FullType(_i2.GGetAllChatPracticantsData))!
+              as _i2.GGetAllChatPracticantsData);
           break;
         case 'updateCacheHandlerKey':
           result.updateCacheHandlerKey = serializers.deserialize(value,
@@ -127,18 +133,19 @@ class _$GGetAllUsersReqSerializer
   }
 }
 
-class _$GGetAllUsersReq extends GGetAllUsersReq {
+class _$GGetAllChatPracticantsReq extends GGetAllChatPracticantsReq {
   @override
-  final _i3.GGetAllUsersVars vars;
+  final _i3.GGetAllChatPracticantsVars vars;
   @override
   final _i4.Operation operation;
   @override
   final String? requestId;
   @override
-  final _i2.GGetAllUsersData? Function(
-      _i2.GGetAllUsersData?, _i2.GGetAllUsersData?)? updateResult;
+  final _i2.GGetAllChatPracticantsData? Function(
+          _i2.GGetAllChatPracticantsData?, _i2.GGetAllChatPracticantsData?)?
+      updateResult;
   @override
-  final _i2.GGetAllUsersData? optimisticResponse;
+  final _i2.GGetAllChatPracticantsData? optimisticResponse;
   @override
   final String? updateCacheHandlerKey;
   @override
@@ -148,10 +155,11 @@ class _$GGetAllUsersReq extends GGetAllUsersReq {
   @override
   final bool executeOnListen;
 
-  factory _$GGetAllUsersReq([void Function(GGetAllUsersReqBuilder)? updates]) =>
-      (new GGetAllUsersReqBuilder()..update(updates)).build();
+  factory _$GGetAllChatPracticantsReq(
+          [void Function(GGetAllChatPracticantsReqBuilder)? updates]) =>
+      (new GGetAllChatPracticantsReqBuilder()..update(updates)).build();
 
-  _$GGetAllUsersReq._(
+  _$GGetAllChatPracticantsReq._(
       {required this.vars,
       required this.operation,
       this.requestId,
@@ -162,26 +170,28 @@ class _$GGetAllUsersReq extends GGetAllUsersReq {
       this.fetchPolicy,
       required this.executeOnListen})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(vars, 'GGetAllUsersReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
-        operation, 'GGetAllUsersReq', 'operation');
+        vars, 'GGetAllChatPracticantsReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
-        executeOnListen, 'GGetAllUsersReq', 'executeOnListen');
+        operation, 'GGetAllChatPracticantsReq', 'operation');
+    BuiltValueNullFieldError.checkNotNull(
+        executeOnListen, 'GGetAllChatPracticantsReq', 'executeOnListen');
   }
 
   @override
-  GGetAllUsersReq rebuild(void Function(GGetAllUsersReqBuilder) updates) =>
+  GGetAllChatPracticantsReq rebuild(
+          void Function(GGetAllChatPracticantsReqBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GGetAllUsersReqBuilder toBuilder() =>
-      new GGetAllUsersReqBuilder()..replace(this);
+  GGetAllChatPracticantsReqBuilder toBuilder() =>
+      new GGetAllChatPracticantsReqBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     final dynamic _$dynamicOther = other;
-    return other is GGetAllUsersReq &&
+    return other is GGetAllChatPracticantsReq &&
         vars == other.vars &&
         operation == other.operation &&
         requestId == other.requestId &&
@@ -213,7 +223,7 @@ class _$GGetAllUsersReq extends GGetAllUsersReq {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GGetAllUsersReq')
+    return (newBuiltValueToStringHelper('GGetAllChatPracticantsReq')
           ..add('vars', vars)
           ..add('operation', operation)
           ..add('requestId', requestId)
@@ -227,14 +237,15 @@ class _$GGetAllUsersReq extends GGetAllUsersReq {
   }
 }
 
-class GGetAllUsersReqBuilder
-    implements Builder<GGetAllUsersReq, GGetAllUsersReqBuilder> {
-  _$GGetAllUsersReq? _$v;
+class GGetAllChatPracticantsReqBuilder
+    implements
+        Builder<GGetAllChatPracticantsReq, GGetAllChatPracticantsReqBuilder> {
+  _$GGetAllChatPracticantsReq? _$v;
 
-  _i3.GGetAllUsersVarsBuilder? _vars;
-  _i3.GGetAllUsersVarsBuilder get vars =>
-      _$this._vars ??= new _i3.GGetAllUsersVarsBuilder();
-  set vars(_i3.GGetAllUsersVarsBuilder? vars) => _$this._vars = vars;
+  _i3.GGetAllChatPracticantsVarsBuilder? _vars;
+  _i3.GGetAllChatPracticantsVarsBuilder get vars =>
+      _$this._vars ??= new _i3.GGetAllChatPracticantsVarsBuilder();
+  set vars(_i3.GGetAllChatPracticantsVarsBuilder? vars) => _$this._vars = vars;
 
   _i4.Operation? _operation;
   _i4.Operation? get operation => _$this._operation;
@@ -244,20 +255,25 @@ class GGetAllUsersReqBuilder
   String? get requestId => _$this._requestId;
   set requestId(String? requestId) => _$this._requestId = requestId;
 
-  _i2.GGetAllUsersData? Function(_i2.GGetAllUsersData?, _i2.GGetAllUsersData?)?
+  _i2.GGetAllChatPracticantsData? Function(
+          _i2.GGetAllChatPracticantsData?, _i2.GGetAllChatPracticantsData?)?
       _updateResult;
-  _i2.GGetAllUsersData? Function(_i2.GGetAllUsersData?, _i2.GGetAllUsersData?)?
+  _i2.GGetAllChatPracticantsData? Function(
+          _i2.GGetAllChatPracticantsData?, _i2.GGetAllChatPracticantsData?)?
       get updateResult => _$this._updateResult;
   set updateResult(
-          _i2.GGetAllUsersData? Function(
-                  _i2.GGetAllUsersData?, _i2.GGetAllUsersData?)?
+          _i2.GGetAllChatPracticantsData? Function(
+                  _i2.GGetAllChatPracticantsData?,
+                  _i2.GGetAllChatPracticantsData?)?
               updateResult) =>
       _$this._updateResult = updateResult;
 
-  _i2.GGetAllUsersDataBuilder? _optimisticResponse;
-  _i2.GGetAllUsersDataBuilder get optimisticResponse =>
-      _$this._optimisticResponse ??= new _i2.GGetAllUsersDataBuilder();
-  set optimisticResponse(_i2.GGetAllUsersDataBuilder? optimisticResponse) =>
+  _i2.GGetAllChatPracticantsDataBuilder? _optimisticResponse;
+  _i2.GGetAllChatPracticantsDataBuilder get optimisticResponse =>
+      _$this._optimisticResponse ??=
+          new _i2.GGetAllChatPracticantsDataBuilder();
+  set optimisticResponse(
+          _i2.GGetAllChatPracticantsDataBuilder? optimisticResponse) =>
       _$this._optimisticResponse = optimisticResponse;
 
   String? _updateCacheHandlerKey;
@@ -282,11 +298,11 @@ class GGetAllUsersReqBuilder
   set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
-  GGetAllUsersReqBuilder() {
-    GGetAllUsersReq._initializeBuilder(this);
+  GGetAllChatPracticantsReqBuilder() {
+    GGetAllChatPracticantsReq._initializeBuilder(this);
   }
 
-  GGetAllUsersReqBuilder get _$this {
+  GGetAllChatPracticantsReqBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _vars = $v.vars.toBuilder();
@@ -304,25 +320,25 @@ class GGetAllUsersReqBuilder
   }
 
   @override
-  void replace(GGetAllUsersReq other) {
+  void replace(GGetAllChatPracticantsReq other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GGetAllUsersReq;
+    _$v = other as _$GGetAllChatPracticantsReq;
   }
 
   @override
-  void update(void Function(GGetAllUsersReqBuilder)? updates) {
+  void update(void Function(GGetAllChatPracticantsReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$GGetAllUsersReq build() {
-    _$GGetAllUsersReq _$result;
+  _$GGetAllChatPracticantsReq build() {
+    _$GGetAllChatPracticantsReq _$result;
     try {
       _$result = _$v ??
-          new _$GGetAllUsersReq._(
+          new _$GGetAllChatPracticantsReq._(
               vars: vars.build(),
               operation: BuiltValueNullFieldError.checkNotNull(
-                  operation, 'GGetAllUsersReq', 'operation'),
+                  operation, 'GGetAllChatPracticantsReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
@@ -330,7 +346,9 @@ class GGetAllUsersReqBuilder
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
               executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, 'GGetAllUsersReq', 'executeOnListen'));
+                  executeOnListen,
+                  'GGetAllChatPracticantsReq',
+                  'executeOnListen'));
     } catch (_) {
       late String _$failedField;
       try {
@@ -341,7 +359,7 @@ class GGetAllUsersReqBuilder
         _optimisticResponse?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GGetAllUsersReq', _$failedField, e.toString());
+            'GGetAllChatPracticantsReq', _$failedField, e.toString());
       }
       rethrow;
     }

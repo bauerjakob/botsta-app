@@ -1,28 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'logged-in-user.req.gql.dart';
+part of 'who_am_i.req.gql.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<GLoggedInUserReq> _$gLoggedInUserReqSerializer =
-    new _$GLoggedInUserReqSerializer();
+Serializer<GWhoAmIReq> _$gWhoAmIReqSerializer = new _$GWhoAmIReqSerializer();
 
-class _$GLoggedInUserReqSerializer
-    implements StructuredSerializer<GLoggedInUserReq> {
+class _$GWhoAmIReqSerializer implements StructuredSerializer<GWhoAmIReq> {
   @override
-  final Iterable<Type> types = const [GLoggedInUserReq, _$GLoggedInUserReq];
+  final Iterable<Type> types = const [GWhoAmIReq, _$GWhoAmIReq];
   @override
-  final String wireName = 'GLoggedInUserReq';
+  final String wireName = 'GWhoAmIReq';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, GLoggedInUserReq object,
+  Iterable<Object?> serialize(Serializers serializers, GWhoAmIReq object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
-          specifiedType: const FullType(_i3.GLoggedInUserVars)),
+          specifiedType: const FullType(_i3.GWhoAmIVars)),
       'operation',
       serializers.serialize(object.operation,
           specifiedType: const FullType(_i4.Operation)),
@@ -43,7 +41,7 @@ class _$GLoggedInUserReqSerializer
       result
         ..add('optimisticResponse')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(_i2.GLoggedInUserData)));
+            specifiedType: const FullType(_i2.GWhoAmIData)));
     }
     value = object.updateCacheHandlerKey;
     if (value != null) {
@@ -71,10 +69,9 @@ class _$GLoggedInUserReqSerializer
   }
 
   @override
-  GLoggedInUserReq deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
+  GWhoAmIReq deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GLoggedInUserReqBuilder();
+    final result = new GWhoAmIReqBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -84,8 +81,8 @@ class _$GLoggedInUserReqSerializer
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GLoggedInUserVars))!
-              as _i3.GLoggedInUserVars);
+                  specifiedType: const FullType(_i3.GWhoAmIVars))!
+              as _i3.GWhoAmIVars);
           break;
         case 'operation':
           result.operation = serializers.deserialize(value,
@@ -97,8 +94,8 @@ class _$GLoggedInUserReqSerializer
           break;
         case 'optimisticResponse':
           result.optimisticResponse.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.GLoggedInUserData))!
-              as _i2.GLoggedInUserData);
+                  specifiedType: const FullType(_i2.GWhoAmIData))!
+              as _i2.GWhoAmIData);
           break;
         case 'updateCacheHandlerKey':
           result.updateCacheHandlerKey = serializers.deserialize(value,
@@ -127,18 +124,18 @@ class _$GLoggedInUserReqSerializer
   }
 }
 
-class _$GLoggedInUserReq extends GLoggedInUserReq {
+class _$GWhoAmIReq extends GWhoAmIReq {
   @override
-  final _i3.GLoggedInUserVars vars;
+  final _i3.GWhoAmIVars vars;
   @override
   final _i4.Operation operation;
   @override
   final String? requestId;
   @override
-  final _i2.GLoggedInUserData? Function(
-      _i2.GLoggedInUserData?, _i2.GLoggedInUserData?)? updateResult;
+  final _i2.GWhoAmIData? Function(_i2.GWhoAmIData?, _i2.GWhoAmIData?)?
+      updateResult;
   @override
-  final _i2.GLoggedInUserData? optimisticResponse;
+  final _i2.GWhoAmIData? optimisticResponse;
   @override
   final String? updateCacheHandlerKey;
   @override
@@ -148,11 +145,10 @@ class _$GLoggedInUserReq extends GLoggedInUserReq {
   @override
   final bool executeOnListen;
 
-  factory _$GLoggedInUserReq(
-          [void Function(GLoggedInUserReqBuilder)? updates]) =>
-      (new GLoggedInUserReqBuilder()..update(updates)).build();
+  factory _$GWhoAmIReq([void Function(GWhoAmIReqBuilder)? updates]) =>
+      (new GWhoAmIReqBuilder()..update(updates)).build();
 
-  _$GLoggedInUserReq._(
+  _$GWhoAmIReq._(
       {required this.vars,
       required this.operation,
       this.requestId,
@@ -163,26 +159,24 @@ class _$GLoggedInUserReq extends GLoggedInUserReq {
       this.fetchPolicy,
       required this.executeOnListen})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(vars, 'GLoggedInUserReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(vars, 'GWhoAmIReq', 'vars');
+    BuiltValueNullFieldError.checkNotNull(operation, 'GWhoAmIReq', 'operation');
     BuiltValueNullFieldError.checkNotNull(
-        operation, 'GLoggedInUserReq', 'operation');
-    BuiltValueNullFieldError.checkNotNull(
-        executeOnListen, 'GLoggedInUserReq', 'executeOnListen');
+        executeOnListen, 'GWhoAmIReq', 'executeOnListen');
   }
 
   @override
-  GLoggedInUserReq rebuild(void Function(GLoggedInUserReqBuilder) updates) =>
+  GWhoAmIReq rebuild(void Function(GWhoAmIReqBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GLoggedInUserReqBuilder toBuilder() =>
-      new GLoggedInUserReqBuilder()..replace(this);
+  GWhoAmIReqBuilder toBuilder() => new GWhoAmIReqBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     final dynamic _$dynamicOther = other;
-    return other is GLoggedInUserReq &&
+    return other is GWhoAmIReq &&
         vars == other.vars &&
         operation == other.operation &&
         requestId == other.requestId &&
@@ -214,7 +208,7 @@ class _$GLoggedInUserReq extends GLoggedInUserReq {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GLoggedInUserReq')
+    return (newBuiltValueToStringHelper('GWhoAmIReq')
           ..add('vars', vars)
           ..add('operation', operation)
           ..add('requestId', requestId)
@@ -228,14 +222,13 @@ class _$GLoggedInUserReq extends GLoggedInUserReq {
   }
 }
 
-class GLoggedInUserReqBuilder
-    implements Builder<GLoggedInUserReq, GLoggedInUserReqBuilder> {
-  _$GLoggedInUserReq? _$v;
+class GWhoAmIReqBuilder implements Builder<GWhoAmIReq, GWhoAmIReqBuilder> {
+  _$GWhoAmIReq? _$v;
 
-  _i3.GLoggedInUserVarsBuilder? _vars;
-  _i3.GLoggedInUserVarsBuilder get vars =>
-      _$this._vars ??= new _i3.GLoggedInUserVarsBuilder();
-  set vars(_i3.GLoggedInUserVarsBuilder? vars) => _$this._vars = vars;
+  _i3.GWhoAmIVarsBuilder? _vars;
+  _i3.GWhoAmIVarsBuilder get vars =>
+      _$this._vars ??= new _i3.GWhoAmIVarsBuilder();
+  set vars(_i3.GWhoAmIVarsBuilder? vars) => _$this._vars = vars;
 
   _i4.Operation? _operation;
   _i4.Operation? get operation => _$this._operation;
@@ -245,21 +238,18 @@ class GLoggedInUserReqBuilder
   String? get requestId => _$this._requestId;
   set requestId(String? requestId) => _$this._requestId = requestId;
 
-  _i2.GLoggedInUserData? Function(
-      _i2.GLoggedInUserData?, _i2.GLoggedInUserData?)? _updateResult;
-  _i2.GLoggedInUserData? Function(
-          _i2.GLoggedInUserData?, _i2.GLoggedInUserData?)?
+  _i2.GWhoAmIData? Function(_i2.GWhoAmIData?, _i2.GWhoAmIData?)? _updateResult;
+  _i2.GWhoAmIData? Function(_i2.GWhoAmIData?, _i2.GWhoAmIData?)?
       get updateResult => _$this._updateResult;
   set updateResult(
-          _i2.GLoggedInUserData? Function(
-                  _i2.GLoggedInUserData?, _i2.GLoggedInUserData?)?
+          _i2.GWhoAmIData? Function(_i2.GWhoAmIData?, _i2.GWhoAmIData?)?
               updateResult) =>
       _$this._updateResult = updateResult;
 
-  _i2.GLoggedInUserDataBuilder? _optimisticResponse;
-  _i2.GLoggedInUserDataBuilder get optimisticResponse =>
-      _$this._optimisticResponse ??= new _i2.GLoggedInUserDataBuilder();
-  set optimisticResponse(_i2.GLoggedInUserDataBuilder? optimisticResponse) =>
+  _i2.GWhoAmIDataBuilder? _optimisticResponse;
+  _i2.GWhoAmIDataBuilder get optimisticResponse =>
+      _$this._optimisticResponse ??= new _i2.GWhoAmIDataBuilder();
+  set optimisticResponse(_i2.GWhoAmIDataBuilder? optimisticResponse) =>
       _$this._optimisticResponse = optimisticResponse;
 
   String? _updateCacheHandlerKey;
@@ -284,11 +274,11 @@ class GLoggedInUserReqBuilder
   set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
-  GLoggedInUserReqBuilder() {
-    GLoggedInUserReq._initializeBuilder(this);
+  GWhoAmIReqBuilder() {
+    GWhoAmIReq._initializeBuilder(this);
   }
 
-  GLoggedInUserReqBuilder get _$this {
+  GWhoAmIReqBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _vars = $v.vars.toBuilder();
@@ -306,25 +296,25 @@ class GLoggedInUserReqBuilder
   }
 
   @override
-  void replace(GLoggedInUserReq other) {
+  void replace(GWhoAmIReq other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GLoggedInUserReq;
+    _$v = other as _$GWhoAmIReq;
   }
 
   @override
-  void update(void Function(GLoggedInUserReqBuilder)? updates) {
+  void update(void Function(GWhoAmIReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$GLoggedInUserReq build() {
-    _$GLoggedInUserReq _$result;
+  _$GWhoAmIReq build() {
+    _$GWhoAmIReq _$result;
     try {
       _$result = _$v ??
-          new _$GLoggedInUserReq._(
+          new _$GWhoAmIReq._(
               vars: vars.build(),
               operation: BuiltValueNullFieldError.checkNotNull(
-                  operation, 'GLoggedInUserReq', 'operation'),
+                  operation, 'GWhoAmIReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
@@ -332,7 +322,7 @@ class GLoggedInUserReqBuilder
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
               executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, 'GLoggedInUserReq', 'executeOnListen'));
+                  executeOnListen, 'GWhoAmIReq', 'executeOnListen'));
     } catch (_) {
       late String _$failedField;
       try {
@@ -343,7 +333,7 @@ class GLoggedInUserReqBuilder
         _optimisticResponse?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GLoggedInUserReq', _$failedField, e.toString());
+            'GWhoAmIReq', _$failedField, e.toString());
       }
       rethrow;
     }

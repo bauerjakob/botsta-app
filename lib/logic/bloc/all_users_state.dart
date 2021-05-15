@@ -14,7 +14,7 @@ class AllUsersLoadingState extends AllUsersState {
 }
 
 class AllUsersSuccessState extends AllUsersState {
-  final List<User> users;
+  final List<ChatPracticant> users;
 
   const AllUsersSuccessState(this.users);
 

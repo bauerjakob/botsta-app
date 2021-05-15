@@ -1,0 +1,7 @@
+query WhoAmI { 
+    whoami {
+        id,
+        name,
+        isUser
+    }
+}

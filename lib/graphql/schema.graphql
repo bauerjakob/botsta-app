@@ -5,7 +5,10 @@ schema {
 }
 
 type BotstaQuery {
-  # Returns list of all registerd users
+  # Returns list of all registerd chat practicants (users and bots)
+  allChatPracticants: [ChatPracticant]
+
+  # Returns list of all registerd users (only users not bots)
   allUsers: [GraphUserType]
 
   # Returns the chtroom behind the given id.
@@ -15,7 +18,15 @@ type BotstaQuery {
   chatrooms: [GraphChatroomType]
 
   # Returns informations about the current user.
-  whoami: GraphUserType
+  whoami: ChatPracticant
+}
+
+type ChatPracticant {
+  id: ID!
+  isBot: Boolean!
+  isUser: Boolean!
+  name: String!
+  type: String
 }
 
 type GraphUserType {

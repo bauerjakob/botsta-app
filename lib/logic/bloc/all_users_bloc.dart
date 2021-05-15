@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:botsta_app/models/user.dart';
+import 'package:botsta_app/models/chat_practicant.dart';
 import 'package:botsta_app/repositories/botsta_api_client.dart';
 import 'package:equatable/equatable.dart';
 
@@ -29,7 +29,7 @@ class AllUsersBloc extends Bloc<AllUsersEvent, AllUsersState> {
     }
   }
 
-  List<User> _sortUsers(List<User> users) {
+  List<ChatPracticant> _sortUsers(List<ChatPracticant> users) {
     users.sort((a, b) => a.name.compareTo(b.name));
     return users;
   }

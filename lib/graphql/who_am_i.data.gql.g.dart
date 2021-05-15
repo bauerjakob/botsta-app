@@ -1,25 +1,23 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'logged-in-user.data.gql.dart';
+part of 'who_am_i.data.gql.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<GLoggedInUserData> _$gLoggedInUserDataSerializer =
-    new _$GLoggedInUserDataSerializer();
-Serializer<GLoggedInUserData_whoami> _$gLoggedInUserDataWhoamiSerializer =
-    new _$GLoggedInUserData_whoamiSerializer();
+Serializer<GWhoAmIData> _$gWhoAmIDataSerializer = new _$GWhoAmIDataSerializer();
+Serializer<GWhoAmIData_whoami> _$gWhoAmIDataWhoamiSerializer =
+    new _$GWhoAmIData_whoamiSerializer();
 
-class _$GLoggedInUserDataSerializer
-    implements StructuredSerializer<GLoggedInUserData> {
+class _$GWhoAmIDataSerializer implements StructuredSerializer<GWhoAmIData> {
   @override
-  final Iterable<Type> types = const [GLoggedInUserData, _$GLoggedInUserData];
+  final Iterable<Type> types = const [GWhoAmIData, _$GWhoAmIData];
   @override
-  final String wireName = 'GLoggedInUserData';
+  final String wireName = 'GWhoAmIData';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, GLoggedInUserData object,
+  Iterable<Object?> serialize(Serializers serializers, GWhoAmIData object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       '__typename',
@@ -32,16 +30,15 @@ class _$GLoggedInUserDataSerializer
       result
         ..add('whoami')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(GLoggedInUserData_whoami)));
+            specifiedType: const FullType(GWhoAmIData_whoami)));
     }
     return result;
   }
 
   @override
-  GLoggedInUserData deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
+  GWhoAmIData deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GLoggedInUserDataBuilder();
+    final result = new GWhoAmIDataBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -55,8 +52,8 @@ class _$GLoggedInUserDataSerializer
           break;
         case 'whoami':
           result.whoami.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(GLoggedInUserData_whoami))!
-              as GLoggedInUserData_whoami);
+                  specifiedType: const FullType(GWhoAmIData_whoami))!
+              as GWhoAmIData_whoami);
           break;
       }
     }
@@ -65,19 +62,16 @@ class _$GLoggedInUserDataSerializer
   }
 }
 
-class _$GLoggedInUserData_whoamiSerializer
-    implements StructuredSerializer<GLoggedInUserData_whoami> {
+class _$GWhoAmIData_whoamiSerializer
+    implements StructuredSerializer<GWhoAmIData_whoami> {
   @override
-  final Iterable<Type> types = const [
-    GLoggedInUserData_whoami,
-    _$GLoggedInUserData_whoami
-  ];
+  final Iterable<Type> types = const [GWhoAmIData_whoami, _$GWhoAmIData_whoami];
   @override
-  final String wireName = 'GLoggedInUserData_whoami';
+  final String wireName = 'GWhoAmIData_whoami';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, GLoggedInUserData_whoami object,
+      Serializers serializers, GWhoAmIData_whoami object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       '__typename',
@@ -85,19 +79,20 @@ class _$GLoggedInUserData_whoamiSerializer
           specifiedType: const FullType(String)),
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'username',
-      serializers.serialize(object.username,
-          specifiedType: const FullType(String)),
+      'name',
+      serializers.serialize(object.name, specifiedType: const FullType(String)),
+      'isUser',
+      serializers.serialize(object.isUser, specifiedType: const FullType(bool)),
     ];
 
     return result;
   }
 
   @override
-  GLoggedInUserData_whoami deserialize(
+  GWhoAmIData_whoami deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GLoggedInUserData_whoamiBuilder();
+    final result = new GWhoAmIData_whoamiBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -113,9 +108,13 @@ class _$GLoggedInUserData_whoamiSerializer
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
-        case 'username':
-          result.username = serializers.deserialize(value,
+        case 'name':
+          result.name = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
+          break;
+        case 'isUser':
+          result.isUser = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool;
           break;
       }
     }
@@ -124,33 +123,31 @@ class _$GLoggedInUserData_whoamiSerializer
   }
 }
 
-class _$GLoggedInUserData extends GLoggedInUserData {
+class _$GWhoAmIData extends GWhoAmIData {
   @override
   final String G__typename;
   @override
-  final GLoggedInUserData_whoami? whoami;
+  final GWhoAmIData_whoami? whoami;
 
-  factory _$GLoggedInUserData(
-          [void Function(GLoggedInUserDataBuilder)? updates]) =>
-      (new GLoggedInUserDataBuilder()..update(updates)).build();
+  factory _$GWhoAmIData([void Function(GWhoAmIDataBuilder)? updates]) =>
+      (new GWhoAmIDataBuilder()..update(updates)).build();
 
-  _$GLoggedInUserData._({required this.G__typename, this.whoami}) : super._() {
+  _$GWhoAmIData._({required this.G__typename, this.whoami}) : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, 'GLoggedInUserData', 'G__typename');
+        G__typename, 'GWhoAmIData', 'G__typename');
   }
 
   @override
-  GLoggedInUserData rebuild(void Function(GLoggedInUserDataBuilder) updates) =>
+  GWhoAmIData rebuild(void Function(GWhoAmIDataBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GLoggedInUserDataBuilder toBuilder() =>
-      new GLoggedInUserDataBuilder()..replace(this);
+  GWhoAmIDataBuilder toBuilder() => new GWhoAmIDataBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GLoggedInUserData &&
+    return other is GWhoAmIData &&
         G__typename == other.G__typename &&
         whoami == other.whoami;
   }
@@ -162,32 +159,30 @@ class _$GLoggedInUserData extends GLoggedInUserData {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GLoggedInUserData')
+    return (newBuiltValueToStringHelper('GWhoAmIData')
           ..add('G__typename', G__typename)
           ..add('whoami', whoami))
         .toString();
   }
 }
 
-class GLoggedInUserDataBuilder
-    implements Builder<GLoggedInUserData, GLoggedInUserDataBuilder> {
-  _$GLoggedInUserData? _$v;
+class GWhoAmIDataBuilder implements Builder<GWhoAmIData, GWhoAmIDataBuilder> {
+  _$GWhoAmIData? _$v;
 
   String? _G__typename;
   String? get G__typename => _$this._G__typename;
   set G__typename(String? G__typename) => _$this._G__typename = G__typename;
 
-  GLoggedInUserData_whoamiBuilder? _whoami;
-  GLoggedInUserData_whoamiBuilder get whoami =>
-      _$this._whoami ??= new GLoggedInUserData_whoamiBuilder();
-  set whoami(GLoggedInUserData_whoamiBuilder? whoami) =>
-      _$this._whoami = whoami;
+  GWhoAmIData_whoamiBuilder? _whoami;
+  GWhoAmIData_whoamiBuilder get whoami =>
+      _$this._whoami ??= new GWhoAmIData_whoamiBuilder();
+  set whoami(GWhoAmIData_whoamiBuilder? whoami) => _$this._whoami = whoami;
 
-  GLoggedInUserDataBuilder() {
-    GLoggedInUserData._initializeBuilder(this);
+  GWhoAmIDataBuilder() {
+    GWhoAmIData._initializeBuilder(this);
   }
 
-  GLoggedInUserDataBuilder get _$this {
+  GWhoAmIDataBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
@@ -198,24 +193,24 @@ class GLoggedInUserDataBuilder
   }
 
   @override
-  void replace(GLoggedInUserData other) {
+  void replace(GWhoAmIData other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GLoggedInUserData;
+    _$v = other as _$GWhoAmIData;
   }
 
   @override
-  void update(void Function(GLoggedInUserDataBuilder)? updates) {
+  void update(void Function(GWhoAmIDataBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$GLoggedInUserData build() {
-    _$GLoggedInUserData _$result;
+  _$GWhoAmIData build() {
+    _$GWhoAmIData _$result;
     try {
       _$result = _$v ??
-          new _$GLoggedInUserData._(
+          new _$GWhoAmIData._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, 'GLoggedInUserData', 'G__typename'),
+                  G__typename, 'GWhoAmIData', 'G__typename'),
               whoami: _whoami?.build());
     } catch (_) {
       late String _$failedField;
@@ -224,7 +219,7 @@ class GLoggedInUserDataBuilder
         _whoami?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GLoggedInUserData', _$failedField, e.toString());
+            'GWhoAmIData', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -233,66 +228,74 @@ class GLoggedInUserDataBuilder
   }
 }
 
-class _$GLoggedInUserData_whoami extends GLoggedInUserData_whoami {
+class _$GWhoAmIData_whoami extends GWhoAmIData_whoami {
   @override
   final String G__typename;
   @override
   final String id;
   @override
-  final String username;
+  final String name;
+  @override
+  final bool isUser;
 
-  factory _$GLoggedInUserData_whoami(
-          [void Function(GLoggedInUserData_whoamiBuilder)? updates]) =>
-      (new GLoggedInUserData_whoamiBuilder()..update(updates)).build();
+  factory _$GWhoAmIData_whoami(
+          [void Function(GWhoAmIData_whoamiBuilder)? updates]) =>
+      (new GWhoAmIData_whoamiBuilder()..update(updates)).build();
 
-  _$GLoggedInUserData_whoami._(
-      {required this.G__typename, required this.id, required this.username})
+  _$GWhoAmIData_whoami._(
+      {required this.G__typename,
+      required this.id,
+      required this.name,
+      required this.isUser})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, 'GLoggedInUserData_whoami', 'G__typename');
-    BuiltValueNullFieldError.checkNotNull(id, 'GLoggedInUserData_whoami', 'id');
+        G__typename, 'GWhoAmIData_whoami', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(id, 'GWhoAmIData_whoami', 'id');
+    BuiltValueNullFieldError.checkNotNull(name, 'GWhoAmIData_whoami', 'name');
     BuiltValueNullFieldError.checkNotNull(
-        username, 'GLoggedInUserData_whoami', 'username');
+        isUser, 'GWhoAmIData_whoami', 'isUser');
   }
 
   @override
-  GLoggedInUserData_whoami rebuild(
-          void Function(GLoggedInUserData_whoamiBuilder) updates) =>
+  GWhoAmIData_whoami rebuild(
+          void Function(GWhoAmIData_whoamiBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GLoggedInUserData_whoamiBuilder toBuilder() =>
-      new GLoggedInUserData_whoamiBuilder()..replace(this);
+  GWhoAmIData_whoamiBuilder toBuilder() =>
+      new GWhoAmIData_whoamiBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GLoggedInUserData_whoami &&
+    return other is GWhoAmIData_whoami &&
         G__typename == other.G__typename &&
         id == other.id &&
-        username == other.username;
+        name == other.name &&
+        isUser == other.isUser;
   }
 
   @override
   int get hashCode {
-    return $jf(
-        $jc($jc($jc(0, G__typename.hashCode), id.hashCode), username.hashCode));
+    return $jf($jc(
+        $jc($jc($jc(0, G__typename.hashCode), id.hashCode), name.hashCode),
+        isUser.hashCode));
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GLoggedInUserData_whoami')
+    return (newBuiltValueToStringHelper('GWhoAmIData_whoami')
           ..add('G__typename', G__typename)
           ..add('id', id)
-          ..add('username', username))
+          ..add('name', name)
+          ..add('isUser', isUser))
         .toString();
   }
 }
 
-class GLoggedInUserData_whoamiBuilder
-    implements
-        Builder<GLoggedInUserData_whoami, GLoggedInUserData_whoamiBuilder> {
-  _$GLoggedInUserData_whoami? _$v;
+class GWhoAmIData_whoamiBuilder
+    implements Builder<GWhoAmIData_whoami, GWhoAmIData_whoamiBuilder> {
+  _$GWhoAmIData_whoami? _$v;
 
   String? _G__typename;
   String? get G__typename => _$this._G__typename;
@@ -302,46 +305,53 @@ class GLoggedInUserData_whoamiBuilder
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
 
-  String? _username;
-  String? get username => _$this._username;
-  set username(String? username) => _$this._username = username;
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
 
-  GLoggedInUserData_whoamiBuilder() {
-    GLoggedInUserData_whoami._initializeBuilder(this);
+  bool? _isUser;
+  bool? get isUser => _$this._isUser;
+  set isUser(bool? isUser) => _$this._isUser = isUser;
+
+  GWhoAmIData_whoamiBuilder() {
+    GWhoAmIData_whoami._initializeBuilder(this);
   }
 
-  GLoggedInUserData_whoamiBuilder get _$this {
+  GWhoAmIData_whoamiBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
       _id = $v.id;
-      _username = $v.username;
+      _name = $v.name;
+      _isUser = $v.isUser;
       _$v = null;
     }
     return this;
   }
 
   @override
-  void replace(GLoggedInUserData_whoami other) {
+  void replace(GWhoAmIData_whoami other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GLoggedInUserData_whoami;
+    _$v = other as _$GWhoAmIData_whoami;
   }
 
   @override
-  void update(void Function(GLoggedInUserData_whoamiBuilder)? updates) {
+  void update(void Function(GWhoAmIData_whoamiBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$GLoggedInUserData_whoami build() {
+  _$GWhoAmIData_whoami build() {
     final _$result = _$v ??
-        new _$GLoggedInUserData_whoami._(
+        new _$GWhoAmIData_whoami._(
             G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, 'GLoggedInUserData_whoami', 'G__typename'),
+                G__typename, 'GWhoAmIData_whoami', 'G__typename'),
             id: BuiltValueNullFieldError.checkNotNull(
-                id, 'GLoggedInUserData_whoami', 'id'),
-            username: BuiltValueNullFieldError.checkNotNull(
-                username, 'GLoggedInUserData_whoami', 'username'));
+                id, 'GWhoAmIData_whoami', 'id'),
+            name: BuiltValueNullFieldError.checkNotNull(
+                name, 'GWhoAmIData_whoami', 'name'),
+            isUser: BuiltValueNullFieldError.checkNotNull(
+                isUser, 'GWhoAmIData_whoami', 'isUser'));
     replace(_$result);
     return _$result;
   }

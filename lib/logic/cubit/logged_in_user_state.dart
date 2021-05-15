@@ -1,7 +1,7 @@
 part of 'logged_in_user_cubit.dart';
 
 class LoggedInUserState extends Equatable {
-  final User? loggedInUser;
+  final ChatPracticant? loggedInUser;
 
   const LoggedInUserState(this.loggedInUser);
   

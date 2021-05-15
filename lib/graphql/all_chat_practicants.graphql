@@ -1,0 +1,7 @@
+query GetAllChatPracticants {
+    allChatPracticants {
+        id,
+        name,
+        isBot
+    }
+}

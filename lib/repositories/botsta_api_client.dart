@@ -1,25 +1,25 @@
 import 'dart:async';
 
 import 'package:botsta_app/constants/constants.dart';
-import 'package:botsta_app/graphql/all_users.req.gql.dart';
+import 'package:botsta_app/graphql/all_chat_practicants.req.gql.dart';
 import 'package:botsta_app/graphql/chatroom-messages.req.gql.dart';
 import 'package:botsta_app/graphql/chatrooms.data.gql.dart';
 import 'package:botsta_app/graphql/chatrooms.req.gql.dart';
 import 'package:botsta_app/graphql/create_chatroom_single.req.gql.dart';
-import 'package:botsta_app/graphql/logged-in-user.req.gql.dart';
 import 'package:botsta_app/graphql/login.req.gql.dart';
 import 'package:botsta_app/graphql/message-subscription.data.gql.dart';
 import 'package:botsta_app/graphql/message-subscription.req.gql.dart';
 import 'package:botsta_app/graphql/message-subscription.var.gql.dart';
 import 'package:botsta_app/graphql/post-message.req.gql.dart';
 import 'package:botsta_app/graphql/register_user.req.gql.dart';
+import 'package:botsta_app/graphql/who_am_i.req.gql.dart';
 import 'package:botsta_app/logic/bloc/authentication_bloc.dart';
 import 'package:botsta_app/logic/bloc/message_bloc.dart';
 import 'package:botsta_app/logic/cubit/logged_in_user_cubit.dart';
 import 'package:botsta_app/models/authentication_state.dart';
 import 'package:botsta_app/models/chatroom.dart';
 import 'package:botsta_app/models/message.dart';
-import 'package:botsta_app/models/user.dart';
+import 'package:botsta_app/models/chat_practicant.dart';
 import 'package:botsta_app/services/secure_storage_service.dart';
 import 'package:ferry/ferry.dart';
 import 'package:flutter/material.dart';
@@ -66,12 +66,12 @@ class BotstaApiClient {
     }
   }
 
-  Future<User?> getLoggedInUserAsync() async {
+  Future<ChatPracticant?> getLoggedInUserAsync() async {
     var client = await getIt.getAsync<Client>();
-    var res = await client.requestFirst(GLoggedInUserReq());
-    if (!res.hasErrors && res.data?.whoami != null) {
+    var res = await client.requestFirst(GWhoAmIReq());
+    if (!res.hasErrors && res.data?.whoami != null && res.data!.whoami!.isUser) {
       var data = res.data!.whoami;
-      return new User(data!.id, data.username);
+      return new ChatPracticant(data!.id, data.name, false);
     }
 
     return null;
@@ -110,14 +110,14 @@ class BotstaApiClient {
     return Chatroom(data.id, data.name!);
   }
 
-  Future<Iterable<User>> getAllUsersAsync([bool includeMe = false]) async {
+  Future<Iterable<ChatPracticant>> getAllUsersAsync([bool includeMe = false]) async {
     var client = await getIt.getAsync<Client>();
-    var res = await client.requestFirst(GGetAllUsersReq());
-    if (res.hasErrors || res.data?.allUsers == null) {
+    var res = await client.requestFirst(GGetAllChatPracticantsReq());
+    if (res.hasErrors || res.data?.allChatPracticants == null) {
       throw Exception();
     }
     await client.dispose();
-    var ret = res.data!.allUsers!.map((u) => User(u.id, u.username));
+    var ret = res.data!.allChatPracticants!.map((c) => ChatPracticant(c.id, c.name, c.isBot));
     if (!includeMe) {
       var userCubit = getIt.get<LoggedInUserCubit>();
       var userId = userCubit.state.loggedInUser!.id;

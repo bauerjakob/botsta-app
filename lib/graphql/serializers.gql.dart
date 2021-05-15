@@ -1,8 +1,11 @@
-import 'package:botsta_app/graphql/all_users.data.gql.dart'
-    show GGetAllUsersData, GGetAllUsersData_allUsers;
-import 'package:botsta_app/graphql/all_users.req.gql.dart' show GGetAllUsersReq;
-import 'package:botsta_app/graphql/all_users.var.gql.dart'
-    show GGetAllUsersVars;
+import 'package:botsta_app/graphql/all_chat_practicants.data.gql.dart'
+    show
+        GGetAllChatPracticantsData,
+        GGetAllChatPracticantsData_allChatPracticants;
+import 'package:botsta_app/graphql/all_chat_practicants.req.gql.dart'
+    show GGetAllChatPracticantsReq;
+import 'package:botsta_app/graphql/all_chat_practicants.var.gql.dart'
+    show GGetAllChatPracticantsVars;
 import 'package:botsta_app/graphql/chatroom-messages.data.gql.dart'
     show
         GGetChatroomMessagesData,
@@ -27,12 +30,6 @@ import 'package:botsta_app/graphql/create_chatroom_single.req.gql.dart'
     show GCreateChatroomSingleReq;
 import 'package:botsta_app/graphql/create_chatroom_single.var.gql.dart'
     show GCreateChatroomSingleVars;
-import 'package:botsta_app/graphql/logged-in-user.data.gql.dart'
-    show GLoggedInUserData, GLoggedInUserData_whoami;
-import 'package:botsta_app/graphql/logged-in-user.req.gql.dart'
-    show GLoggedInUserReq;
-import 'package:botsta_app/graphql/logged-in-user.var.gql.dart'
-    show GLoggedInUserVars;
 import 'package:botsta_app/graphql/login.data.gql.dart'
     show GLoginData, GLoginData_login;
 import 'package:botsta_app/graphql/login.req.gql.dart' show GLoginReq;
@@ -62,6 +59,10 @@ import 'package:botsta_app/graphql/register_user.req.gql.dart'
 import 'package:botsta_app/graphql/register_user.var.gql.dart'
     show GRegisterUserVars;
 import 'package:botsta_app/graphql/schema.schema.gql.dart' show GDateTimeOffset;
+import 'package:botsta_app/graphql/who_am_i.data.gql.dart'
+    show GWhoAmIData, GWhoAmIData_whoami;
+import 'package:botsta_app/graphql/who_am_i.req.gql.dart' show GWhoAmIReq;
+import 'package:botsta_app/graphql/who_am_i.var.gql.dart' show GWhoAmIVars;
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart' show StandardJsonPlugin;
@@ -79,10 +80,10 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GCreateChatroomSingleReq,
   GCreateChatroomSingleVars,
   GDateTimeOffset,
-  GGetAllUsersData,
-  GGetAllUsersData_allUsers,
-  GGetAllUsersReq,
-  GGetAllUsersVars,
+  GGetAllChatPracticantsData,
+  GGetAllChatPracticantsData_allChatPracticants,
+  GGetAllChatPracticantsReq,
+  GGetAllChatPracticantsVars,
   GGetChatroomMessagesData,
   GGetChatroomMessagesData_chatroom,
   GGetChatroomMessagesData_chatroom_messages,
@@ -93,10 +94,6 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GGetChatroomsData_chatrooms_latestMessage,
   GGetChatroomsReq,
   GGetChatroomsVars,
-  GLoggedInUserData,
-  GLoggedInUserData_whoami,
-  GLoggedInUserReq,
-  GLoggedInUserVars,
   GLoginData,
   GLoginData_login,
   GLoginReq,
@@ -116,6 +113,10 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GRegisterUserData,
   GRegisterUserData_register,
   GRegisterUserReq,
-  GRegisterUserVars
+  GRegisterUserVars,
+  GWhoAmIData,
+  GWhoAmIData_whoami,
+  GWhoAmIReq,
+  GWhoAmIVars
 ])
 final Serializers serializers = _serializersBuilder.build();

@@ -22,6 +22,15 @@ const BotstaQuery = _i1.ObjectTypeDefinitionNode(
     interfaces: [],
     fields: [
       _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'allChatPracticants'),
+          directives: [],
+          args: [],
+          type: _i1.ListTypeNode(
+              type: _i1.NamedTypeNode(
+                  name: _i1.NameNode(value: 'ChatPracticant'),
+                  isNonNull: false),
+              isNonNull: false)),
+      _i1.FieldDefinitionNode(
           name: _i1.NameNode(value: 'allUsers'),
           directives: [],
           args: [],
@@ -57,7 +66,43 @@ const BotstaQuery = _i1.ObjectTypeDefinitionNode(
           directives: [],
           args: [],
           type: _i1.NamedTypeNode(
-              name: _i1.NameNode(value: 'GraphUserType'), isNonNull: false))
+              name: _i1.NameNode(value: 'ChatPracticant'), isNonNull: false))
+    ]);
+const ChatPracticant = _i1.ObjectTypeDefinitionNode(
+    name: _i1.NameNode(value: 'ChatPracticant'),
+    directives: [],
+    interfaces: [],
+    fields: [
+      _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'id'),
+          directives: [],
+          args: [],
+          type: _i1.NamedTypeNode(
+              name: _i1.NameNode(value: 'ID'), isNonNull: true)),
+      _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'isBot'),
+          directives: [],
+          args: [],
+          type: _i1.NamedTypeNode(
+              name: _i1.NameNode(value: 'Boolean'), isNonNull: true)),
+      _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'isUser'),
+          directives: [],
+          args: [],
+          type: _i1.NamedTypeNode(
+              name: _i1.NameNode(value: 'Boolean'), isNonNull: true)),
+      _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'name'),
+          directives: [],
+          args: [],
+          type: _i1.NamedTypeNode(
+              name: _i1.NameNode(value: 'String'), isNonNull: true)),
+      _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'type'),
+          directives: [],
+          args: [],
+          type: _i1.NamedTypeNode(
+              name: _i1.NameNode(value: 'String'), isNonNull: false))
     ]);
 const GraphUserType = _i1.ObjectTypeDefinitionNode(
     name: _i1.NameNode(value: 'GraphUserType'),
@@ -360,6 +405,7 @@ const BotstaSubscription = _i1.ObjectTypeDefinitionNode(
 const document = _i1.DocumentNode(definitions: [
   schema,
   BotstaQuery,
+  ChatPracticant,
   GraphUserType,
   GraphChatroomType,
   GraphMessageType,

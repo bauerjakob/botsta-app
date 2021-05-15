@@ -2,14 +2,14 @@
 
 import 'package:gql/ast.dart' as _i1;
 
-const GetAllUsers = _i1.OperationDefinitionNode(
+const WhoAmI = _i1.OperationDefinitionNode(
     type: _i1.OperationType.query,
-    name: _i1.NameNode(value: 'GetAllUsers'),
+    name: _i1.NameNode(value: 'WhoAmI'),
     variableDefinitions: [],
     directives: [],
     selectionSet: _i1.SelectionSetNode(selections: [
       _i1.FieldNode(
-          name: _i1.NameNode(value: 'allUsers'),
+          name: _i1.NameNode(value: 'whoami'),
           alias: null,
           arguments: [],
           directives: [],
@@ -21,11 +21,17 @@ const GetAllUsers = _i1.OperationDefinitionNode(
                 directives: [],
                 selectionSet: null),
             _i1.FieldNode(
-                name: _i1.NameNode(value: 'username'),
+                name: _i1.NameNode(value: 'name'),
+                alias: null,
+                arguments: [],
+                directives: [],
+                selectionSet: null),
+            _i1.FieldNode(
+                name: _i1.NameNode(value: 'isUser'),
                 alias: null,
                 arguments: [],
                 directives: [],
                 selectionSet: null)
           ]))
     ]));
-const document = _i1.DocumentNode(definitions: [GetAllUsers]);
+const document = _i1.DocumentNode(definitions: [WhoAmI]);

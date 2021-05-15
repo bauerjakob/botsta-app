@@ -6,7 +6,7 @@ import 'package:botsta_app/logic/bloc/chatroom_bloc.dart';
 import 'package:botsta_app/logic/bloc/message_bloc.dart';
 import 'package:botsta_app/logic/cubit/logged_in_user_cubit.dart';
 import 'package:botsta_app/models/authentication_state.dart';
-import 'package:botsta_app/models/user.dart';
+import 'package:botsta_app/models/chat_practicant.dart';
 import 'package:botsta_app/repositories/botsta_api_client.dart';
 import 'package:botsta_app/services/secure_storage_service.dart';
 import 'package:botsta_app/startup.dart';
