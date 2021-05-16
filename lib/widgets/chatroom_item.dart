@@ -80,7 +80,7 @@ class ChatroomItem extends StatelessWidget {
                   ),
                   SizedBox(height: 4),
                   Text(
-                    chatroom.latestMessage?.text ?? '',
+                    chatroom.latestMessage?.items[0].text ?? '',
                     overflow: TextOverflow.ellipsis,
                     style: context.textTheme().bodyText2,
                     maxLines: 2,

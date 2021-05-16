@@ -37,6 +37,16 @@ final themeConfigs = {
           fontSize: 19,
           color: _primaryColor,
         ),
+        headline4: TextStyle(
+          fontWeight: FontWeight.w600,
+          fontSize: 19,
+          color: _primaryColor,
+        ),
+        headline5: TextStyle(
+          fontWeight: FontWeight.w600,
+          fontSize: 19,
+          color: Colors.white,
+        ),
         subtitle2: TextStyle(
           fontWeight: FontWeight.w600,
           fontSize: 19,

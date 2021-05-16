@@ -39,7 +39,7 @@
     },
     "DATETIME": {
         "time_format": "kk:mm a",
-        "date_format": "dd/MM/YYYY",
+        "date_format": "dd/MM/yyyy",
         "today": "Today",
         "yesterday": "Yesterday"
     }

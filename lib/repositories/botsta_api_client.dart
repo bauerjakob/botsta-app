@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:botsta_app/constants/constants.dart';
 import 'package:botsta_app/graphql/all_chat_practicants.req.gql.dart';
@@ -33,9 +34,14 @@ class BotstaApiClient {
   Future<bool> loginUserAsync(String username, String password) async {
     var secureStorage = getIt.get<SecureStorageService>();
     var client = await getIt.getAsync<Client>();
-    var res = await client.requestFirst(GLoginReq((b) => b..vars.name = username..vars.secret = password));
+    var res = await client.requestFirst(GLoginReq((b) => b
+      ..vars.name = username
+      ..vars.secret = password));
     await client.dispose();
-    if (!res.hasErrors && res.data != null && res.data?.login != null && !res.data!.login!.hasError) {
+    if (!res.hasErrors &&
+        res.data != null &&
+        res.data?.login != null &&
+        !res.data!.login!.hasError) {
       var token = res.data!.login!.token;
       var refreshToken = res.data!.login!.refreshToken;
       secureStorage.setToken(token);
@@ -51,9 +57,14 @@ class BotstaApiClient {
   Future<bool> regiserUserAsync(String username, String password) async {
     var secureStorage = getIt.get<SecureStorageService>();
     var client = await getIt.getAsync<Client>();
-    var res = await client.requestFirst(GRegisterUserReq((b) => b..vars.username = username..vars.password = password));
+    var res = await client.requestFirst(GRegisterUserReq((b) => b
+      ..vars.username = username
+      ..vars.password = password));
     await client.dispose();
-    if (!res.hasErrors && res.data != null && res.data?.register != null && !res.data!.register!.hasError) {
+    if (!res.hasErrors &&
+        res.data != null &&
+        res.data?.register != null &&
+        !res.data!.register!.hasError) {
       var token = res.data!.register!.token;
       var refreshToken = res.data!.register!.refreshToken;
       secureStorage.setToken(token);
@@ -69,7 +80,9 @@ class BotstaApiClient {
   Future<ChatPracticant?> getLoggedInUserAsync() async {
     var client = await getIt.getAsync<Client>();
     var res = await client.requestFirst(GWhoAmIReq());
-    if (!res.hasErrors && res.data?.whoami != null && res.data!.whoami!.isUser) {
+    if (!res.hasErrors &&
+        res.data?.whoami != null &&
+        res.data!.whoami!.isUser) {
       var data = res.data!.whoami;
       return new ChatPracticant(data!.id, data.name, false);
     }
@@ -83,11 +96,18 @@ class BotstaApiClient {
     await client.dispose();
 
     if (res.data?.chatrooms != null) {
-      return res.data!.chatrooms!.map((c) { 
+      return res.data!.chatrooms!.map((c) {
         var latestMessageData = c.latestMessage;
         Message? latestMessage;
         if (latestMessageData != null) {
-          latestMessage = Message(latestMessageData.id, latestMessageData.message, latestMessageData.senderId, c.id, DateTime.parse(latestMessageData.sendTime.value), _userIsMe(latestMessageData.senderId));
+          var messageItem = _decodeMessageItem(latestMessageData.message);
+          latestMessage = Message(
+              latestMessageData.id,
+              messageItem,
+              latestMessageData.senderId,
+              c.id,
+              DateTime.parse(latestMessageData.sendTime.value),
+              _userIsMe(latestMessageData.senderId));
         }
         var chatroom = Chatroom(c.id, c.name!, latestMessage);
         return chatroom;
@@ -99,75 +119,116 @@ class BotstaApiClient {
 
   Future<Chatroom> crateChatroomSingleAsync(String practicantId) async {
     var client = await getIt.getAsync<Client>();
-    var res = await client.requestFirst(GCreateChatroomSingleReq((b) => b.vars..practicantId = practicantId));
+    var res = await client.requestFirst(
+        GCreateChatroomSingleReq((b) => b.vars..practicantId = practicantId));
     await client.dispose();
 
-     if (res.hasErrors || res.data?.newChatroomSingle == null) {
+    if (res.hasErrors || res.data?.newChatroomSingle == null) {
       throw Exception();
     }
-    
+
     var data = res.data!.newChatroomSingle!;
     return Chatroom(data.id, data.name!);
   }
 
-  Future<Iterable<ChatPracticant>> getAllUsersAsync([bool includeMe = false]) async {
+  Future<Iterable<ChatPracticant>> getAllUsersAsync(
+      [bool includeMe = false]) async {
     var client = await getIt.getAsync<Client>();
     var res = await client.requestFirst(GGetAllChatPracticantsReq());
     if (res.hasErrors || res.data?.allChatPracticants == null) {
       throw Exception();
     }
     await client.dispose();
-    var ret = res.data!.allChatPracticants!.map((c) => ChatPracticant(c.id, c.name, c.isBot));
+    var ret = res.data!.allChatPracticants!
+        .map((c) => ChatPracticant(c.id, c.name, c.isBot));
     if (!includeMe) {
       var userCubit = getIt.get<LoggedInUserCubit>();
       var userId = userCubit.state.loggedInUser!.id;
       ret = ret.where((u) => u.id != userId);
-    } 
+    }
     return ret;
   }
 
   Future<Iterable<Message>?> getMessagesAsync(String chatroomId) async {
     var client = await getIt.getAsync<Client>();
-    var res = await client.requestFirst(GGetChatroomMessagesReq((b) => b..vars.chatroomId = chatroomId));
+    var res = await client.requestFirst(
+        GGetChatroomMessagesReq((b) => b..vars.chatroomId = chatroomId));
     await client.dispose();
 
     if (res.data?.chatroom?.messages != null) {
       var chatroomId = res.data!.chatroom!.id;
-      return res.data!.chatroom!.messages!.map((m) => Message(m.id, m.message, m.senderId, chatroomId, DateTime.parse(m.sendTime.value), _userIsMe(m.senderId)));
+      return res.data!.chatroom!.messages!.map((m) => Message(
+          m.id,
+          _decodeMessageItem(m.message),
+          m.senderId,
+          chatroomId,
+          DateTime.parse(m.sendTime.value),
+          _userIsMe(m.senderId)));
     }
     return null;
   }
 
   Future<Message?> postMessageAsync(String chatroomId, String message) async {
     var client = await getIt.getAsync<Client>();
-    var res = await client.requestFirst(GPostMessageReq((b) => b..vars.chatroomId = chatroomId..vars.message = message));
+    var res = await client.requestFirst(GPostMessageReq((b) => b
+      ..vars.chatroomId = chatroomId
+      ..vars.message = message));
     await client.dispose();
 
     String? id = res.data?.postMessage?.id;
     if (id != null) {
       var senderId = res.data!.postMessage!.senderId;
-      return Message(id, message,senderId, chatroomId, DateTime.now(), true);
+      return Message(
+        id,
+        _decodeMessageItem(message),
+        senderId,
+        chatroomId,
+        DateTime.now(),
+        true,
+      );
     }
     return null;
   }
 
-  Future<StreamSubscription<dynamic>?> messageSubscription() async{
+  Future<StreamSubscription<dynamic>?> messageSubscription() async {
     var client = await getIt.getAsync<Client>();
     var secureStorage = getIt.get<SecureStorageService>();
     var refreshToken = await secureStorage.refreshToken;
 
-    var ret = client.request(GMessageSubscriptionReq((b) => b..vars.refreshToken = refreshToken)).listen((event) {
-       var data = event.data?.messageReceived;
-        if (data != null) {
-          var userCubit = getIt.get<LoggedInUserCubit>();
-          var msg = Message(data.id, data.message, data.senderId, data.chatroomId, DateTime.parse(data.sendTime.value), data.senderId ==  userCubit.state.loggedInUser!.id);
-          getIt.get<MessageBloc>().add(AppendMessageEvent(msg));
-        }
-     }
-     );
+    var ret = client
+        .request(
+            GMessageSubscriptionReq((b) => b..vars.refreshToken = refreshToken))
+        .listen((event) {
+      var data = event.data?.messageReceived;
+      if (data != null) {
+        var userCubit = getIt.get<LoggedInUserCubit>();
+        var msg = Message(
+            data.id,
+            _decodeMessageItem(data.message),
+            data.senderId,
+            data.chatroomId,
+            DateTime.parse(data.sendTime.value),
+            data.senderId == userCubit.state.loggedInUser!.id);
+        getIt.get<MessageBloc>().add(AppendMessageEvent(msg));
+      }
+    });
 
+    return ret;
+  }
 
-     return ret;
+  List<MessageItem> _decodeMessageItem(String data) {
+    try {
+      List<MessageItem> ret = [];
+
+      var decoded = json.decode(data);
+      for (var item in decoded) {
+        ret.add(MessageItem.fromJson(item));
+      }
+
+      return ret;
+    } catch (Exception) {
+      return [MessageItem()..text = data];
+    }
   }
 
   _userIsMe(String userId) {

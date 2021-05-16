@@ -44,7 +44,7 @@ void configureServices() {
     );
 
     var link = authLink != null ? authLink.concat(httpLink) : httpLink;
-    var socketConfig = SocketClientConfig(delayBetweenReconnectionAttempts: Duration.zero, inactivityTimeout: Duration(hours: 2));
+    var socketConfig = SocketClientConfig(delayBetweenReconnectionAttempts: Duration(seconds: 1), inactivityTimeout: Duration(seconds: 50000));
     final websocketLink = WebSocketLink(AppConstants.BOTSTA_ENDPOINT_WEBSOCKET, config: socketConfig);
     link = Link.split((request) => request.isSubscription, websocketLink, link);
     
