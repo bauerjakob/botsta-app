@@ -100,6 +100,7 @@ class _BotstaSwitchState extends State<BotstaSwitch> {
                       color: context.theme().accentColor,
                       child: InkWell(
                         onTap: () {},
+                        borderRadius: BorderRadius.circular(20),
                         child: AnimatedSwitcher(
                           duration: Duration(milliseconds: 200),
                           child: Text(
