@@ -25,21 +25,53 @@ class NewChatSingleScreen extends StatelessWidget {
                     return LoadingIndicator();
                   }
                   if (state is AllUsersErrorState) {
-                    return Text(context.translate('CREATE_CHATROOM.SINGLE.unknown_error'), style: context.textTheme().headline2);
+                    return Text(
+                        context
+                            .translate('CREATE_CHATROOM.SINGLE.unknown_error'),
+                        style: context.textTheme().headline2);
                   }
                   if (state is AllUsersSuccessState) {
                     return ListView.builder(
                         physics: BouncingScrollPhysics(),
                         controller: ModalScrollController.of(context),
-                        itemCount: state.users.length,
+                        itemCount: state.users.length + 1,
                         itemBuilder: (item, index) {
-                          var user = state.users[index];
+                          if (index == 0) {
+                            return Container(
+                              margin: EdgeInsets.symmetric(
+                                horizontal: 15,
+                                vertical: 10,
+                              ),
+                              child: Column(
+                                children: [
+                                  BotstaButton(
+                                    child: Text(
+                                      'New Group',
+                                      style: context.textTheme().subtitle2,
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.only(
+                                      left: 20,
+                                      right: 20,
+                                      top: 15,
+                                    ),
+                                    child: Divider(),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
+
+                          var user = state.users[index - 1];
                           return Container(
                             child: UserItem(
                               user,
                               onTap: () async {
                                 context.navigator().pop();
-                                await getIt.get<ChatroomBloc>().crateChatroom(user.id);
+                                await getIt
+                                    .get<ChatroomBloc>()
+                                    .crateChatroom(user.id);
                               },
                             ),
                           );
