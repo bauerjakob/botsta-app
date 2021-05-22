@@ -38,22 +38,6 @@ class ChatroomItem extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         color: context.theme().scaffoldBackgroundColor)),
               ),
-              // Positioned(
-              //   bottom: 0,
-              //   right: 0,
-              //   child: Container(
-              //     height: 20,
-              //     width: 20,
-              //     padding: EdgeInsets.symmetric(horizontal: 3, vertical: 2),
-              //     decoration: BoxDecoration(
-              //         shape: BoxShape.circle,
-              //         border: Border.all(
-              //           color: context.theme().scaffoldBackgroundColor,
-              //           width: 3,
-              //         ),
-              //         color: context.theme().primaryColor),
-              //   ),
-              // ),
             ],
           ),
           SizedBox(width: 12),

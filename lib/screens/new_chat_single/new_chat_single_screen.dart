@@ -1,6 +1,7 @@
 import 'package:botsta_app/logic/bloc/all_users_bloc.dart';
 import 'package:botsta_app/logic/bloc/chatroom_bloc.dart';
 import 'package:botsta_app/models/chatroom.dart';
+import 'package:botsta_app/screens/new_chat_group/new_chat_group.dart';
 import 'package:botsta_app/startup.dart';
 import 'package:botsta_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -49,6 +50,16 @@ class NewChatSingleScreen extends StatelessWidget {
                                       'New Group',
                                       style: context.textTheme().subtitle2,
                                     ),
+                                    onTap: () {
+                                      context.navigator().pop();
+                                      showCupertinoModalBottomSheet(
+                                        expand: true,
+                                        context: context,
+                                        builder: (context) {
+                                          return NewChatGroupScreen();
+                                        },
+                                      );
+                                    },
                                   ),
                                   Container(
                                     margin: const EdgeInsets.only(
