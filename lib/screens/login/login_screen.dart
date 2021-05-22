@@ -20,13 +20,13 @@ class LoginScreen extends StatelessWidget {
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
-                  child: Container(
+          child: Container(
             margin: EdgeInsets.only(top: 50, left: 20, right: 20),
             child: ListView(
               physics: ClampingScrollPhysics(),
               children: [
                 Center(
-                                  child: Text(
+                  child: Text(
                     'Login',
                     style: context.textTheme().headline1,
                   ),
@@ -51,17 +51,17 @@ class LoginScreen extends StatelessWidget {
                 ),
                 passwordField = BotstaFormTextField(
                   validateOnChange: true,
-                    validator: (value) {
-                      if (value == null || value.trim().isEmpty) {
-                        return false;
-                      }
-                      return true;
-                    },
-                    hintText: 'Password',
-                    obsecureText: true,
-                    controller: _passwordInputController,
-                    leading: Icon(Icons.lock),
-                  ),
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return false;
+                    }
+                    return true;
+                  },
+                  hintText: 'Password',
+                  obsecureText: true,
+                  controller: _passwordInputController,
+                  leading: Icon(Icons.lock),
+                ),
                 SizedBox(
                   height: 30,
                 ),
@@ -71,8 +71,7 @@ class LoginScreen extends StatelessWidget {
                     style: context.textTheme().subtitle2,
                   ),
                   onTap: () async {
-                    if (!usernameField.validate() |
-                        !passwordField.validate()) {
+                    if (!usernameField.validate() | !passwordField.validate()) {
                       return;
                     }
 

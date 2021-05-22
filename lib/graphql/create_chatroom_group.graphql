@@ -1,0 +1,7 @@
+mutation CreateChatroomGroup($name: String!, $practicantIds: [String]!) {
+  newChatroomGroup(name: $name, practicantIds: $practicantIds) {
+    id,
+    name
+  }
+}
+

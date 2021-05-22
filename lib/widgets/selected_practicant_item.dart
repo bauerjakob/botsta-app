@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:botsta_app/utils/extentions/context_extensions.dart';
 
 class SelectedPracticantItem extends StatelessWidget {
-  SelectedPracticantItem(this.chatPracticant);
+  SelectedPracticantItem(this.chatPracticant, {required this.onRemoveClicked});
 
   final ChatPracticant chatPracticant;
+  final Function onRemoveClicked;
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +29,13 @@ class SelectedPracticantItem extends StatelessWidget {
       alignment: Alignment.centerLeft,
       children: [
         Container(
-          margin: EdgeInsets.only(left: radius * 2 - radius / 2),
+          height: radius * 2,
+          margin: EdgeInsets.only(left: radius * 2 - radius / 2 - 10 / 2),
           padding: EdgeInsets.only(
             top: 5,
             bottom: 5,
             right: 10,
-            left: 7 + radius / 2,
+            left: 10 + radius / 2,
           ),
           decoration: BoxDecoration(
             color: context.theme().highlightColor,
@@ -42,8 +44,25 @@ class SelectedPracticantItem extends StatelessWidget {
               bottomRight: Radius.circular(20),
             ),
           ),
-          child: Text(
-            chatPracticant.name,
+          child: Row(
+            children: [
+              Container(
+                alignment: Alignment.centerRight,
+                child: Text(
+                  chatPracticant.name,
+                ),
+              ),
+              InkWell(
+                onTap: () => onRemoveClicked(),
+                borderRadius: BorderRadius.circular(
+                  20,
+                ),
+                child: Icon(
+                  Icons.close,
+                  size: 24,
+                ),
+              )
+            ],
           ),
         ),
         avatar,

@@ -6,6 +6,7 @@ import 'package:botsta_app/graphql/all_chat_practicants.req.gql.dart';
 import 'package:botsta_app/graphql/chatroom-messages.req.gql.dart';
 import 'package:botsta_app/graphql/chatrooms.data.gql.dart';
 import 'package:botsta_app/graphql/chatrooms.req.gql.dart';
+import 'package:botsta_app/graphql/create_chatroom_group.req.gql.dart';
 import 'package:botsta_app/graphql/create_chatroom_single.req.gql.dart';
 import 'package:botsta_app/graphql/login.req.gql.dart';
 import 'package:botsta_app/graphql/message-subscription.data.gql.dart';
@@ -128,6 +129,21 @@ class BotstaApiClient {
     }
 
     var data = res.data!.newChatroomSingle!;
+    return Chatroom(data.id, data.name!);
+  }
+
+  Future<Chatroom> crateChatroomGroupAsync(String groupName, List<String> practicantIds) async {
+    var client = await getIt.getAsync<Client>();
+    var request = GCreateChatroomGroupReq((b) => b.vars..name = groupName..practicantIds.addAll(practicantIds));
+    var res = await client.requestFirst(
+        request);
+    await client.dispose();
+
+    if (res.hasErrors || res.data?.newChatroomGroup == null) {
+      throw Exception();
+    }
+
+    var data = res.data!.newChatroomGroup!;
     return Chatroom(data.id, data.name!);
   }
 

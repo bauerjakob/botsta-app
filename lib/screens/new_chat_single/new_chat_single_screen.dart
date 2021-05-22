@@ -1,7 +1,7 @@
 import 'package:botsta_app/logic/bloc/all_users_bloc.dart';
 import 'package:botsta_app/logic/bloc/chatroom_bloc.dart';
 import 'package:botsta_app/models/chatroom.dart';
-import 'package:botsta_app/screens/new_chat_group/new_chat_group.dart';
+import 'package:botsta_app/screens/new_chat_group/new_chat_group_screen_1.dart';
 import 'package:botsta_app/startup.dart';
 import 'package:botsta_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -82,7 +82,7 @@ class NewChatSingleScreen extends StatelessWidget {
                                 context.navigator().pop();
                                 await getIt
                                     .get<ChatroomBloc>()
-                                    .crateChatroom(user.id);
+                                    .crateChatroomSingleAsync(user.id);
                               },
                             ),
                           );

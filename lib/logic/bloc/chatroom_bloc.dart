@@ -55,10 +55,20 @@ class ChatroomBloc extends Bloc<ChatroomEvent, ChatroomState> {
     }
   }
 
-  Future crateChatroom(String practicantId) async {
+  Future crateChatroomSingleAsync(String practicantId) async {
     var client = getIt.get<BotstaApiClient>();
     try {
       var chatroom = await client.crateChatroomSingleAsync(practicantId);
+      add(AppendChatroomEvent(chatroom));
+    } catch (Exception) {
+
+    }
+  }
+
+  Future createChatroomGroupAsync(String groupName, List<String> practicantIds) async {
+    var client = getIt.get<BotstaApiClient>();
+    try {
+      var chatroom = await client.crateChatroomGroupAsync(groupName, practicantIds);
       add(AppendChatroomEvent(chatroom));
     } catch (Exception) {
 
