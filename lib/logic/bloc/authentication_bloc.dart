@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:botsta_app/config/routes/routes_config.dart';
 import 'package:botsta_app/graphql/login.req.gql.dart';
 import 'package:botsta_app/logic/bloc/chatroom_bloc.dart';
 import 'package:botsta_app/logic/bloc/message_bloc.dart';
@@ -42,20 +43,19 @@ class AuthenticationBloc
             getIt.get<ChatroomBloc>().add(InitialChatroomEvent());
             getIt.get<MessageBloc>().add(InitialMessageEvent());
           } else {
-            yield AuthenticationState(AuthState.Unauthenticated);
-            _logout();
+            yield AuthenticationState(AuthState.AuthenticationFailed);
           }
         }
       } else if (event.state == AuthState.Unauthenticated) {
         yield AuthenticationState(event.state);
-        _logout();
+        await _logoutAsync();
       } else {
         yield AuthenticationState(event.state);
       }
     }
   }
 
-  Future _logout() async {
+  Future _logoutAsync() async {
     await getIt.get<SecureStorageService>().setRefreshToken(null);
     await getIt.get<SecureStorageService>().setToken(null);
     getIt.get<ChatroomBloc>().add(ResetChatroomEvent());

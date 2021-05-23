@@ -1,5 +1,6 @@
 enum AuthState {
   Unknown,
   Authenticated,
-  Unauthenticated
+  Unauthenticated,
+  AuthenticationFailed
 }

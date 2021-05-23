@@ -1,5 +1,6 @@
 import 'package:botsta_app/graphql/refresh-token.req.gql.dart';
 import 'package:botsta_app/logic/bloc/all_users_bloc.dart';
+import 'package:botsta_app/logic/bloc/authentication_bloc.dart';
 import 'package:botsta_app/logic/bloc/chatroom_bloc.dart';
 import 'package:botsta_app/logic/cubit/logged_in_user_cubit.dart';
 import 'package:botsta_app/repositories/botsta_api_client.dart';
@@ -25,13 +26,14 @@ void configureServices() {
   getIt.registerSingleton(MessageBloc());
   getIt.registerSingleton(ChatroomBloc());
   getIt.registerSingleton(AllUsersBloc());
+  getIt.registerSingleton(AuthenticationBloc());
 
   getIt.registerFactoryAsync<Client>(() async {
     var secureStorage = getIt.get<SecureStorageService>();
     var token  = await secureStorage.token;
     var refreshToken = await secureStorage.refreshToken;
 
-    if (token != null && refreshToken != null && JwtDecoder.isExpired(token) && !JwtDecoder.isExpired(refreshToken)) {
+    if (refreshToken != null && (token == null || JwtDecoder.isExpired(token)) && !JwtDecoder.isExpired(refreshToken)) {
       token = await _refreshToken();
     }
 

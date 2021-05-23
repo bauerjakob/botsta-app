@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<AuthenticationBloc>(
             create: (context) =>
-                AuthenticationBloc()..add(InitialAuthenticationEvent())),
+                getIt.get<AuthenticationBloc>()..add(InitialAuthenticationEvent())),
         BlocProvider<ThemeBloc>(
             create: (context) => ThemeBloc()..add(ThemeEventInitial())),
         BlocProvider<LocalizationBloc>(

@@ -1,3 +1,4 @@
+import 'package:botsta_app/config/routes/routes.dart';
 import 'package:botsta_app/config/routes/routes_config.dart';
 import 'package:botsta_app/logic/bloc/authentication_bloc.dart';
 import 'package:botsta_app/models/authentication_state.dart';
@@ -16,6 +17,10 @@ class SplashScreen extends StatelessWidget {
       var state = authBloc.state.state;
       // authBloc.add(UpdateAuthenticationEvent(AuthState.Unknown));
       authBloc.add(UpdateAuthenticationEvent(state));
+    }
+
+    if (authBloc.state.state == AuthState.AuthenticationFailed) {
+      RoutesConfig.ROUTER.navigateTo(context, Routes.ERROR, clearStack: true);
     }
 
     var secureStorage = getIt.get<SecureStorageService>();

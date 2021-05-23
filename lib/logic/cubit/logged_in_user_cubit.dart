@@ -11,7 +11,12 @@ class LoggedInUserCubit extends Cubit<LoggedInUserState> {
 
   Future<ChatPracticant?> getLoggedInUserAsync() async {
     var client = getIt.get<BotstaApiClient>();
-    var user = await client.getLoggedInUserAsync();
+    ChatPracticant? user;
+    try {
+      user = await client.getLoggedInUserAsync();
+    } catch (Exception) {
+      user = null;
+    }
     emit(LoggedInUserState(user));
     return user;
   }

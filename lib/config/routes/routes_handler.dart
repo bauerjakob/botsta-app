@@ -1,7 +1,9 @@
+import 'package:botsta_app/config/routes/routes.dart';
 import 'package:botsta_app/logic/bloc/authentication_bloc.dart';
 import 'package:botsta_app/models/authentication_state.dart';
 import 'package:botsta_app/models/chatroom.dart';
 import 'package:botsta_app/screens/chat/chat_screen.dart';
+import 'package:botsta_app/screens/error_screen/error_screen.dart';
 import 'package:botsta_app/screens/home/home_screen.dart';
 import 'package:botsta_app/screens/login/login_screen.dart';
 import 'package:botsta_app/screens/settings/settings_screen.dart';
@@ -18,13 +20,16 @@ _authenticationWrapper(context, child) {
       String navigateTo;
       switch (state.state) {
         case AuthState.Authenticated:
-          navigateTo = '/home';
+          navigateTo = Routes.HOME;
           break;
         case AuthState.Unauthenticated:
-          navigateTo = '/login';
+          navigateTo = Routes.LOGIN;
+          break;
+        case AuthState.AuthenticationFailed:
+          navigateTo = Routes.ERROR;
           break;
         default:
-          navigateTo = '/';
+          navigateTo = Routes.LOADING;
           break;
       }
       RoutesConfig.ROUTER.navigateTo(context, navigateTo, clearStack: true);
@@ -36,6 +41,11 @@ _authenticationWrapper(context, child) {
 var splashHandler = Handler(
     handlerFunc: (context, params) =>
         _authenticationWrapper(context, SplashScreen()));
+
+var errorHandler = Handler(
+    handlerFunc: (context, params) =>
+        _authenticationWrapper(context, ErrorScreen()));
+
 
 var homeHandler = Handler(
     handlerFunc: (context, params) =>
