@@ -42,7 +42,7 @@ abstract class GPostMessageData_postMessage
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   String get id;
-  String get senderId;
+  GPostMessageData_postMessage_sender? get sender;
   static Serializer<GPostMessageData_postMessage> get serializer =>
       _$gPostMessageDataPostMessageSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
@@ -50,4 +50,32 @@ abstract class GPostMessageData_postMessage
   static GPostMessageData_postMessage? fromJson(Map<String, dynamic> json) =>
       _i1.serializers
           .deserializeWith(GPostMessageData_postMessage.serializer, json);
+}
+
+abstract class GPostMessageData_postMessage_sender
+    implements
+        Built<GPostMessageData_postMessage_sender,
+            GPostMessageData_postMessage_senderBuilder> {
+  GPostMessageData_postMessage_sender._();
+
+  factory GPostMessageData_postMessage_sender(
+          [Function(GPostMessageData_postMessage_senderBuilder b) updates]) =
+      _$GPostMessageData_postMessage_sender;
+
+  static void _initializeBuilder(
+          GPostMessageData_postMessage_senderBuilder b) =>
+      b..G__typename = 'ChatPracticant';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  String get id;
+  String get name;
+  static Serializer<GPostMessageData_postMessage_sender> get serializer =>
+      _$gPostMessageDataPostMessageSenderSerializer;
+  Map<String, dynamic> toJson() => (_i1.serializers
+          .serializeWith(GPostMessageData_postMessage_sender.serializer, this)
+      as Map<String, dynamic>);
+  static GPostMessageData_postMessage_sender? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+          GPostMessageData_postMessage_sender.serializer, json);
 }

@@ -3,4 +3,8 @@ class ChatPracticant {
   final String id;
   final String name;
   final bool isBot;
+
+  ChatPracticant clone() {
+    return new ChatPracticant(id, name, isBot);
+  }
 }

@@ -1,13 +1,17 @@
 query GetChatrooms {
   chatrooms {
-	id,
+    id
     latestMessage {
-        id, 
-        message,
-        sendTime,
-        senderId
-    },
-  	name,
-  	type
- }
+      sender {
+        id
+        name
+        isBot
+      }
+      id
+      message
+      sendTime
+    }
+    name
+    type
+  }
 }

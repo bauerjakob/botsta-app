@@ -1,0 +1,4 @@
+enum ChatroomType {
+  Single,
+  Group
+}

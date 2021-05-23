@@ -1,17 +1,18 @@
 import 'package:botsta_app/logic/bloc/message_bloc.dart';
+import 'package:botsta_app/models/chat_practicant.dart';
 
 class Message {
-  Message(this.id, this.items, this.senderId, this.chatroomId, this.sendTime, this.senderIsMe);
+  Message(this.id, this.items, this.sender, this.chatroomId, this.sendTime, this.senderIsMe);
   
   String id;
   List<MessageItem> items;
-  String senderId;
+  ChatPracticant sender;
   String chatroomId;
   DateTime sendTime;
   bool senderIsMe;
 
   Message clone() {
-    return Message(id, this.items, senderId, chatroomId, sendTime, senderIsMe);
+    return Message(id, this.items, sender.clone(), chatroomId, sendTime, senderIsMe);
   }
 }
 

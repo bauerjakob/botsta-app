@@ -46,7 +46,7 @@ type GraphMessageType {
   chatroomId: ID!
   id: ID!
   message: String!
-  senderId: ID!
+  sender: ChatPracticant
   sendTime: DateTimeOffset!
 }
 

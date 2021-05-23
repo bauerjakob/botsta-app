@@ -185,11 +185,11 @@ const GraphMessageType = _i1.ObjectTypeDefinitionNode(
           type: _i1.NamedTypeNode(
               name: _i1.NameNode(value: 'String'), isNonNull: true)),
       _i1.FieldDefinitionNode(
-          name: _i1.NameNode(value: 'senderId'),
+          name: _i1.NameNode(value: 'sender'),
           directives: [],
           args: [],
           type: _i1.NamedTypeNode(
-              name: _i1.NameNode(value: 'ID'), isNonNull: true)),
+              name: _i1.NameNode(value: 'ChatPracticant'), isNonNull: false)),
       _i1.FieldDefinitionNode(
           name: _i1.NameNode(value: 'sendTime'),
           directives: [],

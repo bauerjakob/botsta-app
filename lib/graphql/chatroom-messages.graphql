@@ -1,12 +1,17 @@
-query GetChatroomMessages($chatroomId: String!){
-	chatroom(chatroomId: $chatroomId) {
-      id,
-      name,
-      messages {
-        id,
-        message,
-        senderId,
-        sendTime
+query GetChatroomMessages($chatroomId: String!) {
+  chatroom(chatroomId: $chatroomId) {
+    id
+    name
+    messages {
+      sender {
+        id
+        name
+        isBot
       }
+      message
+      chatroomId
+      id
+      sendTime
+    }
   }
 }

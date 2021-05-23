@@ -70,10 +70,10 @@ abstract class GGetChatroomsData_chatrooms_latestMessage
       b..G__typename = 'GraphMessageType';
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
+  GGetChatroomsData_chatrooms_latestMessage_sender? get sender;
   String get id;
   String get message;
   _i2.GDateTimeOffset get sendTime;
-  String get senderId;
   static Serializer<GGetChatroomsData_chatrooms_latestMessage> get serializer =>
       _$gGetChatroomsDataChatroomsLatestMessageSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
@@ -83,4 +83,34 @@ abstract class GGetChatroomsData_chatrooms_latestMessage
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
           GGetChatroomsData_chatrooms_latestMessage.serializer, json);
+}
+
+abstract class GGetChatroomsData_chatrooms_latestMessage_sender
+    implements
+        Built<GGetChatroomsData_chatrooms_latestMessage_sender,
+            GGetChatroomsData_chatrooms_latestMessage_senderBuilder> {
+  GGetChatroomsData_chatrooms_latestMessage_sender._();
+
+  factory GGetChatroomsData_chatrooms_latestMessage_sender(
+      [Function(GGetChatroomsData_chatrooms_latestMessage_senderBuilder b)
+          updates]) = _$GGetChatroomsData_chatrooms_latestMessage_sender;
+
+  static void _initializeBuilder(
+          GGetChatroomsData_chatrooms_latestMessage_senderBuilder b) =>
+      b..G__typename = 'ChatPracticant';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  String get id;
+  String get name;
+  bool get isBot;
+  static Serializer<GGetChatroomsData_chatrooms_latestMessage_sender>
+      get serializer =>
+          _$gGetChatroomsDataChatroomsLatestMessageSenderSerializer;
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+          GGetChatroomsData_chatrooms_latestMessage_sender.serializer, this)
+      as Map<String, dynamic>);
+  static GGetChatroomsData_chatrooms_latestMessage_sender? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+          GGetChatroomsData_chatrooms_latestMessage_sender.serializer, json);
 }

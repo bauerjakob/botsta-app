@@ -46,9 +46,9 @@ abstract class GMessageSubscriptionData_messageReceived
       b..G__typename = 'GraphMessageType';
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
+  GMessageSubscriptionData_messageReceived_sender? get sender;
   String get message;
   String get chatroomId;
-  String get senderId;
   String get id;
   _i2.GDateTimeOffset get sendTime;
   static Serializer<GMessageSubscriptionData_messageReceived> get serializer =>
@@ -60,4 +60,34 @@ abstract class GMessageSubscriptionData_messageReceived
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
           GMessageSubscriptionData_messageReceived.serializer, json);
+}
+
+abstract class GMessageSubscriptionData_messageReceived_sender
+    implements
+        Built<GMessageSubscriptionData_messageReceived_sender,
+            GMessageSubscriptionData_messageReceived_senderBuilder> {
+  GMessageSubscriptionData_messageReceived_sender._();
+
+  factory GMessageSubscriptionData_messageReceived_sender(
+      [Function(GMessageSubscriptionData_messageReceived_senderBuilder b)
+          updates]) = _$GMessageSubscriptionData_messageReceived_sender;
+
+  static void _initializeBuilder(
+          GMessageSubscriptionData_messageReceived_senderBuilder b) =>
+      b..G__typename = 'ChatPracticant';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  String get id;
+  String get name;
+  bool get isBot;
+  static Serializer<GMessageSubscriptionData_messageReceived_sender>
+      get serializer =>
+          _$gMessageSubscriptionDataMessageReceivedSenderSerializer;
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+          GMessageSubscriptionData_messageReceived_sender.serializer, this)
+      as Map<String, dynamic>);
+  static GMessageSubscriptionData_messageReceived_sender? fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+          GMessageSubscriptionData_messageReceived_sender.serializer, json);
 }

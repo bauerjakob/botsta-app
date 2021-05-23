@@ -1,6 +1,9 @@
 mutation PostMessage($chatroomId: String!, $message: String!) {
   postMessage(chatroomId: $chatroomId, message:$message) {
     id,
-    senderId
+    sender {
+      id
+      name
+    }
   }
 }

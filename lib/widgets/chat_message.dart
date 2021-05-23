@@ -1,4 +1,5 @@
 import 'package:botsta_app/logic/bloc/message_bloc.dart';
+import 'package:botsta_app/models/chatroom_type.dart';
 import 'package:botsta_app/models/message.dart';
 import 'package:botsta_app/startup.dart';
 import 'package:botsta_app/widgets/chat_message_card.dart';
@@ -12,7 +13,9 @@ import 'package:url_launcher/url_launcher.dart';
 class ChatMessage extends StatelessWidget {
   final Message message;
 
-  const ChatMessage(this.message);
+  final ChatroomType chatroomType;
+
+  const ChatMessage(this.message, this.chatroomType);
 
   List<Widget> _mergeMessageItems(BuildContext context) {
     final textColor =
@@ -66,9 +69,10 @@ class ChatMessage extends StatelessWidget {
                 var postback = msg.button!.postback?.trim();
                 var url = msg.button!.url?.trim();
                 if (postback != null && postback.isNotEmpty) {
-                  await getIt.get<MessageBloc>().postMessageAsync(message.chatroomId, postback);
-                }
-                else if (msg.button!.url != null && url!.isNotEmpty) {
+                  await getIt
+                      .get<MessageBloc>()
+                      .postMessageAsync(message.chatroomId, postback);
+                } else if (msg.button!.url != null && url!.isNotEmpty) {
                   await launch(url);
                 }
               },
@@ -104,33 +108,66 @@ class ChatMessage extends StatelessWidget {
           message.senderIsMe ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          margin: EdgeInsets.symmetric(
+            horizontal: 10,
+            vertical: 10,
+          ),
           child: Column(
             crossAxisAlignment: message.senderIsMe
                 ? CrossAxisAlignment.end
                 : CrossAxisAlignment.start,
             children: [
               Container(
-                constraints:
-                    BoxConstraints(maxWidth: context.screenWidth() * 0.75),
-                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                constraints: BoxConstraints(
+                  maxWidth: context.screenWidth() * 0.75,
+                ),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 15,
+                  vertical: 5,
+                ),
                 decoration: BoxDecoration(
                   color: message.senderIsMe
                       ? context.theme().accentColor
                       : context.theme().highlightColor,
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(
+                    20,
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: _mergeMessageItems(context),
+                  children: [
+                    !message.senderIsMe && chatroomType == ChatroomType.Group
+                        ? Text(
+                            message.sender.name,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w900,
+                              fontSize: 14,
+                              color: context.theme().accentColor,
+                            ),
+                          )
+                        : SizedBox.shrink(),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: _mergeMessageItems(
+                        context,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8.0,
+                ),
                 child: Text(
-                  message.sendTime
-                      .toTimeString(context.translate('DATETIME.time_format')),
-                  style: TextStyle(fontSize: 13),
+                  message.sendTime.toTimeString(
+                    context.translate(
+                      'DATETIME.time_format',
+                    ),
+                  ),
+                  style: TextStyle(
+                    fontSize: 13,
+                  ),
                 ),
               ),
             ],

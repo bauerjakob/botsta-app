@@ -20,6 +20,7 @@ import 'package:botsta_app/logic/bloc/message_bloc.dart';
 import 'package:botsta_app/logic/cubit/logged_in_user_cubit.dart';
 import 'package:botsta_app/models/authentication_state.dart';
 import 'package:botsta_app/models/chatroom.dart';
+import 'package:botsta_app/models/chatroom_type.dart';
 import 'package:botsta_app/models/message.dart';
 import 'package:botsta_app/models/chat_practicant.dart';
 import 'package:botsta_app/services/secure_storage_service.dart';
@@ -100,17 +101,24 @@ class BotstaApiClient {
       return res.data!.chatrooms!.map((c) {
         var latestMessageData = c.latestMessage;
         Message? latestMessage;
-        if (latestMessageData != null) {
+        if (latestMessageData != null && latestMessageData.sender != null) {
+          var sender = latestMessageData.sender!;
           var messageItem = _decodeMessageItem(latestMessageData.message);
           latestMessage = Message(
               latestMessageData.id,
               messageItem,
-              latestMessageData.senderId,
+              ChatPracticant(sender.id, sender.name, sender.isBot),
               c.id,
               DateTime.parse(latestMessageData.sendTime.value),
-              _userIsMe(latestMessageData.senderId));
+              _userIsMe(sender.id));
         }
-        var chatroom = Chatroom(c.id, c.name!, latestMessage);
+        var chatroom = Chatroom(
+            c.id,
+            c.name!,
+            c.type.toLowerCase() == "group"
+                ? ChatroomType.Group
+                : ChatroomType.Single,
+            latestMessage);
         return chatroom;
       });
     }
@@ -129,14 +137,16 @@ class BotstaApiClient {
     }
 
     var data = res.data!.newChatroomSingle!;
-    return Chatroom(data.id, data.name!);
+    return Chatroom(data.id, data.name!, ChatroomType.Single);
   }
 
-  Future<Chatroom> crateChatroomGroupAsync(String groupName, List<String> practicantIds) async {
+  Future<Chatroom> crateChatroomGroupAsync(
+      String groupName, List<String> practicantIds) async {
     var client = await getIt.getAsync<Client>();
-    var request = GCreateChatroomGroupReq((b) => b.vars..name = groupName..practicantIds.addAll(practicantIds));
-    var res = await client.requestFirst(
-        request);
+    var request = GCreateChatroomGroupReq((b) => b.vars
+      ..name = groupName
+      ..practicantIds.addAll(practicantIds));
+    var res = await client.requestFirst(request);
     await client.dispose();
 
     if (res.hasErrors || res.data?.newChatroomGroup == null) {
@@ -144,7 +154,7 @@ class BotstaApiClient {
     }
 
     var data = res.data!.newChatroomGroup!;
-    return Chatroom(data.id, data.name!);
+    return Chatroom(data.id, data.name!, ChatroomType.Group);
   }
 
   Future<Iterable<ChatPracticant>> getAllUsersAsync(
@@ -172,14 +182,16 @@ class BotstaApiClient {
     await client.dispose();
 
     if (res.data?.chatroom?.messages != null) {
-      var chatroomId = res.data!.chatroom!.id;
-      return res.data!.chatroom!.messages!.map((m) => Message(
-          m.id,
-          _decodeMessageItem(m.message),
-          m.senderId,
-          chatroomId,
-          DateTime.parse(m.sendTime.value),
-          _userIsMe(m.senderId)));
+      return res.data!.chatroom!.messages!.map((m) {
+        var sender = m.sender!;
+        return Message(
+            m.id,
+            _decodeMessageItem(m.message),
+            ChatPracticant(sender.id, sender.name, sender.isBot),
+            m.chatroomId,
+            DateTime.parse(m.sendTime.value),
+            _userIsMe(sender.id));
+      });
     }
     return null;
   }
@@ -193,11 +205,11 @@ class BotstaApiClient {
 
     String? id = res.data?.postMessage?.id;
     if (id != null) {
-      var senderId = res.data!.postMessage!.senderId;
+      var sender = res.data!.postMessage!.sender!;
       return Message(
         id,
         _decodeMessageItem(message),
-        senderId,
+        ChatPracticant(sender.id, sender.name, false),
         chatroomId,
         DateTime.now(),
         true,
@@ -216,15 +228,17 @@ class BotstaApiClient {
             GMessageSubscriptionReq((b) => b..vars.refreshToken = refreshToken))
         .listen((event) {
       var data = event.data?.messageReceived;
-      if (data != null) {
-        var userCubit = getIt.get<LoggedInUserCubit>();
+      if (data != null && data.sender != null) {
+        var sender = data.sender!;
+
         var msg = Message(
-            data.id,
-            _decodeMessageItem(data.message),
-            data.senderId,
-            data.chatroomId,
-            DateTime.parse(data.sendTime.value),
-            data.senderId == userCubit.state.loggedInUser!.id);
+          data.id,
+          _decodeMessageItem(data.message),
+          ChatPracticant(sender.id, sender.name, sender.isBot),
+          data.chatroomId,
+          DateTime.parse(data.sendTime.value),
+          _userIsMe(sender.id),
+        );
         getIt.get<MessageBloc>().add(AppendMessageEvent(msg));
       }
     });

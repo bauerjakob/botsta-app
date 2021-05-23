@@ -62,7 +62,7 @@ class ChatScreen extends StatelessWidget {
                           itemCount: state.messages[chatroom.id]?.length ?? 0,
                           itemBuilder: (context, item) {
                             var message = state.messages[chatroom.id]![item];
-                            return ChatMessage(message);
+                            return ChatMessage(message, chatroom.type);
                           });
                     },
                   ),

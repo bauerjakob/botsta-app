@@ -14,6 +14,9 @@ Serializer<GGetChatroomMessagesData_chatroom>
 Serializer<GGetChatroomMessagesData_chatroom_messages>
     _$gGetChatroomMessagesDataChatroomMessagesSerializer =
     new _$GGetChatroomMessagesData_chatroom_messagesSerializer();
+Serializer<GGetChatroomMessagesData_chatroom_messages_sender>
+    _$gGetChatroomMessagesDataChatroomMessagesSenderSerializer =
+    new _$GGetChatroomMessagesData_chatroom_messages_senderSerializer();
 
 class _$GGetChatroomMessagesDataSerializer
     implements StructuredSerializer<GGetChatroomMessagesData> {
@@ -171,19 +174,27 @@ class _$GGetChatroomMessagesData_chatroom_messagesSerializer
       '__typename',
       serializers.serialize(object.G__typename,
           specifiedType: const FullType(String)),
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
       'message',
       serializers.serialize(object.message,
           specifiedType: const FullType(String)),
-      'senderId',
-      serializers.serialize(object.senderId,
+      'chatroomId',
+      serializers.serialize(object.chatroomId,
           specifiedType: const FullType(String)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
       'sendTime',
       serializers.serialize(object.sendTime,
           specifiedType: const FullType(_i2.GDateTimeOffset)),
     ];
-
+    Object? value;
+    value = object.sender;
+    if (value != null) {
+      result
+        ..add('sender')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                GGetChatroomMessagesData_chatroom_messages_sender)));
+    }
     return result;
   }
 
@@ -203,22 +214,95 @@ class _$GGetChatroomMessagesData_chatroom_messagesSerializer
           result.G__typename = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
-        case 'id':
-          result.id = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+        case 'sender':
+          result.sender.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      GGetChatroomMessagesData_chatroom_messages_sender))!
+              as GGetChatroomMessagesData_chatroom_messages_sender);
           break;
         case 'message':
           result.message = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
-        case 'senderId':
-          result.senderId = serializers.deserialize(value,
+        case 'chatroomId':
+          result.chatroomId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
         case 'sendTime':
           result.sendTime.replace(serializers.deserialize(value,
                   specifiedType: const FullType(_i2.GDateTimeOffset))!
               as _i2.GDateTimeOffset);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GGetChatroomMessagesData_chatroom_messages_senderSerializer
+    implements
+        StructuredSerializer<
+            GGetChatroomMessagesData_chatroom_messages_sender> {
+  @override
+  final Iterable<Type> types = const [
+    GGetChatroomMessagesData_chatroom_messages_sender,
+    _$GGetChatroomMessagesData_chatroom_messages_sender
+  ];
+  @override
+  final String wireName = 'GGetChatroomMessagesData_chatroom_messages_sender';
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers,
+      GGetChatroomMessagesData_chatroom_messages_sender object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'name',
+      serializers.serialize(object.name, specifiedType: const FullType(String)),
+      'isBot',
+      serializers.serialize(object.isBot, specifiedType: const FullType(bool)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GGetChatroomMessagesData_chatroom_messages_sender deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result =
+        new GGetChatroomMessagesData_chatroom_messages_senderBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'name':
+          result.name = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'isBot':
+          result.isBot = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool;
           break;
       }
     }
@@ -487,11 +571,13 @@ class _$GGetChatroomMessagesData_chatroom_messages
   @override
   final String G__typename;
   @override
-  final String id;
+  final GGetChatroomMessagesData_chatroom_messages_sender? sender;
   @override
   final String message;
   @override
-  final String senderId;
+  final String chatroomId;
+  @override
+  final String id;
   @override
   final _i2.GDateTimeOffset sendTime;
 
@@ -503,19 +589,20 @@ class _$GGetChatroomMessagesData_chatroom_messages
 
   _$GGetChatroomMessagesData_chatroom_messages._(
       {required this.G__typename,
-      required this.id,
+      this.sender,
       required this.message,
-      required this.senderId,
+      required this.chatroomId,
+      required this.id,
       required this.sendTime})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(G__typename,
         'GGetChatroomMessagesData_chatroom_messages', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
-        id, 'GGetChatroomMessagesData_chatroom_messages', 'id');
-    BuiltValueNullFieldError.checkNotNull(
         message, 'GGetChatroomMessagesData_chatroom_messages', 'message');
     BuiltValueNullFieldError.checkNotNull(
-        senderId, 'GGetChatroomMessagesData_chatroom_messages', 'senderId');
+        chatroomId, 'GGetChatroomMessagesData_chatroom_messages', 'chatroomId');
+    BuiltValueNullFieldError.checkNotNull(
+        id, 'GGetChatroomMessagesData_chatroom_messages', 'id');
     BuiltValueNullFieldError.checkNotNull(
         sendTime, 'GGetChatroomMessagesData_chatroom_messages', 'sendTime');
   }
@@ -535,9 +622,10 @@ class _$GGetChatroomMessagesData_chatroom_messages
     if (identical(other, this)) return true;
     return other is GGetChatroomMessagesData_chatroom_messages &&
         G__typename == other.G__typename &&
-        id == other.id &&
+        sender == other.sender &&
         message == other.message &&
-        senderId == other.senderId &&
+        chatroomId == other.chatroomId &&
+        id == other.id &&
         sendTime == other.sendTime;
   }
 
@@ -545,9 +633,11 @@ class _$GGetChatroomMessagesData_chatroom_messages
   int get hashCode {
     return $jf($jc(
         $jc(
-            $jc($jc($jc(0, G__typename.hashCode), id.hashCode),
-                message.hashCode),
-            senderId.hashCode),
+            $jc(
+                $jc($jc($jc(0, G__typename.hashCode), sender.hashCode),
+                    message.hashCode),
+                chatroomId.hashCode),
+            id.hashCode),
         sendTime.hashCode));
   }
 
@@ -556,9 +646,10 @@ class _$GGetChatroomMessagesData_chatroom_messages
     return (newBuiltValueToStringHelper(
             'GGetChatroomMessagesData_chatroom_messages')
           ..add('G__typename', G__typename)
-          ..add('id', id)
+          ..add('sender', sender)
           ..add('message', message)
-          ..add('senderId', senderId)
+          ..add('chatroomId', chatroomId)
+          ..add('id', id)
           ..add('sendTime', sendTime))
         .toString();
   }
@@ -574,17 +665,25 @@ class GGetChatroomMessagesData_chatroom_messagesBuilder
   String? get G__typename => _$this._G__typename;
   set G__typename(String? G__typename) => _$this._G__typename = G__typename;
 
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
+  GGetChatroomMessagesData_chatroom_messages_senderBuilder? _sender;
+  GGetChatroomMessagesData_chatroom_messages_senderBuilder get sender =>
+      _$this._sender ??=
+          new GGetChatroomMessagesData_chatroom_messages_senderBuilder();
+  set sender(
+          GGetChatroomMessagesData_chatroom_messages_senderBuilder? sender) =>
+      _$this._sender = sender;
 
   String? _message;
   String? get message => _$this._message;
   set message(String? message) => _$this._message = message;
 
-  String? _senderId;
-  String? get senderId => _$this._senderId;
-  set senderId(String? senderId) => _$this._senderId = senderId;
+  String? _chatroomId;
+  String? get chatroomId => _$this._chatroomId;
+  set chatroomId(String? chatroomId) => _$this._chatroomId = chatroomId;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
 
   _i2.GDateTimeOffsetBuilder? _sendTime;
   _i2.GDateTimeOffsetBuilder get sendTime =>
@@ -600,9 +699,10 @@ class GGetChatroomMessagesData_chatroom_messagesBuilder
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
-      _id = $v.id;
+      _sender = $v.sender?.toBuilder();
       _message = $v.message;
-      _senderId = $v.senderId;
+      _chatroomId = $v.chatroomId;
+      _id = $v.id;
       _sendTime = $v.sendTime.toBuilder();
       _$v = null;
     }
@@ -630,16 +730,20 @@ class GGetChatroomMessagesData_chatroom_messagesBuilder
           new _$GGetChatroomMessagesData_chatroom_messages._(
               G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
                   'GGetChatroomMessagesData_chatroom_messages', 'G__typename'),
-              id: BuiltValueNullFieldError.checkNotNull(
-                  id, 'GGetChatroomMessagesData_chatroom_messages', 'id'),
+              sender: _sender?.build(),
               message: BuiltValueNullFieldError.checkNotNull(message,
                   'GGetChatroomMessagesData_chatroom_messages', 'message'),
-              senderId: BuiltValueNullFieldError.checkNotNull(senderId,
-                  'GGetChatroomMessagesData_chatroom_messages', 'senderId'),
+              chatroomId: BuiltValueNullFieldError.checkNotNull(chatroomId,
+                  'GGetChatroomMessagesData_chatroom_messages', 'chatroomId'),
+              id: BuiltValueNullFieldError.checkNotNull(
+                  id, 'GGetChatroomMessagesData_chatroom_messages', 'id'),
               sendTime: sendTime.build());
     } catch (_) {
       late String _$failedField;
       try {
+        _$failedField = 'sender';
+        _sender?.build();
+
         _$failedField = 'sendTime';
         sendTime.build();
       } catch (e) {
@@ -650,6 +754,152 @@ class GGetChatroomMessagesData_chatroom_messagesBuilder
       }
       rethrow;
     }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GGetChatroomMessagesData_chatroom_messages_sender
+    extends GGetChatroomMessagesData_chatroom_messages_sender {
+  @override
+  final String G__typename;
+  @override
+  final String id;
+  @override
+  final String name;
+  @override
+  final bool isBot;
+
+  factory _$GGetChatroomMessagesData_chatroom_messages_sender(
+          [void Function(
+                  GGetChatroomMessagesData_chatroom_messages_senderBuilder)?
+              updates]) =>
+      (new GGetChatroomMessagesData_chatroom_messages_senderBuilder()
+            ..update(updates))
+          .build();
+
+  _$GGetChatroomMessagesData_chatroom_messages_sender._(
+      {required this.G__typename,
+      required this.id,
+      required this.name,
+      required this.isBot})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(G__typename,
+        'GGetChatroomMessagesData_chatroom_messages_sender', 'G__typename');
+    BuiltValueNullFieldError.checkNotNull(
+        id, 'GGetChatroomMessagesData_chatroom_messages_sender', 'id');
+    BuiltValueNullFieldError.checkNotNull(
+        name, 'GGetChatroomMessagesData_chatroom_messages_sender', 'name');
+    BuiltValueNullFieldError.checkNotNull(
+        isBot, 'GGetChatroomMessagesData_chatroom_messages_sender', 'isBot');
+  }
+
+  @override
+  GGetChatroomMessagesData_chatroom_messages_sender rebuild(
+          void Function(
+                  GGetChatroomMessagesData_chatroom_messages_senderBuilder)
+              updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GGetChatroomMessagesData_chatroom_messages_senderBuilder toBuilder() =>
+      new GGetChatroomMessagesData_chatroom_messages_senderBuilder()
+        ..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GGetChatroomMessagesData_chatroom_messages_sender &&
+        G__typename == other.G__typename &&
+        id == other.id &&
+        name == other.name &&
+        isBot == other.isBot;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc(
+        $jc($jc($jc(0, G__typename.hashCode), id.hashCode), name.hashCode),
+        isBot.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(
+            'GGetChatroomMessagesData_chatroom_messages_sender')
+          ..add('G__typename', G__typename)
+          ..add('id', id)
+          ..add('name', name)
+          ..add('isBot', isBot))
+        .toString();
+  }
+}
+
+class GGetChatroomMessagesData_chatroom_messages_senderBuilder
+    implements
+        Builder<GGetChatroomMessagesData_chatroom_messages_sender,
+            GGetChatroomMessagesData_chatroom_messages_senderBuilder> {
+  _$GGetChatroomMessagesData_chatroom_messages_sender? _$v;
+
+  String? _G__typename;
+  String? get G__typename => _$this._G__typename;
+  set G__typename(String? G__typename) => _$this._G__typename = G__typename;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
+
+  bool? _isBot;
+  bool? get isBot => _$this._isBot;
+  set isBot(bool? isBot) => _$this._isBot = isBot;
+
+  GGetChatroomMessagesData_chatroom_messages_senderBuilder() {
+    GGetChatroomMessagesData_chatroom_messages_sender._initializeBuilder(this);
+  }
+
+  GGetChatroomMessagesData_chatroom_messages_senderBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _G__typename = $v.G__typename;
+      _id = $v.id;
+      _name = $v.name;
+      _isBot = $v.isBot;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GGetChatroomMessagesData_chatroom_messages_sender other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$GGetChatroomMessagesData_chatroom_messages_sender;
+  }
+
+  @override
+  void update(
+      void Function(GGetChatroomMessagesData_chatroom_messages_senderBuilder)?
+          updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$GGetChatroomMessagesData_chatroom_messages_sender build() {
+    final _$result = _$v ??
+        new _$GGetChatroomMessagesData_chatroom_messages_sender._(
+            G__typename: BuiltValueNullFieldError.checkNotNull(
+                G__typename,
+                'GGetChatroomMessagesData_chatroom_messages_sender',
+                'G__typename'),
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, 'GGetChatroomMessagesData_chatroom_messages_sender', 'id'),
+            name: BuiltValueNullFieldError.checkNotNull(name,
+                'GGetChatroomMessagesData_chatroom_messages_sender', 'name'),
+            isBot: BuiltValueNullFieldError.checkNotNull(isBot,
+                'GGetChatroomMessagesData_chatroom_messages_sender', 'isBot'));
     replace(_$result);
     return _$result;
   }

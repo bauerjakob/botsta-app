@@ -10,7 +10,8 @@ import 'package:botsta_app/graphql/chatroom-messages.data.gql.dart'
     show
         GGetChatroomMessagesData,
         GGetChatroomMessagesData_chatroom,
-        GGetChatroomMessagesData_chatroom_messages;
+        GGetChatroomMessagesData_chatroom_messages,
+        GGetChatroomMessagesData_chatroom_messages_sender;
 import 'package:botsta_app/graphql/chatroom-messages.req.gql.dart'
     show GGetChatroomMessagesReq;
 import 'package:botsta_app/graphql/chatroom-messages.var.gql.dart'
@@ -19,7 +20,8 @@ import 'package:botsta_app/graphql/chatrooms.data.gql.dart'
     show
         GGetChatroomsData,
         GGetChatroomsData_chatrooms,
-        GGetChatroomsData_chatrooms_latestMessage;
+        GGetChatroomsData_chatrooms_latestMessage,
+        GGetChatroomsData_chatrooms_latestMessage_sender;
 import 'package:botsta_app/graphql/chatrooms.req.gql.dart'
     show GGetChatroomsReq;
 import 'package:botsta_app/graphql/chatrooms.var.gql.dart'
@@ -41,13 +43,19 @@ import 'package:botsta_app/graphql/login.data.gql.dart'
 import 'package:botsta_app/graphql/login.req.gql.dart' show GLoginReq;
 import 'package:botsta_app/graphql/login.var.gql.dart' show GLoginVars;
 import 'package:botsta_app/graphql/message-subscription.data.gql.dart'
-    show GMessageSubscriptionData, GMessageSubscriptionData_messageReceived;
+    show
+        GMessageSubscriptionData,
+        GMessageSubscriptionData_messageReceived,
+        GMessageSubscriptionData_messageReceived_sender;
 import 'package:botsta_app/graphql/message-subscription.req.gql.dart'
     show GMessageSubscriptionReq;
 import 'package:botsta_app/graphql/message-subscription.var.gql.dart'
     show GMessageSubscriptionVars;
 import 'package:botsta_app/graphql/post-message.data.gql.dart'
-    show GPostMessageData, GPostMessageData_postMessage;
+    show
+        GPostMessageData,
+        GPostMessageData_postMessage,
+        GPostMessageData_postMessage_sender;
 import 'package:botsta_app/graphql/post-message.req.gql.dart'
     show GPostMessageReq;
 import 'package:botsta_app/graphql/post-message.var.gql.dart'
@@ -97,11 +105,13 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GGetChatroomMessagesData,
   GGetChatroomMessagesData_chatroom,
   GGetChatroomMessagesData_chatroom_messages,
+  GGetChatroomMessagesData_chatroom_messages_sender,
   GGetChatroomMessagesReq,
   GGetChatroomMessagesVars,
   GGetChatroomsData,
   GGetChatroomsData_chatrooms,
   GGetChatroomsData_chatrooms_latestMessage,
+  GGetChatroomsData_chatrooms_latestMessage_sender,
   GGetChatroomsReq,
   GGetChatroomsVars,
   GLoginData,
@@ -110,10 +120,12 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GLoginVars,
   GMessageSubscriptionData,
   GMessageSubscriptionData_messageReceived,
+  GMessageSubscriptionData_messageReceived_sender,
   GMessageSubscriptionReq,
   GMessageSubscriptionVars,
   GPostMessageData,
   GPostMessageData_postMessage,
+  GPostMessageData_postMessage_sender,
   GPostMessageReq,
   GPostMessageVars,
   GRefresthTokenData,

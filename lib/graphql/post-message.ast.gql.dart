@@ -42,11 +42,24 @@ const PostMessage = _i1.OperationDefinitionNode(
                 directives: [],
                 selectionSet: null),
             _i1.FieldNode(
-                name: _i1.NameNode(value: 'senderId'),
+                name: _i1.NameNode(value: 'sender'),
                 alias: null,
                 arguments: [],
                 directives: [],
-                selectionSet: null)
+                selectionSet: _i1.SelectionSetNode(selections: [
+                  _i1.FieldNode(
+                      name: _i1.NameNode(value: 'id'),
+                      alias: null,
+                      arguments: [],
+                      directives: [],
+                      selectionSet: null),
+                  _i1.FieldNode(
+                      name: _i1.NameNode(value: 'name'),
+                      alias: null,
+                      arguments: [],
+                      directives: [],
+                      selectionSet: null)
+                ]))
           ]))
     ]));
 const document = _i1.DocumentNode(definitions: [PostMessage]);
