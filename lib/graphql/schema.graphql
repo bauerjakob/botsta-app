@@ -68,7 +68,7 @@ type BotstaMutation {
   register(username: String!, password: String!): Login
 
   # Register new bot
-  registerBot(botName: String): String
+  registerBot(botName: String, isPublic: Boolean): String
 }
 
 type Login {

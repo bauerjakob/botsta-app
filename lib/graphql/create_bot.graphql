@@ -1,0 +1,3 @@
+mutation CreateBot ($botName: String!, $isPublic: Boolean!) {
+  registerBot (botName: $botName, isPublic: $isPublic)
+}

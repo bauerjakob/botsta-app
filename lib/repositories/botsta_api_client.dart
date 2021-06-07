@@ -6,6 +6,7 @@ import 'package:botsta_app/graphql/all_chat_practicants.req.gql.dart';
 import 'package:botsta_app/graphql/chatroom-messages.req.gql.dart';
 import 'package:botsta_app/graphql/chatrooms.data.gql.dart';
 import 'package:botsta_app/graphql/chatrooms.req.gql.dart';
+import 'package:botsta_app/graphql/create_bot.req.gql.dart';
 import 'package:botsta_app/graphql/create_chatroom_group.req.gql.dart';
 import 'package:botsta_app/graphql/create_chatroom_single.req.gql.dart';
 import 'package:botsta_app/graphql/login.req.gql.dart';
@@ -76,6 +77,19 @@ class BotstaApiClient {
       secureStorage.setToken(null);
       secureStorage.setRefreshToken(null);
       return false;
+    }
+  }
+  Future<String> registerBotAsync(String botName, bool isPublic) async {
+    var client = await getIt.getAsync<Client>();
+    var res = await client.requestFirst(GCreateBotReq((b) => b
+      ..vars.botName = botName
+      ..vars.isPublic = isPublic));
+    await client.dispose();
+    if (!res.hasErrors &&
+        res.data != null) {
+      return res.data!.registerBot!;
+    } else {
+      throw Exception();
     }
   }
 

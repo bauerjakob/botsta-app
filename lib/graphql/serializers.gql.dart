@@ -26,6 +26,10 @@ import 'package:botsta_app/graphql/chatrooms.req.gql.dart'
     show GGetChatroomsReq;
 import 'package:botsta_app/graphql/chatrooms.var.gql.dart'
     show GGetChatroomsVars;
+import 'package:botsta_app/graphql/create_bot.data.gql.dart'
+    show GCreateBotData;
+import 'package:botsta_app/graphql/create_bot.req.gql.dart' show GCreateBotReq;
+import 'package:botsta_app/graphql/create_bot.var.gql.dart' show GCreateBotVars;
 import 'package:botsta_app/graphql/create_chatroom_group.data.gql.dart'
     show GCreateChatroomGroupData, GCreateChatroomGroupData_newChatroomGroup;
 import 'package:botsta_app/graphql/create_chatroom_group.req.gql.dart'
@@ -89,6 +93,9 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   ..add(OperationSerializer())
   ..addPlugin(StandardJsonPlugin());
 @SerializersFor([
+  GCreateBotData,
+  GCreateBotReq,
+  GCreateBotVars,
   GCreateChatroomGroupData,
   GCreateChatroomGroupData_newChatroomGroup,
   GCreateChatroomGroupReq,

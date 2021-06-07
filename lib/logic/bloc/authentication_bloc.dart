@@ -83,4 +83,9 @@ class AuthenticationBloc
     }
     return successful;
   }
+
+  Future<String> registerBotAsync(String botName, bool isPublic) async {
+    var client = getIt.get<BotstaApiClient>();
+    return await client.registerBotAsync(botName, isPublic);
+  }
 }

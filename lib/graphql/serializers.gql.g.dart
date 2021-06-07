@@ -7,6 +7,9 @@ part of 'serializers.gql.dart';
 // **************************************************************************
 
 Serializers _$serializers = (new Serializers().toBuilder()
+      ..add(GCreateBotData.serializer)
+      ..add(GCreateBotReq.serializer)
+      ..add(GCreateBotVars.serializer)
       ..add(GCreateChatroomGroupData.serializer)
       ..add(GCreateChatroomGroupData_newChatroomGroup.serializer)
       ..add(GCreateChatroomGroupReq.serializer)
