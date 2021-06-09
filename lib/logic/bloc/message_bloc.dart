@@ -12,8 +12,7 @@ part 'message_event.dart';
 part 'message_state.dart';
 
 class MessageBloc extends Bloc<MessageEvent, MessageState> {
-  MessageBloc() : super(MessageInitial()) {
-  }
+  MessageBloc() : super(MessageInitial());
 
   StreamSubscription<dynamic>? _messageSubscription;
 

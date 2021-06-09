@@ -1,6 +1,7 @@
 import 'package:botsta_app/config/routes/routes_config.dart';
 import 'package:botsta_app/logic/bloc/chatroom_bloc.dart';
 import 'package:botsta_app/models/chatroom.dart';
+import 'package:botsta_app/screens/bots/bots_screen.dart';
 import 'package:botsta_app/screens/chatrooms/chatrooms_screen.dart';
 import 'package:botsta_app/screens/create_bot_screen/create_bot_screen1.dart';
 import 'package:botsta_app/screens/new_chat_single/new_chat_single_screen.dart';
@@ -26,12 +27,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   var _currentPageIndex = 0;
 
-   _pageChanged(int pageIndex) {
+  _pageChanged(int pageIndex) {
     setState(() {
       _currentPageIndex = pageIndex;
-       _pageController.animateToPage(pageIndex, duration: Duration(milliseconds: 500), curve: Curves.ease);
+      _pageController.animateToPage(pageIndex,
+          duration: Duration(milliseconds: 500), curve: Curves.ease);
     });
-   }
+  }
 
   AppBar _getAppBar() {
     AppBarActionButton? action;
@@ -41,32 +43,32 @@ class _HomeScreenState extends State<HomeScreen> {
       case 0:
         title = context.translate('CHATROOMS.title');
         action = AppBarActionButton(
-                Icon(
-                  Icons.add,
-                  size: 30,
-                ), onTap: () {
-              showCupertinoModalBottomSheet(
-                  expand: true,
-                  context: context,
-                  builder: (context) {
-                    return NewChatSingleScreen();
-                  });
-            });
+            Icon(
+              Icons.add,
+              size: 30,
+            ), onTap: () {
+          showCupertinoModalBottomSheet(
+              expand: true,
+              context: context,
+              builder: (context) {
+                return NewChatSingleScreen();
+              });
+        });
         break;
       case 1:
         title = context.translate('BOTS.title');
         action = AppBarActionButton(
-                Icon(
-                  Icons.add,
-                  size: 30,
-                ), onTap: () {
-              showCupertinoModalBottomSheet(
-                  expand: true,
-                  context: context,
-                  builder: (context) {
-                    return CreateBotScreen();
-                  });
-            });
+            Icon(
+              Icons.add,
+              size: 30,
+            ), onTap: () {
+          showCupertinoModalBottomSheet(
+              expand: true,
+              context: context,
+              builder: (context) {
+                return CreateBotScreen();
+              });
+        });
         break;
       case 2:
         title = context.translate('SETTINGS.title');
@@ -74,24 +76,25 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     return AppBar(
-        centerTitle: false,
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        title: Text(
-          title,
-          style: context.textTheme().headline1,
-        ),actions: [
-          Container(
-            margin: EdgeInsets.only(
-              bottom: 10,
-              top: 10,
-              right: 25,
-            ),
-            width: 58,
-            child: action,
+      centerTitle: false,
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      title: Text(
+        title,
+        style: context.textTheme().headline1,
+      ),
+      actions: [
+        Container(
+          margin: EdgeInsets.only(
+            bottom: 10,
+            top: 10,
+            right: 25,
           ),
-        ],
-      );
+          width: 58,
+          child: action,
+        ),
+      ],
+    );
   }
 
   @override
@@ -100,12 +103,12 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: _getAppBar(),
       body: PageView(
         controller: _pageController,
-        physics:new NeverScrollableScrollPhysics(),
+        physics: new NeverScrollableScrollPhysics(),
         children: [
           ChatroomsScreen(),
-          Container(),
-          SettingsScreen()
-        ]
+          BotsScreen(),
+          SettingsScreen(),
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         elevation: 0,
@@ -120,14 +123,20 @@ class _HomeScreenState extends State<HomeScreen> {
         items: [
           BottomNavigationBarItem(
             label: 'Chats',
-            icon: Icon(Icons.chat),
+            icon: Icon(
+              Icons.chat,
+            ),
           ),
           BottomNavigationBarItem(
             label: 'Bots',
             icon: Icon(Icons.android_outlined),
           ),
           BottomNavigationBarItem(
-              label: 'Settings', icon: Icon(Icons.settings)),
+            label: 'Settings',
+            icon: Icon(
+              Icons.settings,
+            ),
+          ),
         ],
       ),
     );

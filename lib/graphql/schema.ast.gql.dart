@@ -62,6 +62,14 @@ const BotstaQuery = _i1.ObjectTypeDefinitionNode(
                   isNonNull: false),
               isNonNull: false)),
       _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'getOwnBots'),
+          directives: [],
+          args: [],
+          type: _i1.ListTypeNode(
+              type: _i1.NamedTypeNode(
+                  name: _i1.NameNode(value: 'Bot'), isNonNull: false),
+              isNonNull: false)),
+      _i1.FieldDefinitionNode(
           name: _i1.NameNode(value: 'whoami'),
           directives: [],
           args: [],
@@ -199,6 +207,36 @@ const GraphMessageType = _i1.ObjectTypeDefinitionNode(
     ]);
 const DateTimeOffset = _i1.ScalarTypeDefinitionNode(
     name: _i1.NameNode(value: 'DateTimeOffset'), directives: []);
+const Bot = _i1.ObjectTypeDefinitionNode(
+    name: _i1.NameNode(value: 'Bot'),
+    directives: [],
+    interfaces: [],
+    fields: [
+      _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'id'),
+          directives: [],
+          args: [],
+          type: _i1.NamedTypeNode(
+              name: _i1.NameNode(value: 'ID'), isNonNull: true)),
+      _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'isPublic'),
+          directives: [],
+          args: [],
+          type: _i1.NamedTypeNode(
+              name: _i1.NameNode(value: 'Boolean'), isNonNull: true)),
+      _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'name'),
+          directives: [],
+          args: [],
+          type: _i1.NamedTypeNode(
+              name: _i1.NameNode(value: 'String'), isNonNull: true)),
+      _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'ownerId'),
+          directives: [],
+          args: [],
+          type: _i1.NamedTypeNode(
+              name: _i1.NameNode(value: 'ID'), isNonNull: true))
+    ]);
 const BotstaMutation = _i1.ObjectTypeDefinitionNode(
     name: _i1.NameNode(value: 'BotstaMutation'),
     directives: [],
@@ -416,6 +454,7 @@ const document = _i1.DocumentNode(definitions: [
   GraphChatroomType,
   GraphMessageType,
   DateTimeOffset,
+  Bot,
   BotstaMutation,
   Login,
   RefreshToken,

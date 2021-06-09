@@ -9,6 +9,7 @@ import 'package:botsta_app/graphql/chatrooms.req.gql.dart';
 import 'package:botsta_app/graphql/create_bot.req.gql.dart';
 import 'package:botsta_app/graphql/create_chatroom_group.req.gql.dart';
 import 'package:botsta_app/graphql/create_chatroom_single.req.gql.dart';
+import 'package:botsta_app/graphql/get_own_bots.req.gql.dart';
 import 'package:botsta_app/graphql/login.req.gql.dart';
 import 'package:botsta_app/graphql/message-subscription.data.gql.dart';
 import 'package:botsta_app/graphql/message-subscription.req.gql.dart';
@@ -20,6 +21,7 @@ import 'package:botsta_app/logic/bloc/authentication_bloc.dart';
 import 'package:botsta_app/logic/bloc/message_bloc.dart';
 import 'package:botsta_app/logic/cubit/logged_in_user_cubit.dart';
 import 'package:botsta_app/models/authentication_state.dart';
+import 'package:botsta_app/models/bot.dart';
 import 'package:botsta_app/models/chatroom.dart';
 import 'package:botsta_app/models/chatroom_type.dart';
 import 'package:botsta_app/models/message.dart';
@@ -91,6 +93,17 @@ class BotstaApiClient {
     } else {
       throw Exception();
     }
+  }
+
+  Future<Iterable<Bot>> getOwnBotsAsync() async {
+    var client = await getIt.getAsync<Client>();
+    var res = await client.requestFirst(GGetOwnBotsReq());
+    var bots = res.data?.getOwnBots;
+    if (bots == null) {
+      throw new Exception();
+    }
+
+    return bots.map((b) => Bot(b.id, b.name, b.isPublic));
   }
 
   Future<ChatPracticant?> getLoggedInUserAsync() async {

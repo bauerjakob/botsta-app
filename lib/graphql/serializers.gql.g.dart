@@ -35,6 +35,10 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GGetChatroomsData_chatrooms_latestMessage_sender.serializer)
       ..add(GGetChatroomsReq.serializer)
       ..add(GGetChatroomsVars.serializer)
+      ..add(GGetOwnBotsData.serializer)
+      ..add(GGetOwnBotsData_getOwnBots.serializer)
+      ..add(GGetOwnBotsReq.serializer)
+      ..add(GGetOwnBotsVars.serializer)
       ..add(GLoginData.serializer)
       ..add(GLoginData_login.serializer)
       ..add(GLoginReq.serializer)
@@ -76,6 +80,10 @@ Serializers _$serializers = (new Serializers().toBuilder()
           const FullType(
               BuiltList, const [const FullType(GGetChatroomsData_chatrooms)]),
           () => new ListBuilder<GGetChatroomsData_chatrooms>())
+      ..addBuilderFactory(
+          const FullType(
+              BuiltList, const [const FullType(GGetOwnBotsData_getOwnBots)]),
+          () => new ListBuilder<GGetOwnBotsData_getOwnBots>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>()))

@@ -1,15 +1,12 @@
+class Bot {
+  const Bot(this.id, this.name, this.isPrivate);  
+  
+  final String id;
+  final String name;
+  final bool isPrivate;
 
-// import 'package:botsta_app/config/themes/themes.dart';
-// import 'package:json_annotation/json_annotation.dart';
+  Bot clone() {
+    return Bot(id, name, isPrivate);
+  }
 
-// part 'bot.g.dart';
-
-// @JsonSerializable()
-// class Bot {
-//   String id;
-//   String name;
-
-//   factory Bot.fromJson(Map<String, dynamic> json) => _$BotFromJson(json);
-
-//   Map<String, dynamic> toJson() => _$BotFromJson(themeConfigs);
-// }
+}
