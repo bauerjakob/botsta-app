@@ -58,7 +58,51 @@ final themeConfigs = {
     ),
   ),
   AppTheme.Dark: ThemeData(
-      brightness: Brightness.dark,
-      primaryColor: Colors.green[700],
-      textTheme: GoogleFonts.montserratTextTheme()),
+    brightness: Brightness.dark,
+    primaryColor: _primaryColor,
+    accentColor: _accentColor,
+    highlightColor: _highlightColor,
+    errorColor: _errorColor,
+    iconTheme: IconThemeData(
+      color: _primaryColor,
+      size: 27,
+    ),
+    dividerTheme: DividerThemeData(color: _highlightColor, thickness: 3),
+    textTheme: GoogleFonts.montserratTextTheme(
+      TextTheme(
+        headline1: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 35,
+          color: _primaryColor,
+        ),
+        headline2: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 25,
+          color: _primaryColor,
+        ),
+        headline3: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 19,
+          color: _primaryColor,
+        ),
+        headline4: TextStyle(
+          fontWeight: FontWeight.w600,
+          fontSize: 19,
+          color: _primaryColor,
+        ),
+        headline5: TextStyle(
+          fontWeight: FontWeight.w600,
+          fontSize: 19,
+          color: Colors.black,
+        ),
+        subtitle2: TextStyle(
+          fontWeight: FontWeight.w600,
+          fontSize: 19,
+          color: Colors.black,
+        ),
+        bodyText2: TextStyle(
+            color: _primaryColor, fontWeight: FontWeight.w300, fontSize: 16),
+      ),
+    ),
+  ),
 };

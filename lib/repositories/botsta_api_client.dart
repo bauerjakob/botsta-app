@@ -98,6 +98,7 @@ class BotstaApiClient {
   Future<Iterable<Bot>> getOwnBotsAsync() async {
     var client = await getIt.getAsync<Client>();
     var res = await client.requestFirst(GGetOwnBotsReq());
+    await client.dispose();
     var bots = res.data?.getOwnBots;
     if (bots == null) {
       throw new Exception();

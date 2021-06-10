@@ -11,3 +11,8 @@ abstract class OwnBotsEvent extends Equatable {
 class LoadBotsEvent extends OwnBotsEvent {
 
 }
+
+class AddBotEvent extends OwnBotsEvent {
+  final Bot bot;
+  const AddBotEvent(this.bot);
+}

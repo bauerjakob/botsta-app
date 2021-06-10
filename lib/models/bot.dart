@@ -1,12 +1,12 @@
 class Bot {
-  const Bot(this.id, this.name, this.isPrivate);  
+  const Bot(this.id, this.name, this.isPublic);  
   
   final String id;
   final String name;
-  final bool isPrivate;
+  final bool isPublic;
 
   Bot clone() {
-    return Bot(id, name, isPrivate);
+    return Bot(id, name, isPublic);
   }
 
 }

@@ -19,11 +19,22 @@ class OwnBotsBloc extends Bloc<OwnBotsEvent, OwnBotsState> {
   ) async* {
     if (event is LoadBotsEvent) {
       var client = getIt.get<BotstaApiClient>();
+      yield OwnBotsLoading();
       try {
-        var bots = await client.getOwnBotsAsync();
-        yield OwnBotsLoaded(bots.toList());
-      } catch (Exception) {
+        var bots = (await client.getOwnBotsAsync()).toList();
+        yield OwnBotsSuccess(bots);
+      } catch (e) {
         yield OwnBotsError();
+      }
+    }
+    else if (event is AddBotEvent) {
+      if (state is OwnBotsSuccess) {
+        var bots = (state as OwnBotsSuccess).bots
+          .map((b) => b.clone()).toList();
+        
+        bots.add(event.bot);
+
+        yield (OwnBotsSuccess(bots));
       }
     }
   }

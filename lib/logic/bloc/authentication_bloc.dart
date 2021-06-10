@@ -5,8 +5,10 @@ import 'package:botsta_app/config/routes/routes_config.dart';
 import 'package:botsta_app/graphql/login.req.gql.dart';
 import 'package:botsta_app/logic/bloc/chatroom_bloc.dart';
 import 'package:botsta_app/logic/bloc/message_bloc.dart';
+import 'package:botsta_app/logic/bloc/own_bots_bloc.dart';
 import 'package:botsta_app/logic/cubit/logged_in_user_cubit.dart';
 import 'package:botsta_app/models/authentication_state.dart';
+import 'package:botsta_app/models/bot.dart';
 import 'package:botsta_app/models/chat_practicant.dart';
 import 'package:botsta_app/repositories/botsta_api_client.dart';
 import 'package:botsta_app/services/secure_storage_service.dart';
@@ -86,6 +88,11 @@ class AuthenticationBloc
 
   Future<String> registerBotAsync(String botName, bool isPublic) async {
     var client = getIt.get<BotstaApiClient>();
-    return await client.registerBotAsync(botName, isPublic);
+    var ret =  await client.registerBotAsync(botName, isPublic);
+    
+    //getIt.get<OwnBotsBloc>().add(AddBotEvent(Bot(botName, isPublic));
+    getIt.get<OwnBotsBloc>().add(LoadBotsEvent());
+
+    return ret;
   }
 }

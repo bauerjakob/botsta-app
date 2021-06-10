@@ -11,10 +11,14 @@ class OwnBotsInitial extends OwnBotsState {
 
 }
 
-class OwnBotsLoaded extends OwnBotsState {
+class OwnBotsSuccess extends OwnBotsState {
   final List<Bot> bots;
 
-  const OwnBotsLoaded(this.bots);
+  const OwnBotsSuccess(this.bots);
+}
+
+class OwnBotsLoading extends OwnBotsState {
+
 }
 
 class OwnBotsError extends  OwnBotsState {
