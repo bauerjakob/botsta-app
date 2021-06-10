@@ -120,14 +120,19 @@ class SettingsScreen extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          BotstaButton(
-            child: Text(context.translate('SETTINGS.logout'),
-                style: context.textTheme().subtitle2),
-            backgroundColor: context.theme().primaryColor,
-            onTap: () {
-              context
-                  .read<AuthenticationBloc>()
-                  .add(UpdateAuthenticationEvent(AuthState.Unauthenticated));
+          BlocBuilder<ThemeBloc, ThemeState>(
+            builder: (context, state) {
+              return BotstaButton(
+                child: Text(context.translate('SETTINGS.logout'),
+                    style: context.textTheme().subtitle2),
+                backgroundColor: state.appTheme == AppTheme.Light
+                    ? context.theme().primaryColor
+                    : context.theme().highlightColor,
+                onTap: () {
+                  context.read<AuthenticationBloc>().add(
+                      UpdateAuthenticationEvent(AuthState.Unauthenticated));
+                },
+              );
             },
           ),
         ],

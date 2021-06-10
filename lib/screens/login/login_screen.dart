@@ -1,3 +1,4 @@
+import 'package:botsta_app/config/themes/themes.dart';
 import 'package:botsta_app/logic/bloc/authentication_bloc.dart';
 import 'package:botsta_app/models/authentication_state.dart';
 import 'package:botsta_app/screens/register/register_screen.dart';
@@ -103,20 +104,26 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(
                   height: 30,
                 ),
-                BotstaButton(
-                  backgroundColor: context.theme().primaryColor,
-                  onTap: () {
-                    showCupertinoModalBottomSheet(
-                        expand: true,
-                        context: context,
-                        builder: (context) {
-                          return RegisterScreen();
-                        });
+                BlocBuilder<ThemeBloc, ThemeState>(
+                  builder: (context, state) {
+                    return BotstaButton(
+                      backgroundColor: state.appTheme == AppTheme.Light
+                          ? context.theme().primaryColor
+                          : context.theme().highlightColor,
+                      onTap: () {
+                        showCupertinoModalBottomSheet(
+                            expand: true,
+                            context: context,
+                            builder: (context) {
+                              return RegisterScreen();
+                            });
+                      },
+                      child: Text(
+                        'Register',
+                        style: context.textTheme().subtitle2,
+                      ),
+                    );
                   },
-                  child: Text(
-                    'Register',
-                    style: context.textTheme().subtitle2,
-                  ),
                 ),
               ],
             ),

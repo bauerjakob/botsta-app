@@ -46,6 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Icon(
               Icons.add,
               size: 30,
+              color: Colors.white,
             ), onTap: () {
           showCupertinoModalBottomSheet(
               expand: true,
@@ -61,6 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Icon(
               Icons.add,
               size: 30,
+              color: Colors.white,
             ), onTap: () {
           showCupertinoModalBottomSheet(
               expand: true,
@@ -120,6 +122,9 @@ class _HomeScreenState extends State<HomeScreen> {
         showUnselectedLabels: false,
         selectedIconTheme: IconThemeData(size: 30),
         unselectedIconTheme: IconThemeData(size: 25),
+        unselectedItemColor: context.theme().primaryColor,
+        selectedItemColor: context.theme().accentColor,
+        backgroundColor: context.theme().scaffoldBackgroundColor,
         items: [
           BottomNavigationBarItem(
             label: 'Chats',

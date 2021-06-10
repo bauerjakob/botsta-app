@@ -32,11 +32,14 @@ class ChatroomItem extends StatelessWidget {
               CircleAvatar(
                 backgroundColor: context.theme().accentColor,
                 radius: 35,
-                child: Text(chatroom.name.substring(0, 2).toUpperCase(),
-                    style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: context.theme().scaffoldBackgroundColor)),
+                child: Text(
+                  chatroom.name.substring(0, 2).toUpperCase(),
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ],
           ),
@@ -57,7 +60,9 @@ class ChatroomItem extends StatelessWidget {
                         style: context.textTheme().headline3,
                       ),
                       Text(
-                        chatroom.latestMessage?.sendTime.toDateTimeString(context) ?? '',
+                        chatroom.latestMessage?.sendTime
+                                .toDateTimeString(context) ??
+                            '',
                         style: TextStyle(fontWeight: FontWeight.w600),
                       ),
                     ],
