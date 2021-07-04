@@ -8,7 +8,8 @@ class BotstaFormTextField extends StatefulWidget {
       this.leading,
       this.obsecureText = false,
       this.validator,
-      this.validateOnChange = true});
+      this.validateOnChange = true,
+      this.defaultValue});
 
   final TextEditingController controller;
   final String? hintText;
@@ -16,6 +17,7 @@ class BotstaFormTextField extends StatefulWidget {
   final bool obsecureText;
   final bool Function(String?)? validator;
   final bool validateOnChange;
+  final String? defaultValue;
 
   final _BotstaFormTextFieldState _state = _BotstaFormTextFieldState();
 
@@ -60,6 +62,10 @@ class _BotstaFormTextFieldState extends State<BotstaFormTextField>
 
     _animationController =
         AnimationController(duration: Duration(milliseconds: 200), vsync: this);
+
+    if (widget.defaultValue != null) {
+      widget.controller.value = TextEditingValue(text: widget.defaultValue!);
+    }
   }
 
   @override

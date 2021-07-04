@@ -2,6 +2,8 @@ import 'package:botsta_app/config/themes/themes.dart';
 import 'package:botsta_app/logic/bloc/authentication_bloc.dart';
 import 'package:botsta_app/models/authentication_state.dart';
 import 'package:botsta_app/screens/register/register_screen.dart';
+import 'package:botsta_app/services/secure_storage_service.dart';
+import 'package:botsta_app/startup.dart';
 import 'package:botsta_app/widgets/botsta_text_field.dart';
 import 'package:botsta_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -12,9 +14,11 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 class LoginScreen extends StatelessWidget {
   final _userNameInputController = TextEditingController();
   final _passwordInputController = TextEditingController();
+  final _serverUrlInputController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    BotstaFormTextField? serverUrlField;
     BotstaFormTextField usernameField;
     BotstaFormTextField passwordField;
     return Scaffold(
@@ -34,6 +38,42 @@ class LoginScreen extends StatelessWidget {
                 ),
                 SizedBox(
                   height: 40,
+                ),
+                FutureBuilder(
+                  future: getIt.get<SecureStorageService>().serverUrl,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      return serverUrlField = BotstaFormTextField(
+                        defaultValue: snapshot.data.toString(),
+                        validateOnChange: true,
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return false;
+                          }
+                          return true;
+                        },
+                        hintText: 'Server Url',
+                        controller: _serverUrlInputController,
+                        leading: Icon(Icons.computer),
+                      );
+                    }
+
+                    return serverUrlField = BotstaFormTextField(
+                      validateOnChange: true,
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return false;
+                        }
+                        return true;
+                      },
+                      hintText: 'Server Url',
+                      controller: _serverUrlInputController,
+                      leading: Icon(Icons.computer),
+                    );
+                  },
+                ),
+                SizedBox(
+                  height: 30,
                 ),
                 usernameField = BotstaFormTextField(
                   validateOnChange: true,
@@ -72,12 +112,24 @@ class LoginScreen extends StatelessWidget {
                     style: context.textTheme().subtitle2,
                   ),
                   onTap: () async {
-                    if (!usernameField.validate() | !passwordField.validate()) {
+                    if (!serverUrlField!.validate() |
+                        !usernameField.validate() |
+                        !passwordField.validate()) {
                       return;
                     }
 
                     var username = _userNameInputController.text;
                     var password = _passwordInputController.text;
+                    var serverUrl =
+                        _serverUrlInputController.text.trim().toLowerCase();
+
+                    var secureStorage = getIt.get<SecureStorageService>();
+                    await secureStorage.setServerUrl(serverUrl);
+                    await secureStorage.setServerUrlWebsocket(
+                        serverUrl.replaceFirst(RegExp(r'http(s?)'), 'ws'));
+                    await getIt
+                        .get<SecureStorageService>()
+                        .setServerUrl(serverUrl);
 
                     var successful = await context
                         .read<AuthenticationBloc>()

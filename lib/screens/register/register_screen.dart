@@ -1,4 +1,6 @@
 import 'package:botsta_app/logic/bloc/authentication_bloc.dart';
+import 'package:botsta_app/services/secure_storage_service.dart';
+import 'package:botsta_app/startup.dart';
 import 'package:botsta_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:botsta_app/utils/extentions/context_extensions.dart';
@@ -8,12 +10,14 @@ class RegisterScreen extends StatelessWidget {
   static final _userNameInputController = TextEditingController();
   static final _password1InputController = TextEditingController();
   static final _password2InputController = TextEditingController();
+  static final _serverUrlInputController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     BotstaFormTextField usernameField;
     BotstaFormTextField password1Field;
     BotstaFormTextField password2Field;
+    BotstaFormTextField serverUrlField;
     return Scaffold(
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
@@ -25,6 +29,21 @@ class RegisterScreen extends StatelessWidget {
               child: Column(
                 children: [
                   SizedBox(height: 40),
+                  serverUrlField = BotstaFormTextField(
+                    validateOnChange: true,
+                    validator: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return false;
+                      }
+                      return true;
+                    },
+                    hintText: 'Server Url',
+                    controller: _serverUrlInputController,
+                    leading: Icon(Icons.person),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
                   usernameField = BotstaFormTextField(
                     validateOnChange: true,
                     validator: (value) {
@@ -37,7 +56,9 @@ class RegisterScreen extends StatelessWidget {
                     controller: _userNameInputController,
                     leading: Icon(Icons.person),
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(
+                    height: 30,
+                  ),
                   password1Field = BotstaFormTextField(
                     obsecureText: true,
                     validator: (value) {
@@ -66,7 +87,9 @@ class RegisterScreen extends StatelessWidget {
                   SizedBox(height: 30),
                   BotstaButton(
                     onTap: () async {
-                      if (!usernameField.validate() |
+                      if (
+                          !serverUrlField.validate() |
+                          !usernameField.validate() |
                           !password1Field.validate() |
                           !password2Field.validate()) {
                         return;
@@ -74,6 +97,11 @@ class RegisterScreen extends StatelessWidget {
                       var username = _userNameInputController.text.trim();
                       var password1 = _password1InputController.text;
                       var password2 = _password2InputController.text;
+                      var serverUrl = _serverUrlInputController.text.trim().toLowerCase();
+
+                      var secureStorage = getIt.get<SecureStorageService>();
+                      await secureStorage.setServerUrl(serverUrl);
+                      await secureStorage.setServerUrlWebsocket(serverUrl.replaceFirst(RegExp(r'http(s?)'), 'ws'));
 
                       if (password1 != password2) {
                         password1Field.setValidationState(false);

@@ -35,6 +35,9 @@ void configureServices() {
     var token  = await secureStorage.token;
     var refreshToken = await secureStorage.refreshToken;
 
+    var serverUrl = await secureStorage.serverUrl;
+    var serverUrlWebsocket = await secureStorage.serverUrlWebsocket;
+
     if (refreshToken != null && (token == null || JwtDecoder.isExpired(token)) && !JwtDecoder.isExpired(refreshToken)) {
       token = await _refreshToken();
     }
@@ -44,12 +47,12 @@ void configureServices() {
       ) : null;
 
     final httpLink = HttpLink(
-      AppConstants.BOTSTA_ENDPOINT,
+      serverUrl!
     );
 
     var link = authLink != null ? authLink.concat(httpLink) : httpLink;
     var socketConfig = SocketClientConfig(delayBetweenReconnectionAttempts: Duration(seconds: 1), inactivityTimeout: Duration(seconds: 50000));
-    final websocketLink = WebSocketLink(AppConstants.BOTSTA_ENDPOINT_WEBSOCKET, config: socketConfig);
+    final websocketLink = WebSocketLink(serverUrlWebsocket!, config: socketConfig);
     link = Link.split((request) => request.isSubscription, websocketLink, link);
     
     return Client(link: link);
@@ -62,12 +65,14 @@ Future<String> _refreshToken() async {
   var token  = await secureStorage.token;
   var refreshToken = await secureStorage.refreshToken;
 
+  var serverUrl = await secureStorage.serverUrl;
+
   var authLink = AuthLink(
     getToken: () async => 'Bearer $refreshToken',
   );
   
   final httpLink = HttpLink(
-    AppConstants.BOTSTA_ENDPOINT,
+    serverUrl!,
   );
   
   var link = authLink.concat(httpLink);

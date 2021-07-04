@@ -4,6 +4,8 @@ import 'package:botsta_app/constants/app_constants.dart';
 import 'package:botsta_app/logic/bloc/authentication_bloc.dart';
 import 'package:botsta_app/models/authentication_state.dart';
 import 'package:botsta_app/models/botsta_switch_state.dart';
+import 'package:botsta_app/services/secure_storage_service.dart';
+import 'package:botsta_app/startup.dart';
 import 'package:botsta_app/widgets/botsta_switch.dart';
 import 'package:botsta_app/widgets/widgets.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,6 +24,43 @@ class SettingsScreen extends StatelessWidget {
       child: ListView(
         physics: ClampingScrollPhysics(),
         children: [
+           Text(
+            'Current User',
+            style: context.textTheme().headline2,
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Text('Jakob'),
+          SizedBox(
+            height: 20,
+          ),
+          Text(
+            'Connected To',
+            style: context.textTheme().headline2,
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          FutureBuilder(
+            future: getIt.get<SecureStorageService>().serverUrl,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                return Text(
+                  snapshot.data.toString(),
+                  //style: context.textTheme().headline2,
+                );
+              }
+              return SizedBox.shrink();
+            },
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Divider(),
+          SizedBox(
+            height: 20,
+          ),
           Text(
             context.translate('SETTINGS.theme.title'),
             style: context.textTheme().headline2,
