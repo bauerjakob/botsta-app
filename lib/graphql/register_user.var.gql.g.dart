@@ -26,6 +26,9 @@ class _$GRegisterUserVarsSerializer
       'password',
       serializers.serialize(object.password,
           specifiedType: const FullType(String)),
+      'publicKey',
+      serializers.serialize(object.publicKey,
+          specifiedType: const FullType(String)),
     ];
 
     return result;
@@ -51,6 +54,10 @@ class _$GRegisterUserVarsSerializer
           result.password = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'publicKey':
+          result.publicKey = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
       }
     }
 
@@ -63,17 +70,22 @@ class _$GRegisterUserVars extends GRegisterUserVars {
   final String username;
   @override
   final String password;
+  @override
+  final String publicKey;
 
   factory _$GRegisterUserVars(
           [void Function(GRegisterUserVarsBuilder)? updates]) =>
       (new GRegisterUserVarsBuilder()..update(updates)).build();
 
-  _$GRegisterUserVars._({required this.username, required this.password})
+  _$GRegisterUserVars._(
+      {required this.username, required this.password, required this.publicKey})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         username, 'GRegisterUserVars', 'username');
     BuiltValueNullFieldError.checkNotNull(
         password, 'GRegisterUserVars', 'password');
+    BuiltValueNullFieldError.checkNotNull(
+        publicKey, 'GRegisterUserVars', 'publicKey');
   }
 
   @override
@@ -89,19 +101,22 @@ class _$GRegisterUserVars extends GRegisterUserVars {
     if (identical(other, this)) return true;
     return other is GRegisterUserVars &&
         username == other.username &&
-        password == other.password;
+        password == other.password &&
+        publicKey == other.publicKey;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, username.hashCode), password.hashCode));
+    return $jf($jc(
+        $jc($jc(0, username.hashCode), password.hashCode), publicKey.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('GRegisterUserVars')
           ..add('username', username)
-          ..add('password', password))
+          ..add('password', password)
+          ..add('publicKey', publicKey))
         .toString();
   }
 }
@@ -118,6 +133,10 @@ class GRegisterUserVarsBuilder
   String? get password => _$this._password;
   set password(String? password) => _$this._password = password;
 
+  String? _publicKey;
+  String? get publicKey => _$this._publicKey;
+  set publicKey(String? publicKey) => _$this._publicKey = publicKey;
+
   GRegisterUserVarsBuilder();
 
   GRegisterUserVarsBuilder get _$this {
@@ -125,6 +144,7 @@ class GRegisterUserVarsBuilder
     if ($v != null) {
       _username = $v.username;
       _password = $v.password;
+      _publicKey = $v.publicKey;
       _$v = null;
     }
     return this;
@@ -148,7 +168,9 @@ class GRegisterUserVarsBuilder
             username: BuiltValueNullFieldError.checkNotNull(
                 username, 'GRegisterUserVars', 'username'),
             password: BuiltValueNullFieldError.checkNotNull(
-                password, 'GRegisterUserVars', 'password'));
+                password, 'GRegisterUserVars', 'password'),
+            publicKey: BuiltValueNullFieldError.checkNotNull(
+                publicKey, 'GRegisterUserVars', 'publicKey'));
     replace(_$result);
     return _$result;
   }

@@ -179,6 +179,9 @@ class _$GGetChatroomsData_chatrooms_latestMessageSerializer
       'message',
       serializers.serialize(object.message,
           specifiedType: const FullType(String)),
+      'senderPublicKey',
+      serializers.serialize(object.senderPublicKey,
+          specifiedType: const FullType(String)),
       'sendTime',
       serializers.serialize(object.sendTime,
           specifiedType: const FullType(_i2.GDateTimeOffset)),
@@ -223,6 +226,10 @@ class _$GGetChatroomsData_chatrooms_latestMessageSerializer
           break;
         case 'message':
           result.message = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'senderPublicKey':
+          result.senderPublicKey = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
         case 'sendTime':
@@ -585,6 +592,8 @@ class _$GGetChatroomsData_chatrooms_latestMessage
   @override
   final String message;
   @override
+  final String senderPublicKey;
+  @override
   final _i2.GDateTimeOffset sendTime;
 
   factory _$GGetChatroomsData_chatrooms_latestMessage(
@@ -598,6 +607,7 @@ class _$GGetChatroomsData_chatrooms_latestMessage
       this.sender,
       required this.id,
       required this.message,
+      required this.senderPublicKey,
       required this.sendTime})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(G__typename,
@@ -606,6 +616,8 @@ class _$GGetChatroomsData_chatrooms_latestMessage
         id, 'GGetChatroomsData_chatrooms_latestMessage', 'id');
     BuiltValueNullFieldError.checkNotNull(
         message, 'GGetChatroomsData_chatrooms_latestMessage', 'message');
+    BuiltValueNullFieldError.checkNotNull(senderPublicKey,
+        'GGetChatroomsData_chatrooms_latestMessage', 'senderPublicKey');
     BuiltValueNullFieldError.checkNotNull(
         sendTime, 'GGetChatroomsData_chatrooms_latestMessage', 'sendTime');
   }
@@ -628,6 +640,7 @@ class _$GGetChatroomsData_chatrooms_latestMessage
         sender == other.sender &&
         id == other.id &&
         message == other.message &&
+        senderPublicKey == other.senderPublicKey &&
         sendTime == other.sendTime;
   }
 
@@ -635,9 +648,11 @@ class _$GGetChatroomsData_chatrooms_latestMessage
   int get hashCode {
     return $jf($jc(
         $jc(
-            $jc($jc($jc(0, G__typename.hashCode), sender.hashCode),
-                id.hashCode),
-            message.hashCode),
+            $jc(
+                $jc($jc($jc(0, G__typename.hashCode), sender.hashCode),
+                    id.hashCode),
+                message.hashCode),
+            senderPublicKey.hashCode),
         sendTime.hashCode));
   }
 
@@ -649,6 +664,7 @@ class _$GGetChatroomsData_chatrooms_latestMessage
           ..add('sender', sender)
           ..add('id', id)
           ..add('message', message)
+          ..add('senderPublicKey', senderPublicKey)
           ..add('sendTime', sendTime))
         .toString();
   }
@@ -679,6 +695,11 @@ class GGetChatroomsData_chatrooms_latestMessageBuilder
   String? get message => _$this._message;
   set message(String? message) => _$this._message = message;
 
+  String? _senderPublicKey;
+  String? get senderPublicKey => _$this._senderPublicKey;
+  set senderPublicKey(String? senderPublicKey) =>
+      _$this._senderPublicKey = senderPublicKey;
+
   _i2.GDateTimeOffsetBuilder? _sendTime;
   _i2.GDateTimeOffsetBuilder get sendTime =>
       _$this._sendTime ??= new _i2.GDateTimeOffsetBuilder();
@@ -696,6 +717,7 @@ class GGetChatroomsData_chatrooms_latestMessageBuilder
       _sender = $v.sender?.toBuilder();
       _id = $v.id;
       _message = $v.message;
+      _senderPublicKey = $v.senderPublicKey;
       _sendTime = $v.sendTime.toBuilder();
       _$v = null;
     }
@@ -728,6 +750,10 @@ class GGetChatroomsData_chatrooms_latestMessageBuilder
                   id, 'GGetChatroomsData_chatrooms_latestMessage', 'id'),
               message: BuiltValueNullFieldError.checkNotNull(message,
                   'GGetChatroomsData_chatrooms_latestMessage', 'message'),
+              senderPublicKey: BuiltValueNullFieldError.checkNotNull(
+                  senderPublicKey,
+                  'GGetChatroomsData_chatrooms_latestMessage',
+                  'senderPublicKey'),
               sendTime: sendTime.build());
     } catch (_) {
       late String _$failedField;

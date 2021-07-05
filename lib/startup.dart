@@ -5,6 +5,7 @@ import 'package:botsta_app/logic/bloc/chatroom_bloc.dart';
 import 'package:botsta_app/logic/bloc/own_bots_bloc.dart';
 import 'package:botsta_app/logic/cubit/logged_in_user_cubit.dart';
 import 'package:botsta_app/repositories/botsta_api_client.dart';
+import 'package:botsta_app/services/e2ee_service.dart';
 import 'package:botsta_app/services/local_storage_service.dart';
 import 'package:botsta_app/services/secure_storage_service.dart';
 import 'package:ferry/ferry.dart';
@@ -19,6 +20,7 @@ import 'logic/bloc/message_bloc.dart';
 final getIt = GetIt.instance;
 
 void configureServices() {
+  getIt.registerSingleton(E2EEService());
   getIt.registerSingletonAsync<LocalStorageService>(
       () async => await LocalStorageService().initAsync());
   getIt.registerSingleton(BotstaApiClient());
@@ -77,7 +79,7 @@ Future<String> _refreshToken() async {
   
   var link = authLink.concat(httpLink);
   var client =  Client(link: link);
-  var response = await client.requestFirst(GRefresthTokenReq());
+  var response = await client.requestFirst(GRefreshTokenReq());
   token = response.data!.refreshToken!.token!;
   secureStorage.setToken(token);
   print("Token refreshed - $token");

@@ -78,6 +78,7 @@ abstract class GGetChatroomMessagesData_chatroom_messages
   GGetChatroomMessagesData_chatroom_messages_sender? get sender;
   String get message;
   String get chatroomId;
+  String get senderPublicKey;
   String get id;
   _i2.GDateTimeOffset get sendTime;
   static Serializer<GGetChatroomMessagesData_chatroom_messages>

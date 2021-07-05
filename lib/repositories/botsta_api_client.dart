@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:botsta_app/constants/constants.dart';
 import 'package:botsta_app/graphql/all_chat_practicants.req.gql.dart';
 import 'package:botsta_app/graphql/chatroom-messages.req.gql.dart';
+import 'package:botsta_app/graphql/chatroom_key_exchange.req.gql.dart';
 import 'package:botsta_app/graphql/chatrooms.data.gql.dart';
 import 'package:botsta_app/graphql/chatrooms.req.gql.dart';
 import 'package:botsta_app/graphql/create_bot.req.gql.dart';
@@ -26,6 +27,7 @@ import 'package:botsta_app/models/chatroom.dart';
 import 'package:botsta_app/models/chatroom_type.dart';
 import 'package:botsta_app/models/message.dart';
 import 'package:botsta_app/models/chat_practicant.dart';
+import 'package:botsta_app/services/e2ee_service.dart';
 import 'package:botsta_app/services/secure_storage_service.dart';
 import 'package:ferry/ferry.dart';
 import 'package:flutter/material.dart';
@@ -39,9 +41,14 @@ class BotstaApiClient {
   Future<bool> loginUserAsync(String username, String password) async {
     var secureStorage = getIt.get<SecureStorageService>();
     var client = await getIt.getAsync<Client>();
+    var e2eeService = getIt.get<E2EEService>();
+
+    var publicKey = await e2eeService.generateKeyPairAsync();
+
     var res = await client.requestFirst(GLoginReq((b) => b
       ..vars.name = username
-      ..vars.secret = password));
+      ..vars.secret = password
+      ..vars.publicKey = publicKey));
     await client.dispose();
     if (!res.hasErrors &&
         res.data != null &&
@@ -62,9 +69,15 @@ class BotstaApiClient {
   Future<bool> regiserUserAsync(String username, String password) async {
     var secureStorage = getIt.get<SecureStorageService>();
     var client = await getIt.getAsync<Client>();
+    var e2eeService = getIt.get<E2EEService>();
+
+    var publicKey = await e2eeService.generateKeyPairAsync();
+
     var res = await client.requestFirst(GRegisterUserReq((b) => b
       ..vars.username = username
-      ..vars.password = password));
+      ..vars.password = password
+      ..vars.publicKey = publicKey));
+
     await client.dispose();
     if (!res.hasErrors &&
         res.data != null &&
@@ -205,63 +218,114 @@ class BotstaApiClient {
 
   Future<Iterable<Message>?> getMessagesAsync(String chatroomId) async {
     var client = await getIt.getAsync<Client>();
+    var e2eeService = getIt.get<E2EEService>();
+
     var res = await client.requestFirst(
         GGetChatroomMessagesReq((b) => b..vars.chatroomId = chatroomId));
+
     await client.dispose();
 
     if (res.data?.chatroom?.messages != null) {
-      return res.data!.chatroom!.messages!.map((m) {
+      var messages =  res.data!.chatroom!.messages!.map((m) async {
         var sender = m.sender!;
+        var decryptedMessage = await e2eeService.decrypMessageAsync(m.message, m.senderPublicKey);
         return Message(
             m.id,
-            _decodeMessageItem(m.message),
+            _decodeMessageItem(decryptedMessage),
             ChatPracticant(sender.id, sender.name, sender.isBot),
             m.chatroomId,
             DateTime.parse(m.sendTime.value),
             _userIsMe(sender.id));
       });
+
+      return await Future.wait(messages);
     }
     return null;
   }
 
-  Future<Message?> postMessageAsync(String chatroomId, String message) async {
+  Future<Map<String, String>> _chatroomKeyExchange(String chatroomId) async {
     var client = await getIt.getAsync<Client>();
-    var res = await client.requestFirst(GPostMessageReq((b) => b
-      ..vars.chatroomId = chatroomId
-      ..vars.message = message));
+
+    var res = await client.requestFirst(GChatroomKeyExchangeReq((b) => b
+      ..vars.chatroomId = chatroomId));
+
     await client.dispose();
 
-    String? id = res.data?.postMessage?.id;
-    if (id != null) {
-      var sender = res.data!.postMessage!.sender!;
-      return Message(
-        id,
-        _decodeMessageItem(message),
-        ChatPracticant(sender.id, sender.name, false),
-        chatroomId,
-        DateTime.now(),
-        true,
-      );
+    if (res.hasErrors || res.data?.getChatPracticantsOfChatroom == null) {
+      throw Exception();
     }
-    return null;
+
+
+    var result = Map<String, String>();
+
+    res.data!.getChatPracticantsOfChatroom!.forEach((chatPracticant) { 
+      if (chatPracticant.keyExchange != null) {
+        chatPracticant.keyExchange!.forEach((key) {
+          result.putIfAbsent(key.sessionId, () => key.publicKey);
+        });
+      }
+    });
+
+    return result;
+  }
+
+  Future postMessageAsync(String chatroomId, String message) async {
+    var e2eeService = getIt.get<E2EEService>();
+
+    var keyExchange = await _chatroomKeyExchange(chatroomId);
+
+    var client = await getIt.getAsync<Client>();
+
+    final List<Future<dynamic>> sendRequests = [];
+
+    keyExchange.forEach((sessionId, publicKey) async {
+      var encryptedMessage = await e2eeService.encryptMessageAsync(message, publicKey);
+      var request = client.requestFirst(GPostMessageReq((b) => b
+        ..vars.chatroomId = chatroomId
+        ..vars.message = encryptedMessage
+        ..vars.receiverSessionId = sessionId));
+      sendRequests.add(request);
+    });
+
+    Future.wait(sendRequests);
+
+    await client.dispose();
+
+    // String? id = res.data?.postMessage?.id;
+    // if (id != null) {
+    //   var sender = res.data!.postMessage!.sender!;
+    //   return Message(
+    //     id,
+    //     _decodeMessageItem(message),
+    //     ChatPracticant(sender.id, sender.name, false),
+    //     chatroomId,
+    //     DateTime.now(),
+    //     true,
+    //   );
+    // }
+    // return null;
   }
 
   Future<StreamSubscription<dynamic>?> messageSubscription() async {
     var client = await getIt.getAsync<Client>();
     var secureStorage = getIt.get<SecureStorageService>();
+    var e2eeService = getIt.get<E2EEService>();
     var refreshToken = await secureStorage.refreshToken;
 
     var ret = client
         .request(
             GMessageSubscriptionReq((b) => b..vars.refreshToken = refreshToken))
-        .listen((event) {
+        .listen((event) async {
       var data = event.data?.messageReceived;
       if (data != null && data.sender != null) {
         var sender = data.sender!;
 
+
+        var decryptedMessage = await e2eeService.decrypMessageAsync(data.message, data.senderPublicKey);
+
         var msg = Message(
           data.id,
-          _decodeMessageItem(data.message),
+          _decodeMessageItem(decryptedMessage),
           ChatPracticant(sender.id, sender.name, sender.isBot),
           data.chatroomId,
           DateTime.parse(data.sendTime.value),

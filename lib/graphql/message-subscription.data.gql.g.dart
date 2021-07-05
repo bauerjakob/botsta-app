@@ -104,6 +104,9 @@ class _$GMessageSubscriptionData_messageReceivedSerializer
       'sendTime',
       serializers.serialize(object.sendTime,
           specifiedType: const FullType(_i2.GDateTimeOffset)),
+      'senderPublicKey',
+      serializers.serialize(object.senderPublicKey,
+          specifiedType: const FullType(String)),
     ];
     Object? value;
     value = object.sender;
@@ -155,6 +158,10 @@ class _$GMessageSubscriptionData_messageReceivedSerializer
           result.sendTime.replace(serializers.deserialize(value,
                   specifiedType: const FullType(_i2.GDateTimeOffset))!
               as _i2.GDateTimeOffset);
+          break;
+        case 'senderPublicKey':
+          result.senderPublicKey = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
       }
     }
@@ -357,6 +364,8 @@ class _$GMessageSubscriptionData_messageReceived
   final String id;
   @override
   final _i2.GDateTimeOffset sendTime;
+  @override
+  final String senderPublicKey;
 
   factory _$GMessageSubscriptionData_messageReceived(
           [void Function(GMessageSubscriptionData_messageReceivedBuilder)?
@@ -370,7 +379,8 @@ class _$GMessageSubscriptionData_messageReceived
       required this.message,
       required this.chatroomId,
       required this.id,
-      required this.sendTime})
+      required this.sendTime,
+      required this.senderPublicKey})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         G__typename, 'GMessageSubscriptionData_messageReceived', 'G__typename');
@@ -382,6 +392,8 @@ class _$GMessageSubscriptionData_messageReceived
         id, 'GMessageSubscriptionData_messageReceived', 'id');
     BuiltValueNullFieldError.checkNotNull(
         sendTime, 'GMessageSubscriptionData_messageReceived', 'sendTime');
+    BuiltValueNullFieldError.checkNotNull(senderPublicKey,
+        'GMessageSubscriptionData_messageReceived', 'senderPublicKey');
   }
 
   @override
@@ -403,7 +415,8 @@ class _$GMessageSubscriptionData_messageReceived
         message == other.message &&
         chatroomId == other.chatroomId &&
         id == other.id &&
-        sendTime == other.sendTime;
+        sendTime == other.sendTime &&
+        senderPublicKey == other.senderPublicKey;
   }
 
   @override
@@ -411,11 +424,13 @@ class _$GMessageSubscriptionData_messageReceived
     return $jf($jc(
         $jc(
             $jc(
-                $jc($jc($jc(0, G__typename.hashCode), sender.hashCode),
-                    message.hashCode),
-                chatroomId.hashCode),
-            id.hashCode),
-        sendTime.hashCode));
+                $jc(
+                    $jc($jc($jc(0, G__typename.hashCode), sender.hashCode),
+                        message.hashCode),
+                    chatroomId.hashCode),
+                id.hashCode),
+            sendTime.hashCode),
+        senderPublicKey.hashCode));
   }
 
   @override
@@ -427,7 +442,8 @@ class _$GMessageSubscriptionData_messageReceived
           ..add('message', message)
           ..add('chatroomId', chatroomId)
           ..add('id', id)
-          ..add('sendTime', sendTime))
+          ..add('sendTime', sendTime)
+          ..add('senderPublicKey', senderPublicKey))
         .toString();
   }
 }
@@ -467,6 +483,11 @@ class GMessageSubscriptionData_messageReceivedBuilder
   set sendTime(_i2.GDateTimeOffsetBuilder? sendTime) =>
       _$this._sendTime = sendTime;
 
+  String? _senderPublicKey;
+  String? get senderPublicKey => _$this._senderPublicKey;
+  set senderPublicKey(String? senderPublicKey) =>
+      _$this._senderPublicKey = senderPublicKey;
+
   GMessageSubscriptionData_messageReceivedBuilder() {
     GMessageSubscriptionData_messageReceived._initializeBuilder(this);
   }
@@ -480,6 +501,7 @@ class GMessageSubscriptionData_messageReceivedBuilder
       _chatroomId = $v.chatroomId;
       _id = $v.id;
       _sendTime = $v.sendTime.toBuilder();
+      _senderPublicKey = $v.senderPublicKey;
       _$v = null;
     }
     return this;
@@ -512,7 +534,11 @@ class GMessageSubscriptionData_messageReceivedBuilder
                   'GMessageSubscriptionData_messageReceived', 'chatroomId'),
               id: BuiltValueNullFieldError.checkNotNull(
                   id, 'GMessageSubscriptionData_messageReceived', 'id'),
-              sendTime: sendTime.build());
+              sendTime: sendTime.build(),
+              senderPublicKey: BuiltValueNullFieldError.checkNotNull(
+                  senderPublicKey,
+                  'GMessageSubscriptionData_messageReceived',
+                  'senderPublicKey'));
     } catch (_) {
       late String _$failedField;
       try {

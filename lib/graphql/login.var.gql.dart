@@ -13,6 +13,7 @@ abstract class GLoginVars implements Built<GLoginVars, GLoginVarsBuilder> {
 
   String get name;
   String get secret;
+  String get publicKey;
   static Serializer<GLoginVars> get serializer => _$gLoginVarsSerializer;
   Map<String, dynamic> toJson() =>
       (_i1.serializers.serializeWith(GLoginVars.serializer, this)

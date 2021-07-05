@@ -6,38 +6,38 @@ import 'package:built_value/serializer.dart';
 
 part 'refresh-token.data.gql.g.dart';
 
-abstract class GRefresthTokenData
-    implements Built<GRefresthTokenData, GRefresthTokenDataBuilder> {
-  GRefresthTokenData._();
+abstract class GRefreshTokenData
+    implements Built<GRefreshTokenData, GRefreshTokenDataBuilder> {
+  GRefreshTokenData._();
 
-  factory GRefresthTokenData([Function(GRefresthTokenDataBuilder b) updates]) =
-      _$GRefresthTokenData;
+  factory GRefreshTokenData([Function(GRefreshTokenDataBuilder b) updates]) =
+      _$GRefreshTokenData;
 
-  static void _initializeBuilder(GRefresthTokenDataBuilder b) =>
+  static void _initializeBuilder(GRefreshTokenDataBuilder b) =>
       b..G__typename = 'BotstaMutation';
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
-  GRefresthTokenData_refreshToken? get refreshToken;
-  static Serializer<GRefresthTokenData> get serializer =>
-      _$gRefresthTokenDataSerializer;
+  GRefreshTokenData_refreshToken? get refreshToken;
+  static Serializer<GRefreshTokenData> get serializer =>
+      _$gRefreshTokenDataSerializer;
   Map<String, dynamic> toJson() =>
-      (_i1.serializers.serializeWith(GRefresthTokenData.serializer, this)
+      (_i1.serializers.serializeWith(GRefreshTokenData.serializer, this)
           as Map<String, dynamic>);
-  static GRefresthTokenData? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(GRefresthTokenData.serializer, json);
+  static GRefreshTokenData? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(GRefreshTokenData.serializer, json);
 }
 
-abstract class GRefresthTokenData_refreshToken
+abstract class GRefreshTokenData_refreshToken
     implements
-        Built<GRefresthTokenData_refreshToken,
-            GRefresthTokenData_refreshTokenBuilder> {
-  GRefresthTokenData_refreshToken._();
+        Built<GRefreshTokenData_refreshToken,
+            GRefreshTokenData_refreshTokenBuilder> {
+  GRefreshTokenData_refreshToken._();
 
-  factory GRefresthTokenData_refreshToken(
-          [Function(GRefresthTokenData_refreshTokenBuilder b) updates]) =
-      _$GRefresthTokenData_refreshToken;
+  factory GRefreshTokenData_refreshToken(
+          [Function(GRefreshTokenData_refreshTokenBuilder b) updates]) =
+      _$GRefreshTokenData_refreshToken;
 
-  static void _initializeBuilder(GRefresthTokenData_refreshTokenBuilder b) =>
+  static void _initializeBuilder(GRefreshTokenData_refreshTokenBuilder b) =>
       b..G__typename = 'RefreshToken';
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
@@ -45,12 +45,11 @@ abstract class GRefresthTokenData_refreshToken
   bool get hasError;
   String? get errorCode;
   String? get errorMessage;
-  static Serializer<GRefresthTokenData_refreshToken> get serializer =>
-      _$gRefresthTokenDataRefreshTokenSerializer;
-  Map<String, dynamic> toJson() => (_i1.serializers
-          .serializeWith(GRefresthTokenData_refreshToken.serializer, this)
-      as Map<String, dynamic>);
-  static GRefresthTokenData_refreshToken? fromJson(Map<String, dynamic> json) =>
+  static Serializer<GRefreshTokenData_refreshToken> get serializer =>
+      _$gRefreshTokenDataRefreshTokenSerializer;
+  Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(
+      GRefreshTokenData_refreshToken.serializer, this) as Map<String, dynamic>);
+  static GRefreshTokenData_refreshToken? fromJson(Map<String, dynamic> json) =>
       _i1.serializers
-          .deserializeWith(GRefresthTokenData_refreshToken.serializer, json);
+          .deserializeWith(GRefreshTokenData_refreshToken.serializer, json);
 }

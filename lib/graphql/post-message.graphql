@@ -1,5 +1,5 @@
-mutation PostMessage($chatroomId: String!, $message: String!) {
-  postMessage(chatroomId: $chatroomId, message:$message) {
+mutation PostMessage($chatroomId: String!, $message: String!, $receiverSessionId: String!) {
+  postMessage(chatroomId: $chatroomId, message:$message, receiverSessionId:$receiverSessionId) {
     id,
     sender {
       id

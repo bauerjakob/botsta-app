@@ -44,7 +44,7 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
     }
   }
 
-  Future<Message?> postMessageAsync(String chatroomId, String message) async {
+  Future postMessageAsync(String chatroomId, String message) async {
     var client = getIt.get<BotstaApiClient>();
     await client.postMessageAsync(chatroomId, message);
   }

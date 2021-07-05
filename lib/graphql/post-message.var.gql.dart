@@ -15,6 +15,7 @@ abstract class GPostMessageVars
 
   String get chatroomId;
   String get message;
+  String get receiverSessionId;
   static Serializer<GPostMessageVars> get serializer =>
       _$gPostMessageVarsSerializer;
   Map<String, dynamic> toJson() =>

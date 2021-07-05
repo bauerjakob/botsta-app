@@ -2,9 +2,9 @@
 
 import 'package:gql/ast.dart' as _i1;
 
-const RefresthToken = _i1.OperationDefinitionNode(
+const RefreshToken = _i1.OperationDefinitionNode(
     type: _i1.OperationType.mutation,
-    name: _i1.NameNode(value: 'RefresthToken'),
+    name: _i1.NameNode(value: 'RefreshToken'),
     variableDefinitions: [],
     directives: [],
     selectionSet: _i1.SelectionSetNode(selections: [
@@ -40,4 +40,4 @@ const RefresthToken = _i1.OperationDefinitionNode(
                 selectionSet: null)
           ]))
     ]));
-const document = _i1.DocumentNode(definitions: [RefresthToken]);
+const document = _i1.DocumentNode(definitions: [RefreshToken]);

@@ -1,0 +1,11 @@
+query ChatroomKeyExchange($chatroomId: String) {
+   getChatPracticantsOfChatroom(chatroomId:$chatroomId) {
+    id,
+    isBot,
+    name,
+    keyExchange {
+      publicKey,
+      sessionId
+	}
+  }
+}

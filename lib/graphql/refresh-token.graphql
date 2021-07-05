@@ -1,4 +1,4 @@
-mutation RefresthToken {
+mutation RefreshToken {
   refreshToken {
     token,
     hasError,

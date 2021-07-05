@@ -51,6 +51,7 @@ abstract class GMessageSubscriptionData_messageReceived
   String get chatroomId;
   String get id;
   _i2.GDateTimeOffset get sendTime;
+  String get senderPublicKey;
   static Serializer<GMessageSubscriptionData_messageReceived> get serializer =>
       _$gMessageSubscriptionDataMessageReceivedSerializer;
   Map<String, dynamic> toJson() => (_i1.serializers.serializeWith(

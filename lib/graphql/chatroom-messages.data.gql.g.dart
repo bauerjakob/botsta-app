@@ -180,6 +180,9 @@ class _$GGetChatroomMessagesData_chatroom_messagesSerializer
       'chatroomId',
       serializers.serialize(object.chatroomId,
           specifiedType: const FullType(String)),
+      'senderPublicKey',
+      serializers.serialize(object.senderPublicKey,
+          specifiedType: const FullType(String)),
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(String)),
       'sendTime',
@@ -226,6 +229,10 @@ class _$GGetChatroomMessagesData_chatroom_messagesSerializer
           break;
         case 'chatroomId':
           result.chatroomId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'senderPublicKey':
+          result.senderPublicKey = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
         case 'id':
@@ -577,6 +584,8 @@ class _$GGetChatroomMessagesData_chatroom_messages
   @override
   final String chatroomId;
   @override
+  final String senderPublicKey;
+  @override
   final String id;
   @override
   final _i2.GDateTimeOffset sendTime;
@@ -592,6 +601,7 @@ class _$GGetChatroomMessagesData_chatroom_messages
       this.sender,
       required this.message,
       required this.chatroomId,
+      required this.senderPublicKey,
       required this.id,
       required this.sendTime})
       : super._() {
@@ -601,6 +611,8 @@ class _$GGetChatroomMessagesData_chatroom_messages
         message, 'GGetChatroomMessagesData_chatroom_messages', 'message');
     BuiltValueNullFieldError.checkNotNull(
         chatroomId, 'GGetChatroomMessagesData_chatroom_messages', 'chatroomId');
+    BuiltValueNullFieldError.checkNotNull(senderPublicKey,
+        'GGetChatroomMessagesData_chatroom_messages', 'senderPublicKey');
     BuiltValueNullFieldError.checkNotNull(
         id, 'GGetChatroomMessagesData_chatroom_messages', 'id');
     BuiltValueNullFieldError.checkNotNull(
@@ -625,6 +637,7 @@ class _$GGetChatroomMessagesData_chatroom_messages
         sender == other.sender &&
         message == other.message &&
         chatroomId == other.chatroomId &&
+        senderPublicKey == other.senderPublicKey &&
         id == other.id &&
         sendTime == other.sendTime;
   }
@@ -634,9 +647,11 @@ class _$GGetChatroomMessagesData_chatroom_messages
     return $jf($jc(
         $jc(
             $jc(
-                $jc($jc($jc(0, G__typename.hashCode), sender.hashCode),
-                    message.hashCode),
-                chatroomId.hashCode),
+                $jc(
+                    $jc($jc($jc(0, G__typename.hashCode), sender.hashCode),
+                        message.hashCode),
+                    chatroomId.hashCode),
+                senderPublicKey.hashCode),
             id.hashCode),
         sendTime.hashCode));
   }
@@ -649,6 +664,7 @@ class _$GGetChatroomMessagesData_chatroom_messages
           ..add('sender', sender)
           ..add('message', message)
           ..add('chatroomId', chatroomId)
+          ..add('senderPublicKey', senderPublicKey)
           ..add('id', id)
           ..add('sendTime', sendTime))
         .toString();
@@ -681,6 +697,11 @@ class GGetChatroomMessagesData_chatroom_messagesBuilder
   String? get chatroomId => _$this._chatroomId;
   set chatroomId(String? chatroomId) => _$this._chatroomId = chatroomId;
 
+  String? _senderPublicKey;
+  String? get senderPublicKey => _$this._senderPublicKey;
+  set senderPublicKey(String? senderPublicKey) =>
+      _$this._senderPublicKey = senderPublicKey;
+
   String? _id;
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
@@ -702,6 +723,7 @@ class GGetChatroomMessagesData_chatroom_messagesBuilder
       _sender = $v.sender?.toBuilder();
       _message = $v.message;
       _chatroomId = $v.chatroomId;
+      _senderPublicKey = $v.senderPublicKey;
       _id = $v.id;
       _sendTime = $v.sendTime.toBuilder();
       _$v = null;
@@ -728,13 +750,18 @@ class GGetChatroomMessagesData_chatroom_messagesBuilder
     try {
       _$result = _$v ??
           new _$GGetChatroomMessagesData_chatroom_messages._(
-              G__typename: BuiltValueNullFieldError.checkNotNull(G__typename,
-                  'GGetChatroomMessagesData_chatroom_messages', 'G__typename'),
+              G__typename:
+                  BuiltValueNullFieldError.checkNotNull(G__typename,
+                      'GGetChatroomMessagesData_chatroom_messages', 'G__typename'),
               sender: _sender?.build(),
               message: BuiltValueNullFieldError.checkNotNull(message,
                   'GGetChatroomMessagesData_chatroom_messages', 'message'),
               chatroomId: BuiltValueNullFieldError.checkNotNull(chatroomId,
                   'GGetChatroomMessagesData_chatroom_messages', 'chatroomId'),
+              senderPublicKey: BuiltValueNullFieldError.checkNotNull(
+                  senderPublicKey,
+                  'GGetChatroomMessagesData_chatroom_messages',
+                  'senderPublicKey'),
               id: BuiltValueNullFieldError.checkNotNull(
                   id, 'GGetChatroomMessagesData_chatroom_messages', 'id'),
               sendTime: sendTime.build());

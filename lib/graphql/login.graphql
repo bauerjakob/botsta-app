@@ -1,5 +1,5 @@
-mutation Login($name: String!, $secret: String!) {
-  login(name: $name, secret: $secret) {
+mutation Login($name: String!, $secret: String!, $publicKey: String!) {
+  login(name: $name, secret: $secret, publicKey: $publicKey) {
     token
     refreshToken
     hasError

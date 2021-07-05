@@ -9,5 +9,6 @@ subscription MessageSubscription($refreshToken: String!) {
   	chatroomId
   	id
     sendTime
+    senderPublicKey
   }
 }

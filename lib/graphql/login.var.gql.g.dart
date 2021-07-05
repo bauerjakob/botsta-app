@@ -23,6 +23,9 @@ class _$GLoginVarsSerializer implements StructuredSerializer<GLoginVars> {
       'secret',
       serializers.serialize(object.secret,
           specifiedType: const FullType(String)),
+      'publicKey',
+      serializers.serialize(object.publicKey,
+          specifiedType: const FullType(String)),
     ];
 
     return result;
@@ -47,6 +50,10 @@ class _$GLoginVarsSerializer implements StructuredSerializer<GLoginVars> {
           result.secret = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'publicKey':
+          result.publicKey = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
       }
     }
 
@@ -59,13 +66,18 @@ class _$GLoginVars extends GLoginVars {
   final String name;
   @override
   final String secret;
+  @override
+  final String publicKey;
 
   factory _$GLoginVars([void Function(GLoginVarsBuilder)? updates]) =>
       (new GLoginVarsBuilder()..update(updates)).build();
 
-  _$GLoginVars._({required this.name, required this.secret}) : super._() {
+  _$GLoginVars._(
+      {required this.name, required this.secret, required this.publicKey})
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(name, 'GLoginVars', 'name');
     BuiltValueNullFieldError.checkNotNull(secret, 'GLoginVars', 'secret');
+    BuiltValueNullFieldError.checkNotNull(publicKey, 'GLoginVars', 'publicKey');
   }
 
   @override
@@ -78,19 +90,24 @@ class _$GLoginVars extends GLoginVars {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GLoginVars && name == other.name && secret == other.secret;
+    return other is GLoginVars &&
+        name == other.name &&
+        secret == other.secret &&
+        publicKey == other.publicKey;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, name.hashCode), secret.hashCode));
+    return $jf(
+        $jc($jc($jc(0, name.hashCode), secret.hashCode), publicKey.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('GLoginVars')
           ..add('name', name)
-          ..add('secret', secret))
+          ..add('secret', secret)
+          ..add('publicKey', publicKey))
         .toString();
   }
 }
@@ -106,6 +123,10 @@ class GLoginVarsBuilder implements Builder<GLoginVars, GLoginVarsBuilder> {
   String? get secret => _$this._secret;
   set secret(String? secret) => _$this._secret = secret;
 
+  String? _publicKey;
+  String? get publicKey => _$this._publicKey;
+  set publicKey(String? publicKey) => _$this._publicKey = publicKey;
+
   GLoginVarsBuilder();
 
   GLoginVarsBuilder get _$this {
@@ -113,6 +134,7 @@ class GLoginVarsBuilder implements Builder<GLoginVars, GLoginVarsBuilder> {
     if ($v != null) {
       _name = $v.name;
       _secret = $v.secret;
+      _publicKey = $v.publicKey;
       _$v = null;
     }
     return this;
@@ -136,7 +158,9 @@ class GLoginVarsBuilder implements Builder<GLoginVars, GLoginVarsBuilder> {
             name: BuiltValueNullFieldError.checkNotNull(
                 name, 'GLoginVars', 'name'),
             secret: BuiltValueNullFieldError.checkNotNull(
-                secret, 'GLoginVars', 'secret'));
+                secret, 'GLoginVars', 'secret'),
+            publicKey: BuiltValueNullFieldError.checkNotNull(
+                publicKey, 'GLoginVars', 'publicKey'));
     replace(_$result);
     return _$result;
   }

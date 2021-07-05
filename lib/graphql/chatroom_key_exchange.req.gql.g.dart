@@ -1,28 +1,32 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'refresh-token.req.gql.dart';
+part of 'chatroom_key_exchange.req.gql.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<GRefreshTokenReq> _$gRefreshTokenReqSerializer =
-    new _$GRefreshTokenReqSerializer();
+Serializer<GChatroomKeyExchangeReq> _$gChatroomKeyExchangeReqSerializer =
+    new _$GChatroomKeyExchangeReqSerializer();
 
-class _$GRefreshTokenReqSerializer
-    implements StructuredSerializer<GRefreshTokenReq> {
+class _$GChatroomKeyExchangeReqSerializer
+    implements StructuredSerializer<GChatroomKeyExchangeReq> {
   @override
-  final Iterable<Type> types = const [GRefreshTokenReq, _$GRefreshTokenReq];
+  final Iterable<Type> types = const [
+    GChatroomKeyExchangeReq,
+    _$GChatroomKeyExchangeReq
+  ];
   @override
-  final String wireName = 'GRefreshTokenReq';
+  final String wireName = 'GChatroomKeyExchangeReq';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, GRefreshTokenReq object,
+  Iterable<Object?> serialize(
+      Serializers serializers, GChatroomKeyExchangeReq object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       'vars',
       serializers.serialize(object.vars,
-          specifiedType: const FullType(_i3.GRefreshTokenVars)),
+          specifiedType: const FullType(_i3.GChatroomKeyExchangeVars)),
       'operation',
       serializers.serialize(object.operation,
           specifiedType: const FullType(_i4.Operation)),
@@ -43,7 +47,7 @@ class _$GRefreshTokenReqSerializer
       result
         ..add('optimisticResponse')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(_i2.GRefreshTokenData)));
+            specifiedType: const FullType(_i2.GChatroomKeyExchangeData)));
     }
     value = object.updateCacheHandlerKey;
     if (value != null) {
@@ -71,10 +75,10 @@ class _$GRefreshTokenReqSerializer
   }
 
   @override
-  GRefreshTokenReq deserialize(
+  GChatroomKeyExchangeReq deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GRefreshTokenReqBuilder();
+    final result = new GChatroomKeyExchangeReqBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -84,8 +88,8 @@ class _$GRefreshTokenReqSerializer
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GRefreshTokenVars))!
-              as _i3.GRefreshTokenVars);
+                  specifiedType: const FullType(_i3.GChatroomKeyExchangeVars))!
+              as _i3.GChatroomKeyExchangeVars);
           break;
         case 'operation':
           result.operation = serializers.deserialize(value,
@@ -97,8 +101,8 @@ class _$GRefreshTokenReqSerializer
           break;
         case 'optimisticResponse':
           result.optimisticResponse.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.GRefreshTokenData))!
-              as _i2.GRefreshTokenData);
+                  specifiedType: const FullType(_i2.GChatroomKeyExchangeData))!
+              as _i2.GChatroomKeyExchangeData);
           break;
         case 'updateCacheHandlerKey':
           result.updateCacheHandlerKey = serializers.deserialize(value,
@@ -127,18 +131,19 @@ class _$GRefreshTokenReqSerializer
   }
 }
 
-class _$GRefreshTokenReq extends GRefreshTokenReq {
+class _$GChatroomKeyExchangeReq extends GChatroomKeyExchangeReq {
   @override
-  final _i3.GRefreshTokenVars vars;
+  final _i3.GChatroomKeyExchangeVars vars;
   @override
   final _i4.Operation operation;
   @override
   final String? requestId;
   @override
-  final _i2.GRefreshTokenData? Function(
-      _i2.GRefreshTokenData?, _i2.GRefreshTokenData?)? updateResult;
+  final _i2.GChatroomKeyExchangeData? Function(
+          _i2.GChatroomKeyExchangeData?, _i2.GChatroomKeyExchangeData?)?
+      updateResult;
   @override
-  final _i2.GRefreshTokenData? optimisticResponse;
+  final _i2.GChatroomKeyExchangeData? optimisticResponse;
   @override
   final String? updateCacheHandlerKey;
   @override
@@ -148,11 +153,11 @@ class _$GRefreshTokenReq extends GRefreshTokenReq {
   @override
   final bool executeOnListen;
 
-  factory _$GRefreshTokenReq(
-          [void Function(GRefreshTokenReqBuilder)? updates]) =>
-      (new GRefreshTokenReqBuilder()..update(updates)).build();
+  factory _$GChatroomKeyExchangeReq(
+          [void Function(GChatroomKeyExchangeReqBuilder)? updates]) =>
+      (new GChatroomKeyExchangeReqBuilder()..update(updates)).build();
 
-  _$GRefreshTokenReq._(
+  _$GChatroomKeyExchangeReq._(
       {required this.vars,
       required this.operation,
       this.requestId,
@@ -163,26 +168,28 @@ class _$GRefreshTokenReq extends GRefreshTokenReq {
       this.fetchPolicy,
       required this.executeOnListen})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(vars, 'GRefreshTokenReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
-        operation, 'GRefreshTokenReq', 'operation');
+        vars, 'GChatroomKeyExchangeReq', 'vars');
     BuiltValueNullFieldError.checkNotNull(
-        executeOnListen, 'GRefreshTokenReq', 'executeOnListen');
+        operation, 'GChatroomKeyExchangeReq', 'operation');
+    BuiltValueNullFieldError.checkNotNull(
+        executeOnListen, 'GChatroomKeyExchangeReq', 'executeOnListen');
   }
 
   @override
-  GRefreshTokenReq rebuild(void Function(GRefreshTokenReqBuilder) updates) =>
+  GChatroomKeyExchangeReq rebuild(
+          void Function(GChatroomKeyExchangeReqBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GRefreshTokenReqBuilder toBuilder() =>
-      new GRefreshTokenReqBuilder()..replace(this);
+  GChatroomKeyExchangeReqBuilder toBuilder() =>
+      new GChatroomKeyExchangeReqBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     final dynamic _$dynamicOther = other;
-    return other is GRefreshTokenReq &&
+    return other is GChatroomKeyExchangeReq &&
         vars == other.vars &&
         operation == other.operation &&
         requestId == other.requestId &&
@@ -214,7 +221,7 @@ class _$GRefreshTokenReq extends GRefreshTokenReq {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GRefreshTokenReq')
+    return (newBuiltValueToStringHelper('GChatroomKeyExchangeReq')
           ..add('vars', vars)
           ..add('operation', operation)
           ..add('requestId', requestId)
@@ -228,14 +235,15 @@ class _$GRefreshTokenReq extends GRefreshTokenReq {
   }
 }
 
-class GRefreshTokenReqBuilder
-    implements Builder<GRefreshTokenReq, GRefreshTokenReqBuilder> {
-  _$GRefreshTokenReq? _$v;
+class GChatroomKeyExchangeReqBuilder
+    implements
+        Builder<GChatroomKeyExchangeReq, GChatroomKeyExchangeReqBuilder> {
+  _$GChatroomKeyExchangeReq? _$v;
 
-  _i3.GRefreshTokenVarsBuilder? _vars;
-  _i3.GRefreshTokenVarsBuilder get vars =>
-      _$this._vars ??= new _i3.GRefreshTokenVarsBuilder();
-  set vars(_i3.GRefreshTokenVarsBuilder? vars) => _$this._vars = vars;
+  _i3.GChatroomKeyExchangeVarsBuilder? _vars;
+  _i3.GChatroomKeyExchangeVarsBuilder get vars =>
+      _$this._vars ??= new _i3.GChatroomKeyExchangeVarsBuilder();
+  set vars(_i3.GChatroomKeyExchangeVarsBuilder? vars) => _$this._vars = vars;
 
   _i4.Operation? _operation;
   _i4.Operation? get operation => _$this._operation;
@@ -245,21 +253,23 @@ class GRefreshTokenReqBuilder
   String? get requestId => _$this._requestId;
   set requestId(String? requestId) => _$this._requestId = requestId;
 
-  _i2.GRefreshTokenData? Function(
-      _i2.GRefreshTokenData?, _i2.GRefreshTokenData?)? _updateResult;
-  _i2.GRefreshTokenData? Function(
-          _i2.GRefreshTokenData?, _i2.GRefreshTokenData?)?
+  _i2.GChatroomKeyExchangeData? Function(
+          _i2.GChatroomKeyExchangeData?, _i2.GChatroomKeyExchangeData?)?
+      _updateResult;
+  _i2.GChatroomKeyExchangeData? Function(
+          _i2.GChatroomKeyExchangeData?, _i2.GChatroomKeyExchangeData?)?
       get updateResult => _$this._updateResult;
   set updateResult(
-          _i2.GRefreshTokenData? Function(
-                  _i2.GRefreshTokenData?, _i2.GRefreshTokenData?)?
+          _i2.GChatroomKeyExchangeData? Function(
+                  _i2.GChatroomKeyExchangeData?, _i2.GChatroomKeyExchangeData?)?
               updateResult) =>
       _$this._updateResult = updateResult;
 
-  _i2.GRefreshTokenDataBuilder? _optimisticResponse;
-  _i2.GRefreshTokenDataBuilder get optimisticResponse =>
-      _$this._optimisticResponse ??= new _i2.GRefreshTokenDataBuilder();
-  set optimisticResponse(_i2.GRefreshTokenDataBuilder? optimisticResponse) =>
+  _i2.GChatroomKeyExchangeDataBuilder? _optimisticResponse;
+  _i2.GChatroomKeyExchangeDataBuilder get optimisticResponse =>
+      _$this._optimisticResponse ??= new _i2.GChatroomKeyExchangeDataBuilder();
+  set optimisticResponse(
+          _i2.GChatroomKeyExchangeDataBuilder? optimisticResponse) =>
       _$this._optimisticResponse = optimisticResponse;
 
   String? _updateCacheHandlerKey;
@@ -284,11 +294,11 @@ class GRefreshTokenReqBuilder
   set executeOnListen(bool? executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
-  GRefreshTokenReqBuilder() {
-    GRefreshTokenReq._initializeBuilder(this);
+  GChatroomKeyExchangeReqBuilder() {
+    GChatroomKeyExchangeReq._initializeBuilder(this);
   }
 
-  GRefreshTokenReqBuilder get _$this {
+  GChatroomKeyExchangeReqBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _vars = $v.vars.toBuilder();
@@ -306,25 +316,25 @@ class GRefreshTokenReqBuilder
   }
 
   @override
-  void replace(GRefreshTokenReq other) {
+  void replace(GChatroomKeyExchangeReq other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GRefreshTokenReq;
+    _$v = other as _$GChatroomKeyExchangeReq;
   }
 
   @override
-  void update(void Function(GRefreshTokenReqBuilder)? updates) {
+  void update(void Function(GChatroomKeyExchangeReqBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$GRefreshTokenReq build() {
-    _$GRefreshTokenReq _$result;
+  _$GChatroomKeyExchangeReq build() {
+    _$GChatroomKeyExchangeReq _$result;
     try {
       _$result = _$v ??
-          new _$GRefreshTokenReq._(
+          new _$GChatroomKeyExchangeReq._(
               vars: vars.build(),
               operation: BuiltValueNullFieldError.checkNotNull(
-                  operation, 'GRefreshTokenReq', 'operation'),
+                  operation, 'GChatroomKeyExchangeReq', 'operation'),
               requestId: requestId,
               updateResult: updateResult,
               optimisticResponse: _optimisticResponse?.build(),
@@ -332,7 +342,9 @@ class GRefreshTokenReqBuilder
               updateCacheHandlerContext: updateCacheHandlerContext,
               fetchPolicy: fetchPolicy,
               executeOnListen: BuiltValueNullFieldError.checkNotNull(
-                  executeOnListen, 'GRefreshTokenReq', 'executeOnListen'));
+                  executeOnListen,
+                  'GChatroomKeyExchangeReq',
+                  'executeOnListen'));
     } catch (_) {
       late String _$failedField;
       try {
@@ -343,7 +355,7 @@ class GRefreshTokenReqBuilder
         _optimisticResponse?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GRefreshTokenReq', _$failedField, e.toString());
+            'GChatroomKeyExchangeReq', _$failedField, e.toString());
       }
       rethrow;
     }

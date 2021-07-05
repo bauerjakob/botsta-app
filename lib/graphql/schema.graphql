@@ -17,6 +17,9 @@ type BotstaQuery {
   # Returns all chatrooms of current user.
   chatrooms: [GraphChatroomType]
 
+  # Returns a list of chat practicants of a chatroom
+  getChatPracticantsOfChatroom(chatroomId: String): [ChatPracticant]
+
   # Returns all bots where current user is owner
   getOwnBots: [Bot]
 
@@ -28,12 +31,20 @@ type ChatPracticant {
   id: ID!
   isBot: Boolean!
   isUser: Boolean!
+  keyExchange: [KeyExchange]
   name: String!
   type: String
 }
 
+type KeyExchange {
+  chatPracticantId: ID!
+  publicKey: String!
+  sessionId: ID!
+}
+
 type GraphUserType {
   id: String!
+  keyExchange: [KeyExchange]
   username: String!
 }
 
@@ -50,6 +61,7 @@ type GraphMessageType {
   id: ID!
   message: String!
   sender: ChatPracticant
+  senderPublicKey: String!
   sendTime: DateTimeOffset!
 }
 
@@ -59,12 +71,13 @@ scalar DateTimeOffset
 type Bot {
   id: ID!
   isPublic: Boolean!
+  keyExchange: [KeyExchange]
   name: String!
   ownerId: ID!
 }
 
 type BotstaMutation {
-  login(name: String!, secret: String!): Login
+  login(name: String!, secret: String!, publicKey: String!): Login
 
   # Create a new chatroom
   newChatroomGroup(name: String, practicantIds: [String]): GraphChatroomType
@@ -73,9 +86,13 @@ type BotstaMutation {
   newChatroomSingle(practicantId: String): GraphChatroomType
 
   # Post message to chatroom
-  postMessage(chatroomId: String, message: String): GraphMessageType
+  postMessage(
+    chatroomId: String
+    message: String
+    receiverSessionId: String
+  ): GraphMessageType
   refreshToken: RefreshToken
-  register(username: String!, password: String!): Login
+  register(username: String!, password: String!, publicKey: String!): Login
 
   # Register new bot
   registerBot(botName: String, isPublic: Boolean): String

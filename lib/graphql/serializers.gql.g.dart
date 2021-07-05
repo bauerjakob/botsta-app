@@ -7,6 +7,12 @@ part of 'serializers.gql.dart';
 // **************************************************************************
 
 Serializers _$serializers = (new Serializers().toBuilder()
+      ..add(GChatroomKeyExchangeData.serializer)
+      ..add(GChatroomKeyExchangeData_getChatPracticantsOfChatroom.serializer)
+      ..add(GChatroomKeyExchangeData_getChatPracticantsOfChatroom_keyExchange
+          .serializer)
+      ..add(GChatroomKeyExchangeReq.serializer)
+      ..add(GChatroomKeyExchangeVars.serializer)
       ..add(GCreateBotData.serializer)
       ..add(GCreateBotReq.serializer)
       ..add(GCreateBotVars.serializer)
@@ -53,10 +59,10 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GPostMessageData_postMessage_sender.serializer)
       ..add(GPostMessageReq.serializer)
       ..add(GPostMessageVars.serializer)
-      ..add(GRefresthTokenData.serializer)
-      ..add(GRefresthTokenData_refreshToken.serializer)
-      ..add(GRefresthTokenReq.serializer)
-      ..add(GRefresthTokenVars.serializer)
+      ..add(GRefreshTokenData.serializer)
+      ..add(GRefreshTokenData_refreshToken.serializer)
+      ..add(GRefreshTokenReq.serializer)
+      ..add(GRefreshTokenVars.serializer)
       ..add(GRegisterUserData.serializer)
       ..add(GRegisterUserData_register.serializer)
       ..add(GRegisterUserReq.serializer)
@@ -65,6 +71,20 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GWhoAmIData_whoami.serializer)
       ..add(GWhoAmIReq.serializer)
       ..add(GWhoAmIVars.serializer)
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(
+                GChatroomKeyExchangeData_getChatPracticantsOfChatroom)
+          ]),
+          () => new ListBuilder<
+              GChatroomKeyExchangeData_getChatPracticantsOfChatroom>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(
+                GChatroomKeyExchangeData_getChatPracticantsOfChatroom_keyExchange)
+          ]),
+          () => new ListBuilder<
+              GChatroomKeyExchangeData_getChatPracticantsOfChatroom_keyExchange>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [
             const FullType(GGetAllChatPracticantsData_allChatPracticants)

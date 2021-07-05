@@ -26,6 +26,9 @@ class _$GPostMessageVarsSerializer
       'message',
       serializers.serialize(object.message,
           specifiedType: const FullType(String)),
+      'receiverSessionId',
+      serializers.serialize(object.receiverSessionId,
+          specifiedType: const FullType(String)),
     ];
 
     return result;
@@ -51,6 +54,10 @@ class _$GPostMessageVarsSerializer
           result.message = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'receiverSessionId':
+          result.receiverSessionId = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
       }
     }
 
@@ -63,17 +70,24 @@ class _$GPostMessageVars extends GPostMessageVars {
   final String chatroomId;
   @override
   final String message;
+  @override
+  final String receiverSessionId;
 
   factory _$GPostMessageVars(
           [void Function(GPostMessageVarsBuilder)? updates]) =>
       (new GPostMessageVarsBuilder()..update(updates)).build();
 
-  _$GPostMessageVars._({required this.chatroomId, required this.message})
+  _$GPostMessageVars._(
+      {required this.chatroomId,
+      required this.message,
+      required this.receiverSessionId})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         chatroomId, 'GPostMessageVars', 'chatroomId');
     BuiltValueNullFieldError.checkNotNull(
         message, 'GPostMessageVars', 'message');
+    BuiltValueNullFieldError.checkNotNull(
+        receiverSessionId, 'GPostMessageVars', 'receiverSessionId');
   }
 
   @override
@@ -89,19 +103,22 @@ class _$GPostMessageVars extends GPostMessageVars {
     if (identical(other, this)) return true;
     return other is GPostMessageVars &&
         chatroomId == other.chatroomId &&
-        message == other.message;
+        message == other.message &&
+        receiverSessionId == other.receiverSessionId;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, chatroomId.hashCode), message.hashCode));
+    return $jf($jc($jc($jc(0, chatroomId.hashCode), message.hashCode),
+        receiverSessionId.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('GPostMessageVars')
           ..add('chatroomId', chatroomId)
-          ..add('message', message))
+          ..add('message', message)
+          ..add('receiverSessionId', receiverSessionId))
         .toString();
   }
 }
@@ -118,6 +135,11 @@ class GPostMessageVarsBuilder
   String? get message => _$this._message;
   set message(String? message) => _$this._message = message;
 
+  String? _receiverSessionId;
+  String? get receiverSessionId => _$this._receiverSessionId;
+  set receiverSessionId(String? receiverSessionId) =>
+      _$this._receiverSessionId = receiverSessionId;
+
   GPostMessageVarsBuilder();
 
   GPostMessageVarsBuilder get _$this {
@@ -125,6 +147,7 @@ class GPostMessageVarsBuilder
     if ($v != null) {
       _chatroomId = $v.chatroomId;
       _message = $v.message;
+      _receiverSessionId = $v.receiverSessionId;
       _$v = null;
     }
     return this;
@@ -148,7 +171,9 @@ class GPostMessageVarsBuilder
             chatroomId: BuiltValueNullFieldError.checkNotNull(
                 chatroomId, 'GPostMessageVars', 'chatroomId'),
             message: BuiltValueNullFieldError.checkNotNull(
-                message, 'GPostMessageVars', 'message'));
+                message, 'GPostMessageVars', 'message'),
+            receiverSessionId: BuiltValueNullFieldError.checkNotNull(
+                receiverSessionId, 'GPostMessageVars', 'receiverSessionId'));
     replace(_$result);
     return _$result;
   }

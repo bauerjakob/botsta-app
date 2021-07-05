@@ -6,18 +6,18 @@ import 'package:built_value/serializer.dart';
 
 part 'refresh-token.var.gql.g.dart';
 
-abstract class GRefresthTokenVars
-    implements Built<GRefresthTokenVars, GRefresthTokenVarsBuilder> {
-  GRefresthTokenVars._();
+abstract class GRefreshTokenVars
+    implements Built<GRefreshTokenVars, GRefreshTokenVarsBuilder> {
+  GRefreshTokenVars._();
 
-  factory GRefresthTokenVars([Function(GRefresthTokenVarsBuilder b) updates]) =
-      _$GRefresthTokenVars;
+  factory GRefreshTokenVars([Function(GRefreshTokenVarsBuilder b) updates]) =
+      _$GRefreshTokenVars;
 
-  static Serializer<GRefresthTokenVars> get serializer =>
-      _$gRefresthTokenVarsSerializer;
+  static Serializer<GRefreshTokenVars> get serializer =>
+      _$gRefreshTokenVarsSerializer;
   Map<String, dynamic> toJson() =>
-      (_i1.serializers.serializeWith(GRefresthTokenVars.serializer, this)
+      (_i1.serializers.serializeWith(GRefreshTokenVars.serializer, this)
           as Map<String, dynamic>);
-  static GRefresthTokenVars? fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(GRefresthTokenVars.serializer, json);
+  static GRefreshTokenVars? fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(GRefreshTokenVars.serializer, json);
 }

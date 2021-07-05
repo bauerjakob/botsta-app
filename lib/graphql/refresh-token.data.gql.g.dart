@@ -6,22 +6,21 @@ part of 'refresh-token.data.gql.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<GRefresthTokenData> _$gRefresthTokenDataSerializer =
-    new _$GRefresthTokenDataSerializer();
-Serializer<GRefresthTokenData_refreshToken>
-    _$gRefresthTokenDataRefreshTokenSerializer =
-    new _$GRefresthTokenData_refreshTokenSerializer();
+Serializer<GRefreshTokenData> _$gRefreshTokenDataSerializer =
+    new _$GRefreshTokenDataSerializer();
+Serializer<GRefreshTokenData_refreshToken>
+    _$gRefreshTokenDataRefreshTokenSerializer =
+    new _$GRefreshTokenData_refreshTokenSerializer();
 
-class _$GRefresthTokenDataSerializer
-    implements StructuredSerializer<GRefresthTokenData> {
+class _$GRefreshTokenDataSerializer
+    implements StructuredSerializer<GRefreshTokenData> {
   @override
-  final Iterable<Type> types = const [GRefresthTokenData, _$GRefresthTokenData];
+  final Iterable<Type> types = const [GRefreshTokenData, _$GRefreshTokenData];
   @override
-  final String wireName = 'GRefresthTokenData';
+  final String wireName = 'GRefreshTokenData';
 
   @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GRefresthTokenData object,
+  Iterable<Object?> serialize(Serializers serializers, GRefreshTokenData object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       '__typename',
@@ -34,16 +33,16 @@ class _$GRefresthTokenDataSerializer
       result
         ..add('refreshToken')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(GRefresthTokenData_refreshToken)));
+            specifiedType: const FullType(GRefreshTokenData_refreshToken)));
     }
     return result;
   }
 
   @override
-  GRefresthTokenData deserialize(
+  GRefreshTokenData deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GRefresthTokenDataBuilder();
+    final result = new GRefreshTokenDataBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -58,8 +57,8 @@ class _$GRefresthTokenDataSerializer
         case 'refreshToken':
           result.refreshToken.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(GRefresthTokenData_refreshToken))!
-              as GRefresthTokenData_refreshToken);
+                      const FullType(GRefreshTokenData_refreshToken))!
+              as GRefreshTokenData_refreshToken);
           break;
       }
     }
@@ -68,19 +67,19 @@ class _$GRefresthTokenDataSerializer
   }
 }
 
-class _$GRefresthTokenData_refreshTokenSerializer
-    implements StructuredSerializer<GRefresthTokenData_refreshToken> {
+class _$GRefreshTokenData_refreshTokenSerializer
+    implements StructuredSerializer<GRefreshTokenData_refreshToken> {
   @override
   final Iterable<Type> types = const [
-    GRefresthTokenData_refreshToken,
-    _$GRefresthTokenData_refreshToken
+    GRefreshTokenData_refreshToken,
+    _$GRefreshTokenData_refreshToken
   ];
   @override
-  final String wireName = 'GRefresthTokenData_refreshToken';
+  final String wireName = 'GRefreshTokenData_refreshToken';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, GRefresthTokenData_refreshToken object,
+      Serializers serializers, GRefreshTokenData_refreshToken object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
       '__typename',
@@ -116,10 +115,10 @@ class _$GRefresthTokenData_refreshTokenSerializer
   }
 
   @override
-  GRefresthTokenData_refreshToken deserialize(
+  GRefreshTokenData_refreshToken deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GRefresthTokenData_refreshTokenBuilder();
+    final result = new GRefreshTokenData_refreshTokenBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -154,35 +153,34 @@ class _$GRefresthTokenData_refreshTokenSerializer
   }
 }
 
-class _$GRefresthTokenData extends GRefresthTokenData {
+class _$GRefreshTokenData extends GRefreshTokenData {
   @override
   final String G__typename;
   @override
-  final GRefresthTokenData_refreshToken? refreshToken;
+  final GRefreshTokenData_refreshToken? refreshToken;
 
-  factory _$GRefresthTokenData(
-          [void Function(GRefresthTokenDataBuilder)? updates]) =>
-      (new GRefresthTokenDataBuilder()..update(updates)).build();
+  factory _$GRefreshTokenData(
+          [void Function(GRefreshTokenDataBuilder)? updates]) =>
+      (new GRefreshTokenDataBuilder()..update(updates)).build();
 
-  _$GRefresthTokenData._({required this.G__typename, this.refreshToken})
+  _$GRefreshTokenData._({required this.G__typename, this.refreshToken})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, 'GRefresthTokenData', 'G__typename');
+        G__typename, 'GRefreshTokenData', 'G__typename');
   }
 
   @override
-  GRefresthTokenData rebuild(
-          void Function(GRefresthTokenDataBuilder) updates) =>
+  GRefreshTokenData rebuild(void Function(GRefreshTokenDataBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GRefresthTokenDataBuilder toBuilder() =>
-      new GRefresthTokenDataBuilder()..replace(this);
+  GRefreshTokenDataBuilder toBuilder() =>
+      new GRefreshTokenDataBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GRefresthTokenData &&
+    return other is GRefreshTokenData &&
         G__typename == other.G__typename &&
         refreshToken == other.refreshToken;
   }
@@ -194,32 +192,32 @@ class _$GRefresthTokenData extends GRefresthTokenData {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GRefresthTokenData')
+    return (newBuiltValueToStringHelper('GRefreshTokenData')
           ..add('G__typename', G__typename)
           ..add('refreshToken', refreshToken))
         .toString();
   }
 }
 
-class GRefresthTokenDataBuilder
-    implements Builder<GRefresthTokenData, GRefresthTokenDataBuilder> {
-  _$GRefresthTokenData? _$v;
+class GRefreshTokenDataBuilder
+    implements Builder<GRefreshTokenData, GRefreshTokenDataBuilder> {
+  _$GRefreshTokenData? _$v;
 
   String? _G__typename;
   String? get G__typename => _$this._G__typename;
   set G__typename(String? G__typename) => _$this._G__typename = G__typename;
 
-  GRefresthTokenData_refreshTokenBuilder? _refreshToken;
-  GRefresthTokenData_refreshTokenBuilder get refreshToken =>
-      _$this._refreshToken ??= new GRefresthTokenData_refreshTokenBuilder();
-  set refreshToken(GRefresthTokenData_refreshTokenBuilder? refreshToken) =>
+  GRefreshTokenData_refreshTokenBuilder? _refreshToken;
+  GRefreshTokenData_refreshTokenBuilder get refreshToken =>
+      _$this._refreshToken ??= new GRefreshTokenData_refreshTokenBuilder();
+  set refreshToken(GRefreshTokenData_refreshTokenBuilder? refreshToken) =>
       _$this._refreshToken = refreshToken;
 
-  GRefresthTokenDataBuilder() {
-    GRefresthTokenData._initializeBuilder(this);
+  GRefreshTokenDataBuilder() {
+    GRefreshTokenData._initializeBuilder(this);
   }
 
-  GRefresthTokenDataBuilder get _$this {
+  GRefreshTokenDataBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
@@ -230,24 +228,24 @@ class GRefresthTokenDataBuilder
   }
 
   @override
-  void replace(GRefresthTokenData other) {
+  void replace(GRefreshTokenData other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GRefresthTokenData;
+    _$v = other as _$GRefreshTokenData;
   }
 
   @override
-  void update(void Function(GRefresthTokenDataBuilder)? updates) {
+  void update(void Function(GRefreshTokenDataBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$GRefresthTokenData build() {
-    _$GRefresthTokenData _$result;
+  _$GRefreshTokenData build() {
+    _$GRefreshTokenData _$result;
     try {
       _$result = _$v ??
-          new _$GRefresthTokenData._(
+          new _$GRefreshTokenData._(
               G__typename: BuiltValueNullFieldError.checkNotNull(
-                  G__typename, 'GRefresthTokenData', 'G__typename'),
+                  G__typename, 'GRefreshTokenData', 'G__typename'),
               refreshToken: _refreshToken?.build());
     } catch (_) {
       late String _$failedField;
@@ -256,7 +254,7 @@ class GRefresthTokenDataBuilder
         _refreshToken?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GRefresthTokenData', _$failedField, e.toString());
+            'GRefreshTokenData', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -265,8 +263,7 @@ class GRefresthTokenDataBuilder
   }
 }
 
-class _$GRefresthTokenData_refreshToken
-    extends GRefresthTokenData_refreshToken {
+class _$GRefreshTokenData_refreshToken extends GRefreshTokenData_refreshToken {
   @override
   final String G__typename;
   @override
@@ -278,11 +275,11 @@ class _$GRefresthTokenData_refreshToken
   @override
   final String? errorMessage;
 
-  factory _$GRefresthTokenData_refreshToken(
-          [void Function(GRefresthTokenData_refreshTokenBuilder)? updates]) =>
-      (new GRefresthTokenData_refreshTokenBuilder()..update(updates)).build();
+  factory _$GRefreshTokenData_refreshToken(
+          [void Function(GRefreshTokenData_refreshTokenBuilder)? updates]) =>
+      (new GRefreshTokenData_refreshTokenBuilder()..update(updates)).build();
 
-  _$GRefresthTokenData_refreshToken._(
+  _$GRefreshTokenData_refreshToken._(
       {required this.G__typename,
       this.token,
       required this.hasError,
@@ -290,24 +287,24 @@ class _$GRefresthTokenData_refreshToken
       this.errorMessage})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
-        G__typename, 'GRefresthTokenData_refreshToken', 'G__typename');
+        G__typename, 'GRefreshTokenData_refreshToken', 'G__typename');
     BuiltValueNullFieldError.checkNotNull(
-        hasError, 'GRefresthTokenData_refreshToken', 'hasError');
+        hasError, 'GRefreshTokenData_refreshToken', 'hasError');
   }
 
   @override
-  GRefresthTokenData_refreshToken rebuild(
-          void Function(GRefresthTokenData_refreshTokenBuilder) updates) =>
+  GRefreshTokenData_refreshToken rebuild(
+          void Function(GRefreshTokenData_refreshTokenBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GRefresthTokenData_refreshTokenBuilder toBuilder() =>
-      new GRefresthTokenData_refreshTokenBuilder()..replace(this);
+  GRefreshTokenData_refreshTokenBuilder toBuilder() =>
+      new GRefreshTokenData_refreshTokenBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GRefresthTokenData_refreshToken &&
+    return other is GRefreshTokenData_refreshToken &&
         G__typename == other.G__typename &&
         token == other.token &&
         hasError == other.hasError &&
@@ -327,7 +324,7 @@ class _$GRefresthTokenData_refreshToken
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GRefresthTokenData_refreshToken')
+    return (newBuiltValueToStringHelper('GRefreshTokenData_refreshToken')
           ..add('G__typename', G__typename)
           ..add('token', token)
           ..add('hasError', hasError)
@@ -337,11 +334,11 @@ class _$GRefresthTokenData_refreshToken
   }
 }
 
-class GRefresthTokenData_refreshTokenBuilder
+class GRefreshTokenData_refreshTokenBuilder
     implements
-        Builder<GRefresthTokenData_refreshToken,
-            GRefresthTokenData_refreshTokenBuilder> {
-  _$GRefresthTokenData_refreshToken? _$v;
+        Builder<GRefreshTokenData_refreshToken,
+            GRefreshTokenData_refreshTokenBuilder> {
+  _$GRefreshTokenData_refreshToken? _$v;
 
   String? _G__typename;
   String? get G__typename => _$this._G__typename;
@@ -363,11 +360,11 @@ class GRefresthTokenData_refreshTokenBuilder
   String? get errorMessage => _$this._errorMessage;
   set errorMessage(String? errorMessage) => _$this._errorMessage = errorMessage;
 
-  GRefresthTokenData_refreshTokenBuilder() {
-    GRefresthTokenData_refreshToken._initializeBuilder(this);
+  GRefreshTokenData_refreshTokenBuilder() {
+    GRefreshTokenData_refreshToken._initializeBuilder(this);
   }
 
-  GRefresthTokenData_refreshTokenBuilder get _$this {
+  GRefreshTokenData_refreshTokenBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _G__typename = $v.G__typename;
@@ -381,25 +378,25 @@ class GRefresthTokenData_refreshTokenBuilder
   }
 
   @override
-  void replace(GRefresthTokenData_refreshToken other) {
+  void replace(GRefreshTokenData_refreshToken other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GRefresthTokenData_refreshToken;
+    _$v = other as _$GRefreshTokenData_refreshToken;
   }
 
   @override
-  void update(void Function(GRefresthTokenData_refreshTokenBuilder)? updates) {
+  void update(void Function(GRefreshTokenData_refreshTokenBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$GRefresthTokenData_refreshToken build() {
+  _$GRefreshTokenData_refreshToken build() {
     final _$result = _$v ??
-        new _$GRefresthTokenData_refreshToken._(
+        new _$GRefreshTokenData_refreshToken._(
             G__typename: BuiltValueNullFieldError.checkNotNull(
-                G__typename, 'GRefresthTokenData_refreshToken', 'G__typename'),
+                G__typename, 'GRefreshTokenData_refreshToken', 'G__typename'),
             token: token,
             hasError: BuiltValueNullFieldError.checkNotNull(
-                hasError, 'GRefresthTokenData_refreshToken', 'hasError'),
+                hasError, 'GRefreshTokenData_refreshToken', 'hasError'),
             errorCode: errorCode,
             errorMessage: errorMessage);
     replace(_$result);

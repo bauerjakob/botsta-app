@@ -62,6 +62,22 @@ const BotstaQuery = _i1.ObjectTypeDefinitionNode(
                   isNonNull: false),
               isNonNull: false)),
       _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'getChatPracticantsOfChatroom'),
+          directives: [],
+          args: [
+            _i1.InputValueDefinitionNode(
+                name: _i1.NameNode(value: 'chatroomId'),
+                directives: [],
+                type: _i1.NamedTypeNode(
+                    name: _i1.NameNode(value: 'String'), isNonNull: false),
+                defaultValue: null)
+          ],
+          type: _i1.ListTypeNode(
+              type: _i1.NamedTypeNode(
+                  name: _i1.NameNode(value: 'ChatPracticant'),
+                  isNonNull: false),
+              isNonNull: false)),
+      _i1.FieldDefinitionNode(
           name: _i1.NameNode(value: 'getOwnBots'),
           directives: [],
           args: [],
@@ -100,6 +116,14 @@ const ChatPracticant = _i1.ObjectTypeDefinitionNode(
           type: _i1.NamedTypeNode(
               name: _i1.NameNode(value: 'Boolean'), isNonNull: true)),
       _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'keyExchange'),
+          directives: [],
+          args: [],
+          type: _i1.ListTypeNode(
+              type: _i1.NamedTypeNode(
+                  name: _i1.NameNode(value: 'KeyExchange'), isNonNull: false),
+              isNonNull: false)),
+      _i1.FieldDefinitionNode(
           name: _i1.NameNode(value: 'name'),
           directives: [],
           args: [],
@@ -112,6 +136,30 @@ const ChatPracticant = _i1.ObjectTypeDefinitionNode(
           type: _i1.NamedTypeNode(
               name: _i1.NameNode(value: 'String'), isNonNull: false))
     ]);
+const KeyExchange = _i1.ObjectTypeDefinitionNode(
+    name: _i1.NameNode(value: 'KeyExchange'),
+    directives: [],
+    interfaces: [],
+    fields: [
+      _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'chatPracticantId'),
+          directives: [],
+          args: [],
+          type: _i1.NamedTypeNode(
+              name: _i1.NameNode(value: 'ID'), isNonNull: true)),
+      _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'publicKey'),
+          directives: [],
+          args: [],
+          type: _i1.NamedTypeNode(
+              name: _i1.NameNode(value: 'String'), isNonNull: true)),
+      _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'sessionId'),
+          directives: [],
+          args: [],
+          type: _i1.NamedTypeNode(
+              name: _i1.NameNode(value: 'ID'), isNonNull: true))
+    ]);
 const GraphUserType = _i1.ObjectTypeDefinitionNode(
     name: _i1.NameNode(value: 'GraphUserType'),
     directives: [],
@@ -123,6 +171,14 @@ const GraphUserType = _i1.ObjectTypeDefinitionNode(
           args: [],
           type: _i1.NamedTypeNode(
               name: _i1.NameNode(value: 'String'), isNonNull: true)),
+      _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'keyExchange'),
+          directives: [],
+          args: [],
+          type: _i1.ListTypeNode(
+              type: _i1.NamedTypeNode(
+                  name: _i1.NameNode(value: 'KeyExchange'), isNonNull: false),
+              isNonNull: false)),
       _i1.FieldDefinitionNode(
           name: _i1.NameNode(value: 'username'),
           directives: [],
@@ -199,6 +255,12 @@ const GraphMessageType = _i1.ObjectTypeDefinitionNode(
           type: _i1.NamedTypeNode(
               name: _i1.NameNode(value: 'ChatPracticant'), isNonNull: false)),
       _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'senderPublicKey'),
+          directives: [],
+          args: [],
+          type: _i1.NamedTypeNode(
+              name: _i1.NameNode(value: 'String'), isNonNull: true)),
+      _i1.FieldDefinitionNode(
           name: _i1.NameNode(value: 'sendTime'),
           directives: [],
           args: [],
@@ -224,6 +286,14 @@ const Bot = _i1.ObjectTypeDefinitionNode(
           args: [],
           type: _i1.NamedTypeNode(
               name: _i1.NameNode(value: 'Boolean'), isNonNull: true)),
+      _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'keyExchange'),
+          directives: [],
+          args: [],
+          type: _i1.ListTypeNode(
+              type: _i1.NamedTypeNode(
+                  name: _i1.NameNode(value: 'KeyExchange'), isNonNull: false),
+              isNonNull: false)),
       _i1.FieldDefinitionNode(
           name: _i1.NameNode(value: 'name'),
           directives: [],
@@ -254,6 +324,12 @@ const BotstaMutation = _i1.ObjectTypeDefinitionNode(
                 defaultValue: null),
             _i1.InputValueDefinitionNode(
                 name: _i1.NameNode(value: 'secret'),
+                directives: [],
+                type: _i1.NamedTypeNode(
+                    name: _i1.NameNode(value: 'String'), isNonNull: true),
+                defaultValue: null),
+            _i1.InputValueDefinitionNode(
+                name: _i1.NameNode(value: 'publicKey'),
                 directives: [],
                 type: _i1.NamedTypeNode(
                     name: _i1.NameNode(value: 'String'), isNonNull: true),
@@ -312,6 +388,12 @@ const BotstaMutation = _i1.ObjectTypeDefinitionNode(
                 directives: [],
                 type: _i1.NamedTypeNode(
                     name: _i1.NameNode(value: 'String'), isNonNull: false),
+                defaultValue: null),
+            _i1.InputValueDefinitionNode(
+                name: _i1.NameNode(value: 'receiverSessionId'),
+                directives: [],
+                type: _i1.NamedTypeNode(
+                    name: _i1.NameNode(value: 'String'), isNonNull: false),
                 defaultValue: null)
           ],
           type: _i1.NamedTypeNode(
@@ -334,6 +416,12 @@ const BotstaMutation = _i1.ObjectTypeDefinitionNode(
                 defaultValue: null),
             _i1.InputValueDefinitionNode(
                 name: _i1.NameNode(value: 'password'),
+                directives: [],
+                type: _i1.NamedTypeNode(
+                    name: _i1.NameNode(value: 'String'), isNonNull: true),
+                defaultValue: null),
+            _i1.InputValueDefinitionNode(
+                name: _i1.NameNode(value: 'publicKey'),
                 directives: [],
                 type: _i1.NamedTypeNode(
                     name: _i1.NameNode(value: 'String'), isNonNull: true),
@@ -450,6 +538,7 @@ const document = _i1.DocumentNode(definitions: [
   schema,
   BotstaQuery,
   ChatPracticant,
+  KeyExchange,
   GraphUserType,
   GraphChatroomType,
   GraphMessageType,

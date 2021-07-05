@@ -1,5 +1,5 @@
-mutation RegisterUser($username: String!, $password: String!) {
-  register(username: $username, password: $password) {
+mutation RegisterUser($username: String!, $password: String!, $publicKey: String!) {
+  register(username: $username, password: $password, publicKey: $publicKey) {
     token,
   	refreshToken,
     hasError

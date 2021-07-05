@@ -9,6 +9,7 @@ query GetChatrooms {
       }
       id
       message
+      senderPublicKey
       sendTime
     }
     name

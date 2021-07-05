@@ -16,6 +16,15 @@ import 'package:botsta_app/graphql/chatroom-messages.req.gql.dart'
     show GGetChatroomMessagesReq;
 import 'package:botsta_app/graphql/chatroom-messages.var.gql.dart'
     show GGetChatroomMessagesVars;
+import 'package:botsta_app/graphql/chatroom_key_exchange.data.gql.dart'
+    show
+        GChatroomKeyExchangeData,
+        GChatroomKeyExchangeData_getChatPracticantsOfChatroom,
+        GChatroomKeyExchangeData_getChatPracticantsOfChatroom_keyExchange;
+import 'package:botsta_app/graphql/chatroom_key_exchange.req.gql.dart'
+    show GChatroomKeyExchangeReq;
+import 'package:botsta_app/graphql/chatroom_key_exchange.var.gql.dart'
+    show GChatroomKeyExchangeVars;
 import 'package:botsta_app/graphql/chatrooms.data.gql.dart'
     show
         GGetChatroomsData,
@@ -71,11 +80,11 @@ import 'package:botsta_app/graphql/post-message.req.gql.dart'
 import 'package:botsta_app/graphql/post-message.var.gql.dart'
     show GPostMessageVars;
 import 'package:botsta_app/graphql/refresh-token.data.gql.dart'
-    show GRefresthTokenData, GRefresthTokenData_refreshToken;
+    show GRefreshTokenData, GRefreshTokenData_refreshToken;
 import 'package:botsta_app/graphql/refresh-token.req.gql.dart'
-    show GRefresthTokenReq;
+    show GRefreshTokenReq;
 import 'package:botsta_app/graphql/refresh-token.var.gql.dart'
-    show GRefresthTokenVars;
+    show GRefreshTokenVars;
 import 'package:botsta_app/graphql/register_user.data.gql.dart'
     show GRegisterUserData, GRegisterUserData_register;
 import 'package:botsta_app/graphql/register_user.req.gql.dart'
@@ -99,6 +108,11 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   ..add(OperationSerializer())
   ..addPlugin(StandardJsonPlugin());
 @SerializersFor([
+  GChatroomKeyExchangeData,
+  GChatroomKeyExchangeData_getChatPracticantsOfChatroom,
+  GChatroomKeyExchangeData_getChatPracticantsOfChatroom_keyExchange,
+  GChatroomKeyExchangeReq,
+  GChatroomKeyExchangeVars,
   GCreateBotData,
   GCreateBotReq,
   GCreateBotVars,
@@ -145,10 +159,10 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GPostMessageData_postMessage_sender,
   GPostMessageReq,
   GPostMessageVars,
-  GRefresthTokenData,
-  GRefresthTokenData_refreshToken,
-  GRefresthTokenReq,
-  GRefresthTokenVars,
+  GRefreshTokenData,
+  GRefreshTokenData_refreshToken,
+  GRefreshTokenReq,
+  GRefreshTokenVars,
   GRegisterUserData,
   GRegisterUserData_register,
   GRegisterUserReq,

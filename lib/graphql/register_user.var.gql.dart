@@ -15,6 +15,7 @@ abstract class GRegisterUserVars
 
   String get username;
   String get password;
+  String get publicKey;
   static Serializer<GRegisterUserVars> get serializer =>
       _$gRegisterUserVarsSerializer;
   Map<String, dynamic> toJson() =>

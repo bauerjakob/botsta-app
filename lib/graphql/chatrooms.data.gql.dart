@@ -73,6 +73,7 @@ abstract class GGetChatroomsData_chatrooms_latestMessage
   GGetChatroomsData_chatrooms_latestMessage_sender? get sender;
   String get id;
   String get message;
+  String get senderPublicKey;
   _i2.GDateTimeOffset get sendTime;
   static Serializer<GGetChatroomsData_chatrooms_latestMessage> get serializer =>
       _$gGetChatroomsDataChatroomsLatestMessageSerializer;

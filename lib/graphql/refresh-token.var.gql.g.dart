@@ -6,84 +6,82 @@ part of 'refresh-token.var.gql.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<GRefresthTokenVars> _$gRefresthTokenVarsSerializer =
-    new _$GRefresthTokenVarsSerializer();
+Serializer<GRefreshTokenVars> _$gRefreshTokenVarsSerializer =
+    new _$GRefreshTokenVarsSerializer();
 
-class _$GRefresthTokenVarsSerializer
-    implements StructuredSerializer<GRefresthTokenVars> {
+class _$GRefreshTokenVarsSerializer
+    implements StructuredSerializer<GRefreshTokenVars> {
   @override
-  final Iterable<Type> types = const [GRefresthTokenVars, _$GRefresthTokenVars];
+  final Iterable<Type> types = const [GRefreshTokenVars, _$GRefreshTokenVars];
   @override
-  final String wireName = 'GRefresthTokenVars';
+  final String wireName = 'GRefreshTokenVars';
 
   @override
-  Iterable<Object?> serialize(
-      Serializers serializers, GRefresthTokenVars object,
+  Iterable<Object?> serialize(Serializers serializers, GRefreshTokenVars object,
       {FullType specifiedType = FullType.unspecified}) {
     return <Object?>[];
   }
 
   @override
-  GRefresthTokenVars deserialize(
+  GRefreshTokenVars deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    return new GRefresthTokenVarsBuilder().build();
+    return new GRefreshTokenVarsBuilder().build();
   }
 }
 
-class _$GRefresthTokenVars extends GRefresthTokenVars {
-  factory _$GRefresthTokenVars(
-          [void Function(GRefresthTokenVarsBuilder)? updates]) =>
-      (new GRefresthTokenVarsBuilder()..update(updates)).build();
+class _$GRefreshTokenVars extends GRefreshTokenVars {
+  factory _$GRefreshTokenVars(
+          [void Function(GRefreshTokenVarsBuilder)? updates]) =>
+      (new GRefreshTokenVarsBuilder()..update(updates)).build();
 
-  _$GRefresthTokenVars._() : super._();
+  _$GRefreshTokenVars._() : super._();
 
   @override
-  GRefresthTokenVars rebuild(
-          void Function(GRefresthTokenVarsBuilder) updates) =>
+  GRefreshTokenVars rebuild(void Function(GRefreshTokenVarsBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GRefresthTokenVarsBuilder toBuilder() =>
-      new GRefresthTokenVarsBuilder()..replace(this);
+  GRefreshTokenVarsBuilder toBuilder() =>
+      new GRefreshTokenVarsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GRefresthTokenVars;
+    return other is GRefreshTokenVars;
   }
 
   @override
   int get hashCode {
-    return 370736789;
+    return 759434152;
   }
 
   @override
   String toString() {
-    return newBuiltValueToStringHelper('GRefresthTokenVars').toString();
+    return newBuiltValueToStringHelper('GRefreshTokenVars').toString();
   }
 }
 
-class GRefresthTokenVarsBuilder
-    implements Builder<GRefresthTokenVars, GRefresthTokenVarsBuilder> {
-  _$GRefresthTokenVars? _$v;
+class GRefreshTokenVarsBuilder
+    implements Builder<GRefreshTokenVars, GRefreshTokenVarsBuilder> {
+  _$GRefreshTokenVars? _$v;
 
-  GRefresthTokenVarsBuilder();
+  GRefreshTokenVarsBuilder();
 
   @override
-  void replace(GRefresthTokenVars other) {
+  void replace(GRefreshTokenVars other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$GRefresthTokenVars;
+    _$v = other as _$GRefreshTokenVars;
   }
 
   @override
-  void update(void Function(GRefresthTokenVarsBuilder)? updates) {
+  void update(void Function(GRefreshTokenVarsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$GRefresthTokenVars build() {
-    final _$result = _$v ?? new _$GRefresthTokenVars._();
+  _$GRefreshTokenVars build() {
+    final _$result = _$v ?? new _$GRefreshTokenVars._();
     replace(_$result);
     return _$result;
   }

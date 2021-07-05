@@ -17,6 +17,13 @@ const PostMessage = _i1.OperationDefinitionNode(
           type: _i1.NamedTypeNode(
               name: _i1.NameNode(value: 'String'), isNonNull: true),
           defaultValue: _i1.DefaultValueNode(value: null),
+          directives: []),
+      _i1.VariableDefinitionNode(
+          variable:
+              _i1.VariableNode(name: _i1.NameNode(value: 'receiverSessionId')),
+          type: _i1.NamedTypeNode(
+              name: _i1.NameNode(value: 'String'), isNonNull: true),
+          defaultValue: _i1.DefaultValueNode(value: null),
           directives: [])
     ],
     directives: [],
@@ -31,7 +38,11 @@ const PostMessage = _i1.OperationDefinitionNode(
                     _i1.VariableNode(name: _i1.NameNode(value: 'chatroomId'))),
             _i1.ArgumentNode(
                 name: _i1.NameNode(value: 'message'),
-                value: _i1.VariableNode(name: _i1.NameNode(value: 'message')))
+                value: _i1.VariableNode(name: _i1.NameNode(value: 'message'))),
+            _i1.ArgumentNode(
+                name: _i1.NameNode(value: 'receiverSessionId'),
+                value: _i1.VariableNode(
+                    name: _i1.NameNode(value: 'receiverSessionId')))
           ],
           directives: [],
           selectionSet: _i1.SelectionSetNode(selections: [
