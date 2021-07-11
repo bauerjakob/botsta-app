@@ -8,6 +8,11 @@ class ChatPracticant {
     return new ChatPracticant(id, name, isBot);
   }
 
+  ChatPracticant.fromMap(Map<String, dynamic> data)
+    : id = data['id'],
+      name = data['name'],
+      isBot = data['isBot'] == 1;
+
   Map<String, dynamic> toMap() {
     return {
       'id': id,

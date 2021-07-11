@@ -13,13 +13,13 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var authBloc = context.read<AuthenticationBloc>();
-    if (authBloc.state.state != AuthState.Unknown) {
-      var state = authBloc.state.state;
-      // authBloc.add(UpdateAuthenticationEvent(AuthState.Unknown));
-      authBloc.add(UpdateAuthenticationEvent(state));
-    }
+    // if (authBloc.state.state != AuthState.Unknown) {
+    //   var state = authBloc.state.state;
+    //   // authBloc.add(UpdateAuthenticationEvent(AuthState.Unknown));
+    //   authBloc.add(UpdateAuthenticationEvent(state));
+    // }
 
-    if (authBloc.state.state == AuthState.AuthenticationFailed) {
+    if (authBloc.state is AuthenticationStateAuthenticationFailed) {
       RoutesConfig.ROUTER.navigateTo(context, Routes.ERROR, clearStack: true);
     }
 
@@ -27,10 +27,10 @@ class SplashScreen extends StatelessWidget {
     secureStorage.refreshToken.then((token) {
       if (token != null) {
         // authBloc.add(UpdateAuthenticationEvent(AuthState.Unknown));
-        authBloc.add(UpdateAuthenticationEvent(AuthState.Authenticated));
+        authBloc.add(AuthenticationEventAuthenticated());
       } else {
         //  authBloc.add(UpdateAuthenticationEvent(AuthState.Unknown));
-          authBloc.add(UpdateAuthenticationEvent(AuthState.Unauthenticated));
+          authBloc.add(AuthenticationEventUnauthenticated());
       }
     });
 

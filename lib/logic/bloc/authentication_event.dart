@@ -9,10 +9,15 @@ abstract class AuthenticationEvent extends Equatable {
 
 class InitialAuthenticationEvent extends AuthenticationEvent {}
 
-class UpdateAuthenticationEvent extends AuthenticationEvent {
-  final AuthState state;
-  const UpdateAuthenticationEvent(this.state);
+class AuthenticationEventAuthenticated extends AuthenticationEvent {
 
   @override
-  List<Object> get props => [state];
+  List<Object> get props => [];
 }
+
+class AuthenticationEventUnauthenticated extends AuthenticationEvent {
+
+  @override
+  List<Object> get props => [];
+}
+

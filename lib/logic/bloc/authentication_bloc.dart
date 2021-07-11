@@ -17,42 +17,41 @@ import 'package:equatable/equatable.dart';
 import 'package:ferry/ferry.dart';
 import 'package:graphql/client.dart';
 import 'package:botsta_app/utils/extentions/graphql_extentions.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 
 part 'authentication_event.dart';
 part 'authentication_state.dart';
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
-  AuthenticationBloc() : super(AuthenticationInitial());
+  AuthenticationBloc() : super(AuthenticationStateUnknown());
 
   @override
   Stream<AuthenticationState> mapEventToState(
     AuthenticationEvent event,
   ) async* {
     if (event is InitialAuthenticationEvent) {
-      yield AuthenticationState(AuthState.Unknown);
+      yield AuthenticationStateUnknown();
     }
-    if (event is UpdateAuthenticationEvent) {
-      if (event.state == state.state) {
-        return;
-      }
-      if (event.state == AuthState.Authenticated) {
-        if (state.state != AuthState.Authenticated) {
-          var user =
-              await getIt.get<LoggedInUserCubit>().getLoggedInUserAsync();
+    else if (event is AuthenticationEventAuthenticated) {
+        if (!(state is AuthenticationStateAuthenticated)) {
+          var user = await getIt.get<LoggedInUserCubit>().getLoggedInUserAsync();
+
           if (user != null) {
-            yield AuthenticationState(event.state);
+            var secureStorage = getIt.get<SecureStorageService>();
+            var refreshToken = await secureStorage.refreshToken;
+            String sessionId = JwtDecoder.decode(refreshToken!)['jti'];
+            yield AuthenticationStateAuthenticated(user, sessionId);
             getIt.get<ChatroomBloc>().add(InitialChatroomEvent());
             getIt.get<MessageBloc>().add(InitialMessageEvent());
           } else {
-            yield AuthenticationState(AuthState.AuthenticationFailed);
+            yield AuthenticationStateAuthenticationFailed();
           }
         }
-      } else if (event.state == AuthState.Unauthenticated) {
-        yield AuthenticationState(event.state);
+    } else if (event is AuthenticationEventUnauthenticated) {
+      if (!(state is AuthenticationStateUnauthenticated)) {
+        yield AuthenticationStateUnauthenticated();
         await _logoutAsync();
-      } else {
-        yield AuthenticationState(event.state);
       }
     }
   }
@@ -68,9 +67,9 @@ class AuthenticationBloc
     var client = getIt.get<BotstaApiClient>();
     var successful = await client.loginUserAsync(username, password);
     if (successful) {
-      add(UpdateAuthenticationEvent(AuthState.Authenticated));
+      add(AuthenticationEventAuthenticated());
     } else {
-      add(UpdateAuthenticationEvent(AuthState.Unauthenticated));
+      add(AuthenticationEventUnauthenticated());
     }
     return successful;
   }
@@ -79,9 +78,9 @@ class AuthenticationBloc
     var client = getIt.get<BotstaApiClient>();
     var successful = await client.regiserUserAsync(username, password);
     if (successful) {
-      add(UpdateAuthenticationEvent(AuthState.Authenticated));
+      add(AuthenticationEventAuthenticated());
     } else {
-      add(UpdateAuthenticationEvent(AuthState.Unauthenticated));
+      add(AuthenticationEventUnauthenticated());
     }
     return successful;
   }

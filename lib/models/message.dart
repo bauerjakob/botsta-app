@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:botsta_app/logic/bloc/message_bloc.dart';
 import 'package:botsta_app/models/chat_practicant.dart';
+import 'package:botsta_app/services/sqlite_service.dart';
+import 'package:botsta_app/startup.dart';
 
 class Message {
   Message(this.id, this.rawMessage, this.sender, this.chatroomId, this.sendTime, this.senderIsMe) {
@@ -20,14 +22,20 @@ class Message {
     return Message(id, rawMessage, sender.clone(), chatroomId, sendTime, senderIsMe);
   }
 
-  Message.fromMap(Map<String, dynamic> data)
-    : id = data['id'],
-      rawMessage = data['message'],
-      items = _decodeMessageItems(data['message']),
-      chatroomId = data['chatroomId'],
-      sendTime = DateTime.fromMillisecondsSinceEpoch(data['sendTime']),
-      senderIsMe = data['senderIsMe'] == 1,
-      sender = new ChatPracticant('', '', false);
+  static Future<Message> fromMapAsync(Map<String, dynamic> data) async {
+
+      final id = data['id'];
+      final rawMessage = data['message'];
+      final chatroomId = data['chatroomId'];
+      final sendTime = DateTime.fromMillisecondsSinceEpoch(data['sendTime']);
+      final senderIsMe = data['senderIsMe'] == 1;
+      final senderId = data['senderId'];
+
+      final sqliteService = await getIt.getAsync<SqliteService>();
+      final sender = await sqliteService.getChatPracticantAsync(senderId);
+
+      return Message(id, rawMessage, sender!, chatroomId, sendTime, senderIsMe);
+  }
 
 
   Map<String, dynamic> toMap() {

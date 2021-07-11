@@ -53,7 +53,7 @@ class SqliteService {
   Future<Message?> _getLastesMessageOfChatroomAsync(String chatroomId) async {
      var message = await _db!.query('messages', where: '"chatroomId" = ?', whereArgs: [chatroomId], limit: 1, orderBy: 'sendTime DESC');
      if (message.length > 0) {
-       return Message.fromMap(message.first);
+       return await Message.fromMapAsync(message.first);
      }
 
      return null;
@@ -61,13 +61,22 @@ class SqliteService {
 
   Future<Iterable<Message>> getMessagesAsync(String chatroomId) async {
     var messages = await _db!.query("messages", where: '"chatroomId" = ?', whereArgs: [chatroomId], orderBy: 'sendTime DESC');
-    return messages.map((e) => Message.fromMap(e));
+    return Future.wait(messages.map((e) async => await Message.fromMapAsync(e)));
+  }
+
+  Future<ChatPracticant?> getChatPracticantAsync(String chatPracticantId) async {
+    var chatPracticant = await _db!.query("chatPracticants", where: '"id" = ?', whereArgs: [chatPracticantId], limit: 1);
+    if (chatPracticant.length > 0) {
+      return ChatPracticant.fromMap(chatPracticant.first);
+    }
+
+    return null;
   }
 
   Future<Message?> getMessageAsync(String messageId) async {
     var message = await _db!.query("messages", where: '"id" = ?', whereArgs: [messageId]);
     if (message.length > 0) {
-      return Message.fromMap(message.first);
+      return await Message.fromMapAsync(message.first);
     }
 
     return null;

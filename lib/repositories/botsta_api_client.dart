@@ -13,6 +13,7 @@ import 'package:botsta_app/graphql/message-subscription.req.gql.dart';
 import 'package:botsta_app/graphql/post-message.req.gql.dart';
 import 'package:botsta_app/graphql/register_user.req.gql.dart';
 import 'package:botsta_app/graphql/who_am_i.req.gql.dart';
+import 'package:botsta_app/logic/bloc/authentication_bloc.dart';
 import 'package:botsta_app/logic/bloc/message_bloc.dart';
 import 'package:botsta_app/logic/cubit/logged_in_user_cubit.dart';
 import 'package:botsta_app/models/bot.dart';
@@ -254,6 +255,7 @@ class BotstaApiClient {
 
   Future<Map<String, String>> _chatroomKeyExchange(String chatroomId) async {
     var client = await getIt.getAsync<Client>();
+    var authState = getIt.get<AuthenticationBloc>().state as AuthenticationStateAuthenticated;
 
     var res = await client.requestFirst(GChatroomKeyExchangeReq((b) => b
       ..vars.chatroomId = chatroomId));
@@ -269,7 +271,9 @@ class BotstaApiClient {
     res.data!.getChatPracticantsOfChatroom!.forEach((chatPracticant) { 
       if (chatPracticant.keyExchange != null) {
         chatPracticant.keyExchange!.forEach((key) {
-          result.putIfAbsent(key.sessionId, () => key.publicKey);
+          if (key.sessionId != authState.sessionId) {
+            result.putIfAbsent(key.sessionId, () => key.publicKey);
+          }
         });
       }
     });

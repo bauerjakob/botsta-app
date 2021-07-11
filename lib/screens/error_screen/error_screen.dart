@@ -50,7 +50,7 @@ class ErrorScreen extends StatelessWidget {
               onTap: () {
                 getIt
                     .get<AuthenticationBloc>()
-                    .add(UpdateAuthenticationEvent(AuthState.Unauthenticated));
+                    .add(AuthenticationEventUnauthenticated());
               },
               backgroundColor: context.theme().primaryColor,
             ),

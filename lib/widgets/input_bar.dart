@@ -49,10 +49,10 @@ class InputBar extends StatelessWidget {
                   onTap: () async {
                     var message = _textEditingController.text.trim();
                     if (message.isNotEmpty) {
+                      _textEditingController.clear();
                       await context
                           .read<MessageBloc>()
                           .postMessageAsync(chatroomId, message);
-                      _textEditingController.clear();
                     }
                   },
                 ),

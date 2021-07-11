@@ -31,7 +31,7 @@ class SettingsScreen extends StatelessWidget {
           SizedBox(
             height: 10,
           ),
-          Text('Jakob'),
+          Text((getIt.get<AuthenticationBloc>().state as AuthenticationStateAuthenticated).user.name),
           SizedBox(
             height: 20,
           ),
@@ -168,8 +168,7 @@ class SettingsScreen extends StatelessWidget {
                     ? context.theme().primaryColor
                     : context.theme().highlightColor,
                 onTap: () {
-                  context.read<AuthenticationBloc>().add(
-                      UpdateAuthenticationEvent(AuthState.Unauthenticated));
+                  context.read<AuthenticationBloc>().add(AuthenticationEventUnauthenticated());
                 },
               );
             },
