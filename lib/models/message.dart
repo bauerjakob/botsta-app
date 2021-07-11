@@ -1,18 +1,59 @@
+import 'dart:convert';
+
 import 'package:botsta_app/logic/bloc/message_bloc.dart';
 import 'package:botsta_app/models/chat_practicant.dart';
 
 class Message {
-  Message(this.id, this.items, this.sender, this.chatroomId, this.sendTime, this.senderIsMe);
+  Message(this.id, this.rawMessage, this.sender, this.chatroomId, this.sendTime, this.senderIsMe) {
+    this.items = _decodeMessageItems(rawMessage);
+  }
   
   String id;
-  List<MessageItem> items;
+  String rawMessage;
+  late List<MessageItem> items;
   ChatPracticant sender;
   String chatroomId;
   DateTime sendTime;
   bool senderIsMe;
 
   Message clone() {
-    return Message(id, this.items, sender.clone(), chatroomId, sendTime, senderIsMe);
+    return Message(id, rawMessage, sender.clone(), chatroomId, sendTime, senderIsMe);
+  }
+
+  Message.fromMap(Map<String, dynamic> data)
+    : id = data['id'],
+      rawMessage = data['message'],
+      items = _decodeMessageItems(data['message']),
+      chatroomId = data['chatroomId'],
+      sendTime = data['sendTime'],
+      senderIsMe = data['senderIsMe'],
+      sender = new ChatPracticant('', '', false);
+
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'senderId': sender.id,
+      'chatroomId': chatroomId,
+      'sendTime': sendTime,
+      'senderIsMe': senderIsMe,
+      'message': rawMessage
+    };
+  }
+
+  static List<MessageItem> _decodeMessageItems(String data) {
+    try {
+      List<MessageItem> ret = [];
+
+      var decoded = json.decode(data);
+      for (var item in decoded) {
+        ret.add(MessageItem.fromJson(item));
+      }
+
+      return ret;
+    } catch (Exception) {
+      return [MessageItem()..text = data];
+    }
   }
 }
 

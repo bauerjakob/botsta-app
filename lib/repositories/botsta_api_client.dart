@@ -1,27 +1,20 @@
 import 'dart:async';
-import 'dart:convert';
 
-import 'package:botsta_app/constants/constants.dart';
 import 'package:botsta_app/graphql/all_chat_practicants.req.gql.dart';
 import 'package:botsta_app/graphql/chatroom-messages.req.gql.dart';
 import 'package:botsta_app/graphql/chatroom_key_exchange.req.gql.dart';
-import 'package:botsta_app/graphql/chatrooms.data.gql.dart';
 import 'package:botsta_app/graphql/chatrooms.req.gql.dart';
 import 'package:botsta_app/graphql/create_bot.req.gql.dart';
 import 'package:botsta_app/graphql/create_chatroom_group.req.gql.dart';
 import 'package:botsta_app/graphql/create_chatroom_single.req.gql.dart';
 import 'package:botsta_app/graphql/get_own_bots.req.gql.dart';
 import 'package:botsta_app/graphql/login.req.gql.dart';
-import 'package:botsta_app/graphql/message-subscription.data.gql.dart';
 import 'package:botsta_app/graphql/message-subscription.req.gql.dart';
-import 'package:botsta_app/graphql/message-subscription.var.gql.dart';
 import 'package:botsta_app/graphql/post-message.req.gql.dart';
 import 'package:botsta_app/graphql/register_user.req.gql.dart';
 import 'package:botsta_app/graphql/who_am_i.req.gql.dart';
-import 'package:botsta_app/logic/bloc/authentication_bloc.dart';
 import 'package:botsta_app/logic/bloc/message_bloc.dart';
 import 'package:botsta_app/logic/cubit/logged_in_user_cubit.dart';
-import 'package:botsta_app/models/authentication_state.dart';
 import 'package:botsta_app/models/bot.dart';
 import 'package:botsta_app/models/chatroom.dart';
 import 'package:botsta_app/models/chatroom_type.dart';
@@ -29,11 +22,9 @@ import 'package:botsta_app/models/message.dart';
 import 'package:botsta_app/models/chat_practicant.dart';
 import 'package:botsta_app/services/e2ee_service.dart';
 import 'package:botsta_app/services/secure_storage_service.dart';
+import 'package:botsta_app/services/sqlite_service.dart';
 import 'package:ferry/ferry.dart';
-import 'package:flutter/material.dart';
-import 'package:graphql/client.dart';
 import 'package:botsta_app/utils/extentions/graphql_extentions.dart';
-import 'package:provider/provider.dart';
 
 import '../startup.dart';
 
@@ -144,10 +135,9 @@ class BotstaApiClient {
         Message? latestMessage;
         if (latestMessageData != null && latestMessageData.sender != null) {
           var sender = latestMessageData.sender!;
-          var messageItem = _decodeMessageItem(latestMessageData.message);
           latestMessage = Message(
               latestMessageData.id,
-              messageItem,
+              latestMessageData.message,
               ChatPracticant(sender.id, sender.name, sender.isBot),
               c.id,
               DateTime.parse(latestMessageData.sendTime.value),
@@ -169,6 +159,7 @@ class BotstaApiClient {
 
   Future<Chatroom> crateChatroomSingleAsync(String practicantId) async {
     var client = await getIt.getAsync<Client>();
+    var sqliteService = await getIt.getAsync<SqliteService>();
     var res = await client.requestFirst(
         GCreateChatroomSingleReq((b) => b.vars..practicantId = practicantId));
     await client.dispose();
@@ -178,12 +169,16 @@ class BotstaApiClient {
     }
 
     var data = res.data!.newChatroomSingle!;
-    return Chatroom(data.id, data.name!, ChatroomType.Single);
+    var chatroom =  Chatroom(data.id, data.name!, ChatroomType.Single);
+    await sqliteService.addChatroomToDbAsync(chatroom);
+    return chatroom;
   }
 
   Future<Chatroom> crateChatroomGroupAsync(
       String groupName, List<String> practicantIds) async {
     var client = await getIt.getAsync<Client>();
+    var sqliteService = await getIt.getAsync<SqliteService>();
+
     var request = GCreateChatroomGroupReq((b) => b.vars
       ..name = groupName
       ..practicantIds.addAll(practicantIds));
@@ -195,7 +190,9 @@ class BotstaApiClient {
     }
 
     var data = res.data!.newChatroomGroup!;
-    return Chatroom(data.id, data.name!, ChatroomType.Group);
+    var chatroom =  Chatroom(data.id, data.name!, ChatroomType.Group);
+    await sqliteService.addChatroomToDbAsync(chatroom);
+    return chatroom;
   }
 
   Future<Iterable<ChatPracticant>> getAllUsersAsync(
@@ -219,6 +216,7 @@ class BotstaApiClient {
   Future<Iterable<Message>?> getMessagesAsync(String chatroomId) async {
     var client = await getIt.getAsync<Client>();
     var e2eeService = getIt.get<E2EEService>();
+    var sqliteService = await getIt.getAsync<SqliteService>();
 
     var res = await client.requestFirst(
         GGetChatroomMessagesReq((b) => b..vars.chatroomId = chatroomId));
@@ -229,13 +227,20 @@ class BotstaApiClient {
       var messages =  res.data!.chatroom!.messages!.map((m) async {
         var sender = m.sender!;
         var decryptedMessage = await e2eeService.decrypMessageAsync(m.message, m.senderPublicKey);
-        return Message(
+        var chatPracticant = ChatPracticant(sender.id, sender.name, sender.isBot);
+
+        var msg = Message(
             m.id,
-            _decodeMessageItem(decryptedMessage),
-            ChatPracticant(sender.id, sender.name, sender.isBot),
+            decryptedMessage,
+            chatPracticant,
             m.chatroomId,
             DateTime.parse(m.sendTime.value),
             _userIsMe(sender.id));
+
+
+        await sqliteService.addMessageToDbAsync(msg);
+
+        return msg;
       });
 
       return await Future.wait(messages);
@@ -254,7 +259,6 @@ class BotstaApiClient {
     if (res.hasErrors || res.data?.getChatPracticantsOfChatroom == null) {
       throw Exception();
     }
-
 
     var result = Map<String, String>();
 
@@ -290,26 +294,13 @@ class BotstaApiClient {
     Future.wait(sendRequests);
 
     await client.dispose();
-
-    // String? id = res.data?.postMessage?.id;
-    // if (id != null) {
-    //   var sender = res.data!.postMessage!.sender!;
-    //   return Message(
-    //     id,
-    //     _decodeMessageItem(message),
-    //     ChatPracticant(sender.id, sender.name, false),
-    //     chatroomId,
-    //     DateTime.now(),
-    //     true,
-    //   );
-    // }
-    // return null;
   }
 
   Future<StreamSubscription<dynamic>?> messageSubscription() async {
     var client = await getIt.getAsync<Client>();
     var secureStorage = getIt.get<SecureStorageService>();
     var e2eeService = getIt.get<E2EEService>();
+    var sqliteService = getIt.get<SqliteService>();
     var refreshToken = await secureStorage.refreshToken;
 
     var ret = client
@@ -320,37 +311,23 @@ class BotstaApiClient {
       if (data != null && data.sender != null) {
         var sender = data.sender!;
 
-
         var decryptedMessage = await e2eeService.decrypMessageAsync(data.message, data.senderPublicKey);
 
         var msg = Message(
           data.id,
-          _decodeMessageItem(decryptedMessage),
+          decryptedMessage,
           ChatPracticant(sender.id, sender.name, sender.isBot),
           data.chatroomId,
           DateTime.parse(data.sendTime.value),
           _userIsMe(sender.id),
         );
         getIt.get<MessageBloc>().add(AppendMessageEvent(msg));
+
+        sqliteService.addMessageToDbAsync(msg);
       }
     });
 
     return ret;
-  }
-
-  List<MessageItem> _decodeMessageItem(String data) {
-    try {
-      List<MessageItem> ret = [];
-
-      var decoded = json.decode(data);
-      for (var item in decoded) {
-        ret.add(MessageItem.fromJson(item));
-      }
-
-      return ret;
-    } catch (Exception) {
-      return [MessageItem()..text = data];
-    }
   }
 
   _userIsMe(String userId) {

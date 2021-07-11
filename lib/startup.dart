@@ -8,6 +8,7 @@ import 'package:botsta_app/repositories/botsta_api_client.dart';
 import 'package:botsta_app/services/e2ee_service.dart';
 import 'package:botsta_app/services/local_storage_service.dart';
 import 'package:botsta_app/services/secure_storage_service.dart';
+import 'package:botsta_app/services/sqlite_service.dart';
 import 'package:ferry/ferry.dart';
 import 'package:get_it/get_it.dart';
 import 'package:graphql/client.dart';
@@ -20,17 +21,23 @@ import 'logic/bloc/message_bloc.dart';
 final getIt = GetIt.instance;
 
 void configureServices() {
+  getIt.registerSingletonAsync(() async {
+    final sqlite = SqliteService();
+    await sqlite.initAsync();
+    return sqlite;
+  });
+  
   getIt.registerSingleton(E2EEService());
-  getIt.registerSingletonAsync<LocalStorageService>(
-      () async => await LocalStorageService().initAsync());
   getIt.registerSingleton(BotstaApiClient());
-
   getIt.registerSingleton(LoggedInUserCubit());
   getIt.registerSingleton(MessageBloc());
   getIt.registerSingleton(ChatroomBloc());
   getIt.registerSingleton(AllUsersBloc());
   getIt.registerSingleton(AuthenticationBloc());
   getIt.registerSingleton(OwnBotsBloc());
+
+  getIt.registerSingletonAsync<LocalStorageService>(() async => await LocalStorageService().initAsync());
+
 
   getIt.registerFactoryAsync<Client>(() async {
     var secureStorage = getIt.get<SecureStorageService>();

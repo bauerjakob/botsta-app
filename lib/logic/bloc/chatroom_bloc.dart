@@ -5,6 +5,7 @@ import 'package:botsta_app/graphql/chatrooms.data.gql.dart';
 import 'package:botsta_app/models/chatroom.dart';
 import 'package:botsta_app/models/message.dart';
 import 'package:botsta_app/repositories/botsta_api_client.dart';
+import 'package:botsta_app/services/sqlite_service.dart';
 import 'package:botsta_app/startup.dart';
 import 'package:equatable/equatable.dart';
 import 'package:graphql/client.dart';
@@ -22,9 +23,12 @@ class ChatroomBloc extends Bloc<ChatroomEvent, ChatroomState> {
     if (event is InitialChatroomEvent) {
       yield ChatroomLoadingState();
       var client = getIt.get<BotstaApiClient>();
+      var sqliteService = await getIt.getAsync<SqliteService>();
       try {
-        var chatrooms = await client.getChatroomsAsync();
-        yield ChatroomSuccessState(_orderChatrooms(chatrooms?.toList() ?? []));
+        var chatrooms = await sqliteService.getChatroomsAsync();
+        yield ChatroomSuccessState(_orderChatrooms(chatrooms.toList()));
+        chatrooms = await client.getChatroomsAsync() ?? [];
+        yield ChatroomSuccessState(_orderChatrooms(chatrooms.toList()));
       } catch (ex) {
         print(ex);
         yield ChatroomErrorState();
