@@ -12,7 +12,7 @@ class ChatPracticant {
     return {
       'id': id,
       'name': name,
-      'isBot': isBot
+      'isBot': isBot ? 1 : 0
     };
   }
 }

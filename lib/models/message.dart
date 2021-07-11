@@ -25,8 +25,8 @@ class Message {
       rawMessage = data['message'],
       items = _decodeMessageItems(data['message']),
       chatroomId = data['chatroomId'],
-      sendTime = data['sendTime'],
-      senderIsMe = data['senderIsMe'],
+      sendTime = DateTime.fromMillisecondsSinceEpoch(data['sendTime']),
+      senderIsMe = data['senderIsMe'] == 1,
       sender = new ChatPracticant('', '', false);
 
 
@@ -35,8 +35,8 @@ class Message {
       'id': id,
       'senderId': sender.id,
       'chatroomId': chatroomId,
-      'sendTime': sendTime,
-      'senderIsMe': senderIsMe,
+      'sendTime': sendTime.millisecondsSinceEpoch,
+      'senderIsMe': senderIsMe ? 1 : 0,
       'message': rawMessage
     };
   }

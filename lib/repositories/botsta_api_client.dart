@@ -125,19 +125,22 @@ class BotstaApiClient {
   }
 
   Future<Iterable<Chatroom>?> getChatroomsAsync() async {
+    var sqliteService = await getIt.getAsync<SqliteService>();
+    var e2eeService = getIt.get<E2EEService>();
     var client = await getIt.getAsync<Client>();
     var res = await client.requestFirst(GGetChatroomsReq());
     await client.dispose();
 
     if (res.data?.chatrooms != null) {
-      return res.data!.chatrooms!.map((c) {
+      return await Future.wait(res.data!.chatrooms!.map((c) async {
         var latestMessageData = c.latestMessage;
         Message? latestMessage;
         if (latestMessageData != null && latestMessageData.sender != null) {
           var sender = latestMessageData.sender!;
+          var decryptedMessage = await e2eeService.decrypMessageAsync(latestMessageData.message, latestMessageData.senderPublicKey);
           latestMessage = Message(
               latestMessageData.id,
-              latestMessageData.message,
+              decryptedMessage,
               ChatPracticant(sender.id, sender.name, sender.isBot),
               c.id,
               DateTime.parse(latestMessageData.sendTime.value),
@@ -150,8 +153,9 @@ class BotstaApiClient {
                 ? ChatroomType.Group
                 : ChatroomType.Single,
             latestMessage);
+        await sqliteService.addChatroomToDbAsync(chatroom);
         return chatroom;
-      });
+      }));
     }
 
     return null;

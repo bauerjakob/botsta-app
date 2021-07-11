@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:botsta_app/logic/bloc/chatroom_bloc.dart';
 import 'package:botsta_app/models/message.dart';
 import 'package:botsta_app/repositories/botsta_api_client.dart';
+import 'package:botsta_app/services/sqlite_service.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../startup.dart';
@@ -21,6 +22,7 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
     MessageEvent event,
   ) async* {
     var client = getIt.get<BotstaApiClient>();
+    var sqliteService = await getIt.getAsync<SqliteService>();
     if (event is InitialMessageEvent) {
       if (_messageSubscription != null) {
         _messageSubscription!.cancel();
@@ -28,10 +30,16 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
       _messageSubscription = await client.messageSubscription();
     }
     else if (event is UpdateMessageEvent) {
-      var messages = await client.getMessagesAsync(event.chatroomId);
+      var messages = await sqliteService.getMessagesAsync((event.chatroomId));
       var msgMap = Map<String, List<Message>?>.from(state.messages);
-      msgMap[event.chatroomId] = messages?.toList();
+      msgMap[event.chatroomId] = messages.toList();
       yield MessageState(msgMap);
+
+      messages = await client.getMessagesAsync(event.chatroomId) ?? [];
+      msgMap = Map<String, List<Message>?>.from(state.messages);
+      msgMap[event.chatroomId] = messages.toList();
+      yield MessageState(msgMap);
+      
     } else if (event is AppendMessageEvent) {
       var msgMap = _addMessageToState(event.message);
       yield MessageState(msgMap);

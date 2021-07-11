@@ -15,26 +15,16 @@ class Chatroom {
     return Chatroom(id, name, type, latestMessage?.clone());
   }
 
-  static Future<Chatroom> fromMapAsync(Map<String, dynamic> data) async
-  {
-    var sqliteService = await getIt.getAsync<SqliteService>();
-
-    var id = data['id'];
-    var name = data['name'];
-    var latestMessageId = data['latestMessageId'];
-    bool isGroup = data['isGroup'];
-
-    var message = await sqliteService.getMessageAsync(latestMessageId);
-
-    return Chatroom(id, name, isGroup ? ChatroomType.Group : ChatroomType.Single, message);
-  }
+  Chatroom.fromMap(Map<String, dynamic> data)
+    : id = data['id'],
+    name = data['name'],
+    type = (data['isGroup'] == 1) ? ChatroomType.Group : ChatroomType.Single;
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
       'name': name,
-      'latestMessage': latestMessage?.rawMessage,
-      'isGroup': type == ChatroomType.Group
+      'isGroup': type == ChatroomType.Group ? 1 : 0
     };
   }
 
