@@ -67,6 +67,9 @@ import 'package:botsta_app/graphql/login.data.gql.dart'
     show GLoginData, GLoginData_login;
 import 'package:botsta_app/graphql/login.req.gql.dart' show GLoginReq;
 import 'package:botsta_app/graphql/login.var.gql.dart' show GLoginVars;
+import 'package:botsta_app/graphql/logout.data.gql.dart' show GLogoutData;
+import 'package:botsta_app/graphql/logout.req.gql.dart' show GLogoutReq;
+import 'package:botsta_app/graphql/logout.var.gql.dart' show GLogoutVars;
 import 'package:botsta_app/graphql/message-subscription.data.gql.dart'
     show
         GMessageSubscriptionData,
@@ -158,6 +161,9 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GLoginData_login,
   GLoginReq,
   GLoginVars,
+  GLogoutData,
+  GLogoutReq,
+  GLogoutVars,
   GMessageSubscriptionData,
   GMessageSubscriptionData_messageReceived,
   GMessageSubscriptionData_messageReceived_sender,

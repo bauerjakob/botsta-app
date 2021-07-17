@@ -10,6 +10,7 @@ import 'package:botsta_app/graphql/create_chatroom_single.req.gql.dart';
 import 'package:botsta_app/graphql/delete_messages.req.gql.dart';
 import 'package:botsta_app/graphql/get_own_bots.req.gql.dart';
 import 'package:botsta_app/graphql/login.req.gql.dart';
+import 'package:botsta_app/graphql/logout.req.gql.dart';
 import 'package:botsta_app/graphql/message-subscription.req.gql.dart';
 import 'package:botsta_app/graphql/post-message.req.gql.dart';
 import 'package:botsta_app/graphql/register_user.req.gql.dart';
@@ -100,6 +101,11 @@ class BotstaApiClient {
     } else {
       throw Exception();
     }
+  }
+
+  Future logoutAsync() async {
+    var client = await getIt.getAsync<Client>();
+    await client.requestFirst(GLogoutReq());
   }
 
   Future<Iterable<Bot>> getOwnBotsAsync() async {

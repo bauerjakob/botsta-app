@@ -353,6 +353,12 @@ const BotstaMutation = _i1.ObjectTypeDefinitionNode(
           type: _i1.NamedTypeNode(
               name: _i1.NameNode(value: 'Login'), isNonNull: false)),
       _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'logout'),
+          directives: [],
+          args: [],
+          type: _i1.NamedTypeNode(
+              name: _i1.NameNode(value: 'String'), isNonNull: false)),
+      _i1.FieldDefinitionNode(
           name: _i1.NameNode(value: 'newChatroomGroup'),
           directives: [],
           args: [

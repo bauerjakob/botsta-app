@@ -58,6 +58,8 @@ class AuthenticationBloc
   }
 
   Future _logoutAsync() async {
+    var client = getIt.get<BotstaApiClient>();
+    await client.logoutAsync();
     await getIt.get<SecureStorageService>().setRefreshToken(null);
     await getIt.get<SecureStorageService>().setToken(null);
     getIt.get<ChatroomBloc>().add(ResetChatroomEvent());

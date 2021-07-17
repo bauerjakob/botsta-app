@@ -81,6 +81,9 @@ type BotstaMutation {
   deleteMessages(messageIds: [String]): String
   login(name: String!, secret: String!, publicKey: String!): Login
 
+  # Logout
+  logout: String
+
   # Create a new chatroom
   newChatroomGroup(name: String, practicantIds: [String]): GraphChatroomType
 
