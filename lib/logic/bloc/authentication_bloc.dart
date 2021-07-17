@@ -12,6 +12,7 @@ import 'package:botsta_app/models/bot.dart';
 import 'package:botsta_app/models/chat_practicant.dart';
 import 'package:botsta_app/repositories/botsta_api_client.dart';
 import 'package:botsta_app/services/secure_storage_service.dart';
+import 'package:botsta_app/services/sqlite_service.dart';
 import 'package:botsta_app/startup.dart';
 import 'package:equatable/equatable.dart';
 import 'package:ferry/ferry.dart';
@@ -61,6 +62,8 @@ class AuthenticationBloc
     await getIt.get<SecureStorageService>().setToken(null);
     getIt.get<ChatroomBloc>().add(ResetChatroomEvent());
     getIt.get<MessageBloc>().add(ResetMessageEvent());
+    final sqliteService = await getIt.getAsync<SqliteService>();
+    await sqliteService.clearDatasAsync();
   }
 
   Future<bool> loginAsync(String username, String password) async {

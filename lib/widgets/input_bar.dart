@@ -13,7 +13,7 @@ class InputBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        margin: EdgeInsets.only(top: 7, left: 15, right: 15, bottom: 10),
+        margin: EdgeInsets.only(top: 7, left: 7, right: 7, bottom: 10),
         child: Row(
           children: [
             Expanded(

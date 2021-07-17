@@ -77,6 +77,8 @@ type Bot {
 }
 
 type BotstaMutation {
+  # Delete messages from server
+  deleteMessages(messageIds: [String]): String
   login(name: String!, secret: String!, publicKey: String!): Login
 
   # Create a new chatroom

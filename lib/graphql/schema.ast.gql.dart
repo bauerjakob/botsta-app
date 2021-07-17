@@ -313,6 +313,21 @@ const BotstaMutation = _i1.ObjectTypeDefinitionNode(
     interfaces: [],
     fields: [
       _i1.FieldDefinitionNode(
+          name: _i1.NameNode(value: 'deleteMessages'),
+          directives: [],
+          args: [
+            _i1.InputValueDefinitionNode(
+                name: _i1.NameNode(value: 'messageIds'),
+                directives: [],
+                type: _i1.ListTypeNode(
+                    type: _i1.NamedTypeNode(
+                        name: _i1.NameNode(value: 'String'), isNonNull: false),
+                    isNonNull: false),
+                defaultValue: null)
+          ],
+          type: _i1.NamedTypeNode(
+              name: _i1.NameNode(value: 'String'), isNonNull: false)),
+      _i1.FieldDefinitionNode(
           name: _i1.NameNode(value: 'login'),
           directives: [],
           args: [

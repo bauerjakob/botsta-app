@@ -25,6 +25,9 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GCreateChatroomSingleReq.serializer)
       ..add(GCreateChatroomSingleVars.serializer)
       ..add(GDateTimeOffset.serializer)
+      ..add(GDeleteMessagesData.serializer)
+      ..add(GDeleteMessagesReq.serializer)
+      ..add(GDeleteMessagesVars.serializer)
       ..add(GGetAllChatPracticantsData.serializer)
       ..add(GGetAllChatPracticantsData_allChatPracticants.serializer)
       ..add(GGetAllChatPracticantsReq.serializer)
@@ -104,6 +107,9 @@ Serializers _$serializers = (new Serializers().toBuilder()
           const FullType(
               BuiltList, const [const FullType(GGetOwnBotsData_getOwnBots)]),
           () => new ListBuilder<GGetOwnBotsData_getOwnBots>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>()))

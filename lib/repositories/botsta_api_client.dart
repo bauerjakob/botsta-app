@@ -7,6 +7,7 @@ import 'package:botsta_app/graphql/chatrooms.req.gql.dart';
 import 'package:botsta_app/graphql/create_bot.req.gql.dart';
 import 'package:botsta_app/graphql/create_chatroom_group.req.gql.dart';
 import 'package:botsta_app/graphql/create_chatroom_single.req.gql.dart';
+import 'package:botsta_app/graphql/delete_messages.req.gql.dart';
 import 'package:botsta_app/graphql/get_own_bots.req.gql.dart';
 import 'package:botsta_app/graphql/login.req.gql.dart';
 import 'package:botsta_app/graphql/message-subscription.req.gql.dart';
@@ -26,6 +27,7 @@ import 'package:botsta_app/services/secure_storage_service.dart';
 import 'package:botsta_app/services/sqlite_service.dart';
 import 'package:ferry/ferry.dart';
 import 'package:botsta_app/utils/extentions/graphql_extentions.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart' as notifications;
 
 import '../startup.dart';
 
@@ -130,7 +132,6 @@ class BotstaApiClient {
     var e2eeService = getIt.get<E2EEService>();
     var client = await getIt.getAsync<Client>();
     var res = await client.requestFirst(GGetChatroomsReq());
-    await client.dispose();
 
     if (res.data?.chatrooms != null) {
       return await Future.wait(res.data!.chatrooms!.map((c) async {
@@ -146,7 +147,17 @@ class BotstaApiClient {
               c.id,
               DateTime.parse(latestMessageData.sendTime.value),
               _userIsMe(sender.id));
+
+          await Future.wait([
+            sqliteService.addMessageToDbAsync(latestMessage),
+            client.requestFirst(GDeleteMessagesReq((b) => b..vars.messageIds.add(latestMessage!.id)))
+          ]);
+
+        } else {
+          latestMessage = (await sqliteService.getLatestMessageAsync(c.id));
         }
+
+
         var chatroom = Chatroom(
             c.id,
             c.name!,
@@ -158,6 +169,8 @@ class BotstaApiClient {
         return chatroom;
       }));
     }
+
+    await client.dispose();
 
     return null;
   }
@@ -226,7 +239,6 @@ class BotstaApiClient {
     var res = await client.requestFirst(
         GGetChatroomMessagesReq((b) => b..vars.chatroomId = chatroomId));
 
-    await client.dispose();
 
     if (res.data?.chatroom?.messages != null) {
       var messages =  res.data!.chatroom!.messages!.map((m) async {
@@ -248,7 +260,13 @@ class BotstaApiClient {
         return msg;
       });
 
-      return await Future.wait(messages);
+      var ret =  await Future.wait(messages);
+      var messageIds = ret.map((e) => e.id);
+      await client.requestFirst((GDeleteMessagesReq((b) => b..vars.messageIds.addAll(messageIds))));
+
+      await client.dispose();
+
+      return ret;
     }
     return null;
   }
@@ -331,8 +349,19 @@ class BotstaApiClient {
         );
         getIt.get<MessageBloc>().add(AppendMessageEvent(msg));
 
-        sqliteService.addMessageToDbAsync(msg);
-      }
+        await client.requestFirst(GDeleteMessagesReq((b) => b..vars.messageIds.add(msg.id)));
+
+    //     const androidPlatformChannelSpecifics = notifications.AndroidNotificationDetails(
+    //         'your channel id', 'your channel name', 'your channel description',
+    //         importance: notifications.Importance.high,
+    //         priority: notifications.Priority.high,
+    //         ticker: 'ticker');
+    // const platformChannelSpecifics =
+    //     notifications.NotificationDetails(android: androidPlatformChannelSpecifics);
+    //   await notifications.FlutterLocalNotificationsPlugin().show(
+    //       0, msg.sender.name, msg.rawMessage, platformChannelSpecifics,
+    //       payload: 'item x');
+        }
     });
 
     return ret;

@@ -13,10 +13,11 @@ class SqliteService {
 
   Future initAsync() async {
     final dbPath = await _getDatabasePath();
-    _db = await openDatabase(dbPath, version: 1, onCreate: _onDbCreated);
+    _db = await openDatabase(dbPath, version: 1);
+    _createTablesAsync();
   }
 
-  Future logoutAsync() async {
+  Future clearDatasAsync() async {
     await _dropTablesAsync();
     await _createTablesAsync();
   }
@@ -28,17 +29,14 @@ class SqliteService {
     if (!await Directory(dirname(path)).exists()) {
       await Directory(dirname(path)).create(recursive: true);
     }
-    else{
-      // await deleteDatabase(path);
-    }
 
     return path;
   }
 
-  FutureOr<void> _onDbCreated(Database db, int version) async {
-    _db = db;
-    await _createTablesAsync();
-  }
+  // FutureOr<void> _onDbCreated(Database db, int version) async {
+  //   _db = db;
+  //   await _createTablesAsync();
+  // }
 
   Future<Iterable<Chatroom>> getChatroomsAsync() async {
     var chatrooms = await _db!.query("chatrooms");
@@ -62,6 +60,14 @@ class SqliteService {
   Future<Iterable<Message>> getMessagesAsync(String chatroomId) async {
     var messages = await _db!.query("messages", where: '"chatroomId" = ?', whereArgs: [chatroomId], orderBy: 'sendTime DESC');
     return Future.wait(messages.map((e) async => await Message.fromMapAsync(e)));
+  }
+
+  Future<Message?> getLatestMessageAsync(String chatroomId) async {
+    var message = await _db!.query("messages", where: '"chatroomId" = ?', whereArgs: [chatroomId], orderBy: 'sendTime DESC', limit: 1);
+    if (message.length > 0) {
+      Message.fromMapAsync(message.first);
+    }
+    return null;
   }
 
   Future<ChatPracticant?> getChatPracticantAsync(String chatPracticantId) async {
@@ -110,14 +116,14 @@ class SqliteService {
   }
 
   Future _dropTablesAsync() async {
-    await _db!.execute('''
-      DROP TABLE chatPracticants, chatrooms, messages;
-    ''');
+    await _db!.delete('chatPracticants');
+    await _db!.delete('chatrooms');
+    await _db!.delete('messages');
   }
 
   Future _createTablesAsync() async {
     await _db!.execute('''
-      CREATE TABLE chatPracticants
+      CREATE TABLE IF NOT EXISTS chatPracticants
       (
         id TEXT PRIMARY KEY,
         name TEXT NOT NULL,
@@ -126,7 +132,7 @@ class SqliteService {
     ''');
 
     await _db!.execute('''
-      CREATE TABLE chatrooms
+      CREATE TABLE IF NOT EXISTS chatrooms
       (
         id TEXT PRIMARY KEY,
         name TEXT NOT NULL,
@@ -135,7 +141,7 @@ class SqliteService {
     ''');
 
     await _db!.execute('''
-      CREATE TABLE messages 
+      CREATE TABLE IF NOT EXISTS messages 
       (
         id TEXT PRIMARY KEY,
         senderId TEXT NOT NULL,
