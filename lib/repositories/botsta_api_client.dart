@@ -323,7 +323,7 @@ class BotstaApiClient {
       sendRequests.add(request);
     });
 
-    Future.wait(sendRequests);
+    await Future.wait(sendRequests);
 
     await client.dispose();
   }
