@@ -60,10 +60,9 @@ void configureServices() {
     );
 
     var link = authLink != null ? authLink.concat(httpLink) : httpLink;
-    var socketConfig = SocketClientConfig(delayBetweenReconnectionAttempts: Duration(seconds: 1), inactivityTimeout: Duration(seconds: 50000));
+    var socketConfig = SocketClientConfig(delayBetweenReconnectionAttempts: Duration(seconds: 1), inactivityTimeout: Duration(seconds: 30), autoReconnect: true);
     final websocketLink = WebSocketLink(serverUrlWebsocket!, config: socketConfig);
     link = Link.split((request) => request.isSubscription, websocketLink, link);
-    
     return Client(link: link);
   });
   getIt.registerSingleton(SecureStorageService());

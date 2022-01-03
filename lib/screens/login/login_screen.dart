@@ -12,9 +12,9 @@ import 'package:botsta_app/utils/extentions/context_extensions.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class LoginScreen extends StatelessWidget {
-  final _userNameInputController = TextEditingController();
+  var _serverUrlInputController = TextEditingController();
+  var _userNameInputController = TextEditingController();
   final _passwordInputController = TextEditingController();
-  final _serverUrlInputController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -42,20 +42,9 @@ class LoginScreen extends StatelessWidget {
                 FutureBuilder(
                   future: getIt.get<SecureStorageService>().serverUrl,
                   builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      return serverUrlField = BotstaFormTextField(
-                        defaultValue: snapshot.data.toString(),
-                        validateOnChange: true,
-                        validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            return false;
-                          }
-                          return true;
-                        },
-                        hintText: 'Server Url',
-                        controller: _serverUrlInputController,
-                        leading: Icon(Icons.computer),
-                      );
+                    if (snapshot.connectionState == ConnectionState.done && _serverUrlInputController.text.trim().isEmpty) {
+                      var defaultValue = snapshot.data?.toString() ?? '';
+                      _serverUrlInputController = TextEditingController(text: defaultValue);
                     }
 
                     return serverUrlField = BotstaFormTextField(
@@ -171,7 +160,7 @@ class LoginScreen extends StatelessWidget {
                             });
                       },
                       child: Text(
-                        'Register',
+                        'Sign up',
                         style: context.textTheme().subtitle2,
                       ),
                     );

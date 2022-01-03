@@ -51,7 +51,7 @@ class SettingsScreen extends StatelessWidget {
                   //style: context.textTheme().headline2,
                 );
               }
-              return SizedBox.shrink();
+              return Text('');
             },
           ),
           SizedBox(

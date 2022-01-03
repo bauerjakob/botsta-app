@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:botsta_app/models/bot.dart';
 import 'package:botsta_app/models/chat_practicant.dart';
 import 'package:botsta_app/models/chatroom.dart';
 import 'package:botsta_app/models/message.dart';
@@ -14,7 +15,7 @@ class SqliteService {
   Future initAsync() async {
     final dbPath = await _getDatabasePath();
     _db = await openDatabase(dbPath, version: 1);
-    _createTablesAsync();
+    await _createTablesAsync();
   }
 
   Future clearDatasAsync() async {
@@ -40,18 +41,30 @@ class SqliteService {
 
   Future<Iterable<Chatroom>> getChatroomsAsync() async {
     var chatrooms = await _db!.query("chatrooms");
-    return await Future.wait(chatrooms.map((e) async {
-      var chatroom = Chatroom.fromMap(e);
+    
+    List<Chatroom> ret = [];
+    for (var item in chatrooms) {
+      var chatroom = Chatroom.fromMap(item);
       var latestMessage = await _getLastesMessageOfChatroomAsync(chatroom.id);
       chatroom.latestMessage = latestMessage;
-      return chatroom;
-      }));
+      ret.add(chatroom);
+    }
+
+    return ret;
+
+    // return await Future.wait(chatrooms.map((e) async {
+    //   var chatroom = Chatroom.fromMap(e);
+    //   var latestMessage = await _getLastesMessageOfChatroomAsync(chatroom.id);
+    //   chatroom.latestMessage = latestMessage;
+    //   return chatroom;
+    //   }));
   }
 
   Future<Message?> _getLastesMessageOfChatroomAsync(String chatroomId) async {
      var message = await _db!.query('messages', where: '"chatroomId" = ?', whereArgs: [chatroomId], limit: 1, orderBy: 'sendTime DESC');
      if (message.length > 0) {
-       return await Message.fromMapAsync(message.first);
+       var ret =  await Message.fromMapAsync(message.first);
+       return ret;
      }
 
      return null;
@@ -65,8 +78,9 @@ class SqliteService {
   Future<Message?> getLatestMessageAsync(String chatroomId) async {
     var message = await _db!.query("messages", where: '"chatroomId" = ?', whereArgs: [chatroomId], orderBy: 'sendTime DESC', limit: 1);
     if (message.length > 0) {
-      Message.fromMapAsync(message.first);
+      return Message.fromMapAsync(message.first);
     }
+
     return null;
   }
 
@@ -115,6 +129,19 @@ class SqliteService {
     return null;
   }
 
+   Future<int?> addBotToDbAsync(Bot bot) async {
+    var res = await _db!.query('bots', where: '"id" = ?', whereArgs: [bot.id]);
+    if (!res.any((_) => true)) {
+      return await _db!.insert('bots', bot.toMap());
+    }
+    return null;
+  }
+
+  Future<Iterable<Bot>> getOwnBotsAsync() async {
+    var bots = await _db!.query("bots");
+    return bots.map((e) => Bot.fromMap(e));
+  }
+
   Future _dropTablesAsync() async {
     await _db!.delete('chatPracticants');
     await _db!.delete('chatrooms');
@@ -151,6 +178,15 @@ class SqliteService {
         message TEXT NOT NULL,
         FOREIGN KEY (senderId) REFERENCES chatPracticant(id),
         FOREIGN KEY (chatroomId) REFERENCES chatroom(id)
+      )
+    ''');
+
+    await _db!.execute('''
+      CREATE TABLE IF NOT EXISTS bots 
+      (
+        id TEXT PRIMARY KEY,
+        name TEXT NOT NULL,
+        isPublic BIT NOT NULL
       )
     ''');
   }

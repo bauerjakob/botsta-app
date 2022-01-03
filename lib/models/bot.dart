@@ -9,4 +9,17 @@ class Bot {
     return Bot(id, name, isPublic);
   }
 
+  Bot.fromMap(Map<String, dynamic> data)
+    : id = data['id'],
+    name = data['name'],
+    isPublic = data['isPublic'] == 1;
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'isPublic': isPublic ? 1 : 0
+    };
+  }
+
 }

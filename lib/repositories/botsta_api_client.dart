@@ -109,6 +109,7 @@ class BotstaApiClient {
   }
 
   Future<Iterable<Bot>> getOwnBotsAsync() async {
+    var sqliteService = await getIt.getAsync<SqliteService>();
     var client = await getIt.getAsync<Client>();
     var res = await client.requestFirst(GGetOwnBotsReq());
     await client.dispose();
@@ -117,7 +118,13 @@ class BotstaApiClient {
       throw new Exception();
     }
 
-    return bots.map((b) => Bot(b.id, b.name, b.isPublic));
+    return await Future.wait(bots.map((b) async {
+      var ret = Bot(b.id, b.name, b.isPublic);
+      sqliteService.addBotToDbAsync(ret);
+      return ret;
+    }));
+
+
   }
 
   Future<ChatPracticant?> getLoggedInUserAsync() async {
